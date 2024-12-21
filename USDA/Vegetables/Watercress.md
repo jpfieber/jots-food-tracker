@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Watercress
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, chopped | 34','1 sprig | 2.5','10 sprigs | 25']
+id: 170068
+foodgroup: Vegetables
+calories: 11
+fat: 0.1
+protein: 2.3
+carbohydrate: 1.29
+sugars: 0.2
+fiber: 0.5
+cholesterol: 0
+saturatedfats: 0.027
+calcium: 120
+iron: 0.2
+potassium: 330
+magnesium: 21
+vitaminaiu: 3191
+vitaminarae: 160
+vitaminc: 43
+vitaminb12: 0
+vitamind: 0
+vitamine: 1
+netcarbs: 0.79
+water: 95.11
+omega3s: 23
+omega6s: 12
+pralscore: -5.728
+transfattyacids: 0
+phosphorus: 60
+sodium: 41
+zinc: 0.11
+copper: 0.077
+manganese: 0.244
+selenium: 0.9
+thiamin: 0.09
+riboflavin: 0.12
+niacin: 0.2
+pantothenicacid: 0.31
+vitaminb6: 0.129
+folate: 9
+folicacid: 0
+foodfolate: 9
+folatedfe: 9
+choline: 9
+retinol: 0
+carotenebeta: 1914
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 5767
+vitamindiu: 0
+vitamink: 250
+monounsaturatedfat: 8
+polyunsaturatedfat: 35
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 30
+threonine: 133
+isoleucine: 93
+leucine: 166
+lysine: 134
+methionine: 20
+cystine: 7
+phenylalanine: 114
+tyrosine: 63
+valine: 137
+arginine: 150
+histidine: 40
+alanine: 137
+asparticacid: 187
+glutamicacid: 190
+glycine: 112
+proline: 96
+serine: 60
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 1818.182
+---
+
+# Watercress
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

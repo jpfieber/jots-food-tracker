@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Nopales
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, sliced | 86']
+id: 168571
+foodgroup: Vegetables
+calories: 16
+fat: 0.09
+protein: 1.32
+carbohydrate: 3.33
+sugars: 1.15
+fiber: 2.2
+cholesterol: 0
+saturatedfats: 0.016
+calcium: 164
+iron: 0.59
+potassium: 257
+magnesium: 52
+vitaminaiu: 457
+vitaminarae: 23
+vitaminc: 9.3
+vitaminb12: 0
+vitamind: 0
+vitamine: 0
+netcarbs: 1.13
+water: 94.12
+omega3s: 5
+omega6s: 44
+pralscore: -7.684
+transfattyacids: 0
+phosphorus: 16
+sodium: 21
+zinc: 0.25
+copper: 0.052
+manganese: 0.457
+selenium: 0.7
+thiamin: 0.012
+riboflavin: 0.041
+niacin: 0.41
+pantothenicacid: 0.167
+vitaminb6: 0.07
+folate: 3
+folicacid: 0
+foodfolate: 3
+folatedfe: 3
+choline: 7.3
+retinol: 0
+carotenebeta: 250
+carotenealpha: 48
+lycopene: 0
+luteinzeaxanthin: 0
+vitamindiu: 0
+vitamink: 5.3
+monounsaturatedfat: 18
+polyunsaturatedfat: 50
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 14
+threonine: 40
+isoleucine: 49
+leucine: 77
+lysine: 59
+methionine: 15
+cystine: 8
+phenylalanine: 49
+tyrosine: 29
+valine: 59
+arginine: 52
+histidine: 25
+alanine: 50
+asparticacid: 86
+glutamicacid: 145
+glycine: 46
+proline: 43
+serine: 43
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 1250
+---
+
+# Nopales
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

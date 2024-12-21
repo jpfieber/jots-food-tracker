@@ -1,0 +1,90 @@
+---
+fileClass: Ingredient
+filename: Collards
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, chopped | 36']
+id: 170406
+foodgroup: Vegetables
+calories: 32
+fat: 0.61
+protein: 3.02
+carbohydrate: 5.42
+sugars: 0.46
+fiber: 4
+cholesterol: 0
+saturatedfats: 0.055
+calcium: 232
+iron: 0.47
+potassium: 213
+magnesium: 27
+vitaminaiu: 5019
+vitaminarae: 251
+vitaminc: 35.3
+vitaminb12: 0
+vitamind: 0
+vitamine: 2.26
+netcarbs: 1.42
+water: 89.62
+omega3s: 108
+omega6s: 82
+pralscore: -5.816
+transfattyacids: 0
+phosphorus: 25
+sodium: 17
+zinc: 0.21
+copper: 0.046
+manganese: 0.658
+selenium: 1.3
+thiamin: 0.054
+riboflavin: 0.13
+niacin: 0.742
+pantothenicacid: 0.267
+vitaminb6: 0.165
+folate: 129
+folicacid: 0
+foodfolate: 129
+folatedfe: 129
+choline: 23.2
+betaine: 0.4
+retinol: 0
+carotenebeta: 2991
+carotenealpha: 14
+lycopene: 0
+luteinzeaxanthin: 4323
+vitamindiu: 0
+vitamink: 437.1
+monounsaturatedfat: 30
+polyunsaturatedfat: 201
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 31
+threonine: 86
+isoleucine: 100
+leucine: 151
+lysine: 117
+methionine: 33
+cystine: 25
+phenylalanine: 87
+tyrosine: 66
+valine: 120
+arginine: 125
+histidine: 47
+alanine: 105
+asparticacid: 187
+glutamicacid: 204
+glycine: 94
+proline: 105
+serine: 78
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 625
+---
+
+# Collards
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

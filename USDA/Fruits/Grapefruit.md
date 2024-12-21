@@ -1,0 +1,90 @@
+---
+fileClass: Ingredient
+filename: Grapefruit
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup sections, with juice | 230','1/2 large (approx 4-1/2 inch dia) | 166','1/2 medium (approx 4 inch dia) | 128','1/2 small (approx 3-1/2 inch dia) | 100']
+id: 173033
+foodgroup: Fruits
+calories: 32
+fat: 0.1
+protein: 0.63
+carbohydrate: 8.08
+sugars: 6.98
+fiber: 1.1
+cholesterol: 0
+saturatedfats: 0.014
+calcium: 12
+iron: 0.09
+potassium: 139
+magnesium: 8
+vitaminaiu: 927
+vitaminarae: 46
+vitaminc: 34.4
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.13
+netcarbs: 6.98
+water: 90.89
+omega3s: 5
+omega6s: 19
+pralscore: -2.695
+transfattyacids: 0
+phosphorus: 8
+sodium: 0
+zinc: 0.07
+copper: 0.047
+manganese: 0.012
+selenium: 0.3
+fluoride: 1
+thiamin: 0.036
+riboflavin: 0.02
+niacin: 0.25
+pantothenicacid: 0.283
+vitaminb6: 0.042
+folate: 10
+folicacid: 0
+foodfolate: 10
+folatedfe: 10
+choline: 7.7
+retinol: 0
+carotenebeta: 552
+carotenealpha: 4
+lycopene: 1135
+luteinzeaxanthin: 6
+vitamindiu: 0
+vitamink: 0
+monounsaturatedfat: 13
+polyunsaturatedfat: 24
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 6
+threonine: 11
+isoleucine: 7
+leucine: 12
+lysine: 16
+methionine: 6
+cystine: 6
+phenylalanine: 38
+tyrosine: 6
+valine: 12
+arginine: 70
+histidine: 6
+alanine: 20
+asparticacid: 111
+glutamicacid: 160
+glycine: 12
+proline: 51
+serine: 22
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 625
+---
+
+# Grapefruit
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

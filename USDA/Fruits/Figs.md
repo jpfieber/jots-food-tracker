@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Figs
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 large (2-1/2 inch dia) | 64','1 medium (2-1/4 inch dia) | 50','1 small (1-1/2 inch dia) | 40']
+id: 173021
+foodgroup: Fruits
+calories: 74
+fat: 0.3
+protein: 0.75
+carbohydrate: 19.18
+sugars: 16.26
+fiber: 2.9
+cholesterol: 0
+saturatedfats: 0.06
+calcium: 35
+iron: 0.37
+potassium: 232
+magnesium: 17
+vitaminaiu: 142
+vitaminarae: 7
+vitaminc: 2
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.11
+netcarbs: 16.28
+water: 79.11
+omega3s: 0
+omega6s: 144
+pralscore: -4.912
+transfattyacids: 0
+phosphorus: 14
+sodium: 1
+zinc: 0.15
+copper: 0.07
+manganese: 0.128
+selenium: 0.2
+thiamin: 0.06
+riboflavin: 0.05
+niacin: 0.4
+pantothenicacid: 0.3
+vitaminb6: 0.113
+folate: 6
+folicacid: 0
+foodfolate: 6
+folatedfe: 6
+choline: 4.7
+retinol: 0
+carotenebeta: 85
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 9
+vitamindiu: 0
+vitamink: 4.7
+monounsaturatedfat: 66
+polyunsaturatedfat: 144
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 6
+threonine: 24
+isoleucine: 23
+leucine: 33
+lysine: 30
+methionine: 6
+cystine: 12
+phenylalanine: 18
+tyrosine: 32
+valine: 28
+arginine: 17
+histidine: 11
+alanine: 45
+asparticacid: 176
+glutamicacid: 72
+glycine: 25
+proline: 49
+serine: 37
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 270.27
+---
+
+# Figs
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

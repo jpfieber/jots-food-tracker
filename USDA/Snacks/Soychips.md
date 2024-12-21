@@ -1,0 +1,91 @@
+---
+fileClass: Ingredient
+filename: Soychips
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 oz | 28.4']
+id: 173140
+foodgroup: Snacks
+calories: 385
+fat: 7.35
+protein: 26.5
+carbohydrate: 53.15
+sugars: 1.8
+fiber: 3.5
+cholesterol: 0
+saturatedfats: 1.102
+calcium: 171
+iron: 5.2
+potassium: 7
+magnesium: 170
+vitaminaiu: 0
+vitaminarae: 0
+vitaminc: 0
+vitaminb12: 0
+vitamind: 0
+vitamine: 1.01
+netcarbs: 49.65
+water: 8.5
+omega3s: 398
+omega6s: 3621
+pralscore: 6.402
+transfattyacids: 0
+phosphorus: 7
+sodium: 842
+zinc: 1.5
+copper: 2.456
+manganese: 2.039
+selenium: 12.1
+fluoride: 0
+thiamin: 0.333
+riboflavin: 0.349
+niacin: 2.978
+pantothenicacid: 1.395
+vitaminb6: 0.513
+folate: 240
+folicacid: 0
+foodfolate: 240
+folatedfe: 240
+choline: 110.9
+retinol: 0
+carotenebeta: 0
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 0
+vitamindiu: 0
+vitamink: 11.9
+dihydrophylloquinone: 0
+monounsaturatedfat: 1661
+polyunsaturatedfat: 4018
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 376
+threonine: 1125
+isoleucine: 1262
+leucine: 2140
+lysine: 1681
+methionine: 384
+cystine: 427
+phenylalanine: 1371
+tyrosine: 1028
+valine: 1337
+arginine: 2069
+histidine: 704
+alanine: 1263
+asparticacid: 3213
+glutamicacid: 5057
+glycine: 1214
+proline: 1500
+serine: 1503
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 51.948
+---
+
+# Soychips
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

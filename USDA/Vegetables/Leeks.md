@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Leeks
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup | 89','1 leek | 89','1 slice | 6']
+id: 169246
+foodgroup: Vegetables
+calories: 61
+fat: 0.3
+protein: 1.5
+carbohydrate: 14.15
+sugars: 3.9
+fiber: 1.8
+cholesterol: 0
+saturatedfats: 0.04
+calcium: 59
+iron: 2.1
+potassium: 180
+magnesium: 28
+vitaminaiu: 1667
+vitaminarae: 83
+vitaminc: 12
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.92
+netcarbs: 12.35
+water: 83
+omega3s: 99
+omega6s: 67
+pralscore: -3.271
+transfattyacids: 0
+phosphorus: 35
+sodium: 20
+zinc: 0.12
+copper: 0.12
+manganese: 0.481
+selenium: 1
+thiamin: 0.06
+riboflavin: 0.03
+niacin: 0.4
+pantothenicacid: 0.14
+vitaminb6: 0.233
+folate: 64
+folicacid: 0
+foodfolate: 64
+folatedfe: 64
+choline: 9.5
+retinol: 0
+carotenebeta: 1000
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 1900
+vitamindiu: 0
+vitamink: 47
+monounsaturatedfat: 4
+polyunsaturatedfat: 166
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 12
+threonine: 63
+isoleucine: 52
+leucine: 96
+lysine: 78
+methionine: 18
+cystine: 25
+phenylalanine: 55
+tyrosine: 41
+valine: 56
+arginine: 78
+histidine: 25
+alanine: 74
+asparticacid: 140
+glutamicacid: 226
+glycine: 69
+proline: 66
+serine: 92
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 327.869
+---
+
+# Leeks
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

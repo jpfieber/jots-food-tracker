@@ -1,0 +1,92 @@
+---
+fileClass: Ingredient
+filename: Eggplant
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, cubes | 82','1 eggplant, peeled (yield from 1-1/4 lb) | 458','1 eggplant, unpeeled (approx 1-1/4 lb) | 548']
+id: 169228
+foodgroup: Vegetables
+calories: 25
+fat: 0.18
+protein: 0.98
+carbohydrate: 5.88
+sugars: 3.53
+fiber: 3
+cholesterol: 0
+saturatedfats: 0.034
+calcium: 9
+iron: 0.23
+potassium: 229
+magnesium: 14
+vitaminaiu: 23
+vitaminarae: 1
+vitaminc: 2.2
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.3
+netcarbs: 2.88
+water: 92.3
+omega3s: 13
+omega6s: 63
+pralscore: -3.949
+transfattyacids: 0
+sucrose: 0.26
+glucose: 1.58
+fructose: 1.54
+phosphorus: 24
+sodium: 2
+zinc: 0.16
+copper: 0.081
+manganese: 0.232
+selenium: 0.3
+thiamin: 0.039
+riboflavin: 0.037
+niacin: 0.649
+pantothenicacid: 0.281
+vitaminb6: 0.084
+folate: 22
+folicacid: 0
+foodfolate: 22
+folatedfe: 22
+choline: 6.9
+retinol: 0
+carotenebeta: 14
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 36
+vitamindiu: 0
+vitamink: 3.5
+monounsaturatedfat: 16
+polyunsaturatedfat: 76
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 9
+threonine: 37
+isoleucine: 45
+leucine: 64
+lysine: 47
+methionine: 11
+cystine: 6
+phenylalanine: 43
+tyrosine: 27
+valine: 53
+arginine: 57
+histidine: 23
+alanine: 51
+asparticacid: 164
+glutamicacid: 186
+glycine: 41
+proline: 43
+serine: 42
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 800
+---
+
+# Eggplant
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

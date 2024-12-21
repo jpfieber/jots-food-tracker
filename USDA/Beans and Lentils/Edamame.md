@@ -1,0 +1,101 @@
+---
+fileClass: Ingredient
+filename: Edamame
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup | 155']
+id: 168411
+foodgroup: Beans and Lentils
+calories: 121
+fat: 5.2
+protein: 11.91
+carbohydrate: 8.91
+sugars: 2.18
+fiber: 5.2
+cholesterol: 0
+saturatedfats: 0.62
+calcium: 63
+iron: 2.27
+potassium: 436
+magnesium: 64
+vitaminaiu: 298
+vitaminarae: 15
+vitaminc: 6.1
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.68
+netcarbs: 3.71
+water: 72.77
+omega3s: 361
+omega6s: 1794
+pralscore: 0.387
+transfattyacids: 0.009
+sucrose: 1.12
+glucose: 0
+fructose: 0.12
+lactose: 0
+maltose: 0.95
+galactose: 0
+starch: 1.51
+phosphorus: 169
+sodium: 6
+zinc: 1.37
+copper: 0.345
+manganese: 1.024
+selenium: 0.8
+thiamin: 0.2
+riboflavin: 0.155
+niacin: 0.915
+pantothenicacid: 0.395
+vitaminb6: 0.1
+folate: 311
+folicacid: 0
+foodfolate: 311
+folatedfe: 311
+choline: 56.3
+betaine: 4.5
+retinol: 0
+carotenebeta: 175
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 1619
+vitamindiu: 0
+vitamink: 26.7
+dihydrophylloquinone: 0
+menaquinone4: 0
+monounsaturatedfat: 1282
+polyunsaturatedfat: 2156
+ala: 358
+epa: 3
+dpa: 0
+dha: 0
+tryptophan: 126
+threonine: 331
+isoleucine: 300
+leucine: 745
+lysine: 745
+methionine: 141
+cystine: 124
+phenylalanine: 488
+tyrosine: 336
+valine: 324
+arginine: 724
+histidine: 267
+alanine: 446
+asparticacid: 1348
+glutamicacid: 2020
+glycine: 434
+proline: 686
+serine: 665
+hydroxyproline: 0
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 165.289
+---
+
+# Edamame
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

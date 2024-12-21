@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Yam
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, cubes | 150']
+id: 170071
+foodgroup: Vegetables
+calories: 118
+fat: 0.17
+protein: 1.53
+carbohydrate: 27.88
+sugars: 0.5
+fiber: 4.1
+cholesterol: 0
+saturatedfats: 0.037
+calcium: 17
+iron: 0.54
+potassium: 816
+magnesium: 21
+vitaminaiu: 138
+vitaminarae: 7
+vitaminc: 17.1
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.35
+netcarbs: 23.78
+water: 69.6
+omega3s: 12
+omega6s: 64
+pralscore: -15.206
+transfattyacids: 0
+phosphorus: 55
+sodium: 9
+zinc: 0.24
+copper: 0.178
+manganese: 0.397
+selenium: 0.7
+thiamin: 0.112
+riboflavin: 0.032
+niacin: 0.552
+pantothenicacid: 0.314
+vitaminb6: 0.293
+folate: 23
+folicacid: 0
+foodfolate: 23
+folatedfe: 23
+choline: 16.5
+retinol: 0
+carotenebeta: 83
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 0
+vitamindiu: 0
+vitamink: 2.3
+monounsaturatedfat: 6
+polyunsaturatedfat: 76
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 12
+threonine: 54
+isoleucine: 52
+leucine: 96
+lysine: 59
+methionine: 21
+cystine: 19
+phenylalanine: 71
+tyrosine: 40
+valine: 62
+arginine: 127
+histidine: 34
+alanine: 63
+asparticacid: 155
+glutamicacid: 181
+glycine: 53
+proline: 54
+serine: 81
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 169.492
+---
+
+# Yam
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

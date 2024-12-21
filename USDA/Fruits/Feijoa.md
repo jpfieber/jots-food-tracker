@@ -1,0 +1,92 @@
+---
+fileClass: Ingredient
+filename: Feijoa
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, pureed | 243','1 fruit without peel | 42','1 cup 1/2 inch chunks | 205']
+id: 168176
+foodgroup: Fruits
+calories: 61
+fat: 0.42
+protein: 0.71
+carbohydrate: 15.21
+sugars: 8.2
+fiber: 6.4
+cholesterol: 0
+saturatedfats: 0.104
+calcium: 17
+iron: 0.14
+potassium: 172
+magnesium: 9
+vitaminaiu: 6
+vitaminarae: 0
+vitaminc: 32.9
+vitaminb12: 0
+vitamine: 0.16
+netcarbs: 8.81
+water: 83.28
+omega3s: 29
+omega6s: 107
+pralscore: -3.036
+transfattyacids: 0
+sucrose: 2.93
+glucose: 2.32
+fructose: 2.95
+lactose: 0
+maltose: 0
+galactose: 0
+starch: 0
+phosphorus: 19
+sodium: 3
+zinc: 0.06
+copper: 0.036
+manganese: 0.084
+thiamin: 0.006
+riboflavin: 0.018
+niacin: 0.295
+pantothenicacid: 0.233
+vitaminb6: 0.067
+folate: 23
+folicacid: 0
+foodfolate: 23
+folatedfe: 23
+retinol: 0
+carotenebeta: 2
+carotenealpha: 0
+lycopene: 5
+luteinzeaxanthin: 27
+vitamink: 3.5
+dihydrophylloquinone: 0
+menaquinone4: 0
+monounsaturatedfat: 56
+polyunsaturatedfat: 136
+ala: 29
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 7
+threonine: 19
+isoleucine: 19
+leucine: 28
+lysine: 38
+methionine: 7
+cystine: 7
+phenylalanine: 19
+tyrosine: 9
+valine: 19
+arginine: 19
+histidine: 9
+alanine: 38
+asparticacid: 75
+glutamicacid: 132
+glycine: 28
+proline: 19
+serine: 28
+200calorieweight: 327.869
+---
+
+# Feijoa
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

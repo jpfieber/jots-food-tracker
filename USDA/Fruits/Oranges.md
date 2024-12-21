@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Oranges
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, sections | 180','1 large (3-1/16 inch dia) | 184','1 small (2-3/8 inch dia) | 96','1 fruit (2-5/8 inch dia) | 131']
+id: 169097
+foodgroup: Fruits
+calories: 47
+fat: 0.12
+protein: 0.94
+carbohydrate: 11.75
+sugars: 9.35
+fiber: 2.4
+cholesterol: 0
+saturatedfats: 0.015
+calcium: 40
+iron: 0.1
+potassium: 181
+magnesium: 10
+vitaminaiu: 225
+vitaminarae: 11
+vitaminc: 53.2
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.18
+netcarbs: 9.35
+water: 86.75
+omega3s: 7
+omega6s: 18
+pralscore: -3.624
+transfattyacids: 0
+phosphorus: 14
+sodium: 0
+zinc: 0.07
+copper: 0.045
+manganese: 0.025
+selenium: 0.5
+thiamin: 0.087
+riboflavin: 0.04
+niacin: 0.282
+pantothenicacid: 0.25
+vitaminb6: 0.06
+folate: 30
+folicacid: 0
+foodfolate: 30
+folatedfe: 30
+choline: 8.4
+retinol: 0
+carotenebeta: 71
+carotenealpha: 11
+lycopene: 0
+luteinzeaxanthin: 129
+vitamindiu: 0
+vitamink: 0
+monounsaturatedfat: 23
+polyunsaturatedfat: 25
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 9
+threonine: 15
+isoleucine: 25
+leucine: 23
+lysine: 47
+methionine: 20
+cystine: 10
+phenylalanine: 31
+tyrosine: 16
+valine: 40
+arginine: 65
+histidine: 18
+alanine: 50
+asparticacid: 114
+glutamicacid: 94
+glycine: 94
+proline: 46
+serine: 32
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 425.532
+---
+
+# Oranges
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

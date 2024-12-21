@@ -1,0 +1,66 @@
+---
+fileClass: Ingredient
+filename: Parsnips Cooked Made With Margarine
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, pieces | 161','1 cup, mashed | 215','1 small (6" long) | 36','1 medium | 101','1 large (9" long) | 165','1 cup, nfs | 161']
+id: 788378
+foodgroup: Vegetables
+calories: 84
+fat: 2.05
+protein: 1.28
+carbohydrate: 16.43
+sugars: 4.63
+fiber: 3.5
+cholesterol: 0
+saturatedfats: 0.405
+calcium: 36
+iron: 0.56
+potassium: 355
+magnesium: 28
+vitaminarae: 24
+vitaminc: 12.5
+vitaminb12: 0
+vitamind: 0.1
+vitamine: 1.59
+netcarbs: 12.93
+water: 78.49
+omega3s: 83
+omega6s: 740
+pralscore: -5.589
+phosphorus: 67
+sodium: 269
+zinc: 0.25
+copper: 0.133
+selenium: 1.6
+thiamin: 0.08
+riboflavin: 0.05
+niacin: 0.699
+vitaminb6: 0.2
+folate: 56
+folicacid: 0
+foodfolate: 56
+folatedfe: 56
+choline: 26.3
+retinol: 23
+carotenebeta: 18
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 0
+vitamink: 4
+monounsaturatedfat: 679
+polyunsaturatedfat: 826
+epa: 0
+dpa: 0
+dha: 0
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 238.095
+---
+
+# Parsnips Cooked Made With Margarine
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

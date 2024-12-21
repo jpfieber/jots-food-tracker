@@ -1,0 +1,96 @@
+---
+fileClass: Ingredient
+filename: Okra
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup | 100','8 pods (3 inch long) | 95']
+id: 169260
+foodgroup: Vegetables
+calories: 33
+fat: 0.19
+protein: 1.93
+carbohydrate: 7.45
+sugars: 1.48
+fiber: 3.2
+cholesterol: 0
+saturatedfats: 0.026
+calcium: 82
+iron: 0.62
+potassium: 299
+magnesium: 57
+vitaminaiu: 716
+vitaminarae: 36
+vitaminc: 23
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.27
+netcarbs: 4.25
+water: 89.58
+omega3s: 1
+omega6s: 26
+pralscore: -5.671
+transfattyacids: 0
+sucrose: 0.6
+glucose: 0.32
+fructose: 0.57
+lactose: 0
+maltose: 0
+galactose: 0
+starch: 0.34
+phosphorus: 61
+sodium: 7
+zinc: 0.58
+copper: 0.109
+manganese: 0.788
+selenium: 0.7
+thiamin: 0.2
+riboflavin: 0.06
+niacin: 1
+pantothenicacid: 0.245
+vitaminb6: 0.215
+folate: 60
+folicacid: 0
+foodfolate: 60
+folatedfe: 60
+choline: 12.3
+retinol: 0
+carotenebeta: 416
+carotenealpha: 27
+lycopene: 0
+luteinzeaxanthin: 280
+vitamindiu: 0
+vitamink: 31.3
+monounsaturatedfat: 17
+polyunsaturatedfat: 27
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 17
+threonine: 65
+isoleucine: 69
+leucine: 105
+lysine: 81
+methionine: 21
+cystine: 19
+phenylalanine: 65
+tyrosine: 87
+valine: 91
+arginine: 84
+histidine: 31
+alanine: 73
+asparticacid: 145
+glutamicacid: 271
+glycine: 44
+proline: 45
+serine: 44
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 606.061
+---
+
+# Okra
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

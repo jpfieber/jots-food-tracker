@@ -1,0 +1,95 @@
+---
+fileClass: Ingredient
+filename: Apricots
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, halves | 155','1 cup, sliced | 165','1 apricot | 35']
+id: 171697
+foodgroup: Fruits
+calories: 48
+fat: 0.39
+protein: 1.4
+carbohydrate: 11.12
+sugars: 9.24
+fiber: 2
+cholesterol: 0
+saturatedfats: 0.027
+calcium: 13
+iron: 0.39
+potassium: 259
+magnesium: 10
+vitaminaiu: 1926
+vitaminarae: 96
+vitaminc: 10
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.89
+netcarbs: 9.12
+water: 86.35
+omega3s: 0
+omega6s: 77
+pralscore: -4.36
+transfattyacids: 0
+sucrose: 5.87
+glucose: 2.37
+fructose: 0.94
+lactose: 0
+maltose: 0.06
+galactose: 0
+phosphorus: 23
+sodium: 1
+zinc: 0.2
+copper: 0.078
+manganese: 0.077
+selenium: 0.1
+thiamin: 0.03
+riboflavin: 0.04
+niacin: 0.6
+pantothenicacid: 0.24
+vitaminb6: 0.054
+folate: 9
+folicacid: 0
+foodfolate: 9
+folatedfe: 9
+choline: 2.8
+retinol: 0
+carotenebeta: 1094
+carotenealpha: 19
+lycopene: 0
+luteinzeaxanthin: 89
+vitamindiu: 0
+vitamink: 3.3
+monounsaturatedfat: 170
+polyunsaturatedfat: 77
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 15
+threonine: 47
+isoleucine: 41
+leucine: 77
+lysine: 97
+methionine: 6
+cystine: 3
+phenylalanine: 52
+tyrosine: 29
+valine: 47
+arginine: 45
+histidine: 27
+alanine: 68
+asparticacid: 314
+glutamicacid: 157
+glycine: 40
+proline: 101
+serine: 83
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 416.667
+---
+
+# Apricots
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

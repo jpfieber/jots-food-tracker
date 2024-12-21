@@ -1,0 +1,97 @@
+---
+fileClass: Ingredient
+filename: Asparagus
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup | 134','1 spear, small (5 inch long or less) | 12','1 spear, medium (5-1/4 inch to 7 inch long) | 16','1 spear, large (7-1/4 inch to 8-1/2 inch) | 20','1 spear, extra large (8-3/4 inch to 10 inch long) | 24','1 spear tip (2 inch long or less) | 3.5']
+id: 168389
+foodgroup: Vegetables
+calories: 20
+fat: 0.12
+protein: 2.2
+carbohydrate: 3.88
+sugars: 1.88
+fiber: 2.1
+cholesterol: 0
+saturatedfats: 0.04
+calcium: 24
+iron: 2.14
+potassium: 202
+magnesium: 14
+vitaminaiu: 756
+vitaminarae: 38
+vitaminc: 5.6
+vitaminb12: 0
+vitamind: 0
+vitamine: 1.13
+netcarbs: 1.78
+water: 93.22
+omega3s: 10
+omega6s: 40
+pralscore: -1.94
+transfattyacids: 0
+sucrose: 0.23
+glucose: 0.65
+fructose: 1
+lactose: 0
+maltose: 0
+galactose: 0
+phosphorus: 52
+sodium: 2
+zinc: 0.54
+copper: 0.189
+manganese: 0.158
+selenium: 2.3
+thiamin: 0.143
+riboflavin: 0.141
+niacin: 0.978
+pantothenicacid: 0.274
+vitaminb6: 0.091
+folate: 52
+folicacid: 0
+foodfolate: 52
+folatedfe: 52
+choline: 16
+betaine: 0.6
+retinol: 0
+carotenebeta: 449
+carotenealpha: 9
+lycopene: 0
+luteinzeaxanthin: 710
+vitamindiu: 0
+vitamink: 41.6
+dihydrophylloquinone: 0
+monounsaturatedfat: 0
+polyunsaturatedfat: 50
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 27
+threonine: 84
+isoleucine: 75
+leucine: 128
+lysine: 104
+methionine: 31
+cystine: 31
+phenylalanine: 75
+tyrosine: 52
+valine: 115
+arginine: 91
+histidine: 49
+alanine: 115
+asparticacid: 508
+glutamicacid: 233
+glycine: 93
+proline: 71
+serine: 106
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 1000
+---
+
+# Asparagus
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

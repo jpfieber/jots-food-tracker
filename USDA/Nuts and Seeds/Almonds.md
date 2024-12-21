@@ -1,0 +1,99 @@
+---
+fileClass: Ingredient
+filename: Almonds
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, whole | 143','1 cup, sliced | 92','1 cup, slivered | 108','1 cup, ground | 95','1 oz (23 whole kernels) | 28.4','1 almond | 1.2']
+id: 170567
+foodgroup: Nuts and Seeds
+calories: 579
+fat: 49.93
+protein: 21.15
+carbohydrate: 21.55
+sugars: 4.35
+fiber: 12.5
+cholesterol: 0
+saturatedfats: 3.802
+calcium: 269
+iron: 3.71
+potassium: 733
+magnesium: 270
+vitaminaiu: 2
+vitaminarae: 0
+vitaminc: 0
+vitaminb12: 0
+vitamind: 0
+vitamine: 25.63
+netcarbs: 9.05
+water: 4.41
+omega3s: 3
+omega6s: 12328
+pralscore: 2.096
+transfattyacids: 0.015
+sucrose: 3.95
+glucose: 0.17
+fructose: 0.11
+lactose: 0
+maltose: 0.04
+galactose: 0.07
+starch: 0.72
+phosphorus: 481
+sodium: 1
+zinc: 3.12
+copper: 1.031
+manganese: 2.179
+selenium: 4.1
+thiamin: 0.205
+riboflavin: 1.138
+niacin: 3.618
+pantothenicacid: 0.471
+vitaminb6: 0.137
+folate: 44
+folicacid: 0
+foodfolate: 44
+folatedfe: 44
+choline: 52.1
+betaine: 0.5
+retinol: 0
+carotenebeta: 1
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 1
+vitamindiu: 0
+vitamink: 0
+dihydrophylloquinone: 0
+monounsaturatedfat: 31551
+polyunsaturatedfat: 12329
+ala: 3
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 211
+threonine: 601
+isoleucine: 751
+leucine: 1473
+lysine: 568
+methionine: 157
+cystine: 215
+phenylalanine: 1132
+tyrosine: 450
+valine: 855
+arginine: 2465
+histidine: 539
+alanine: 999
+asparticacid: 2639
+glutamicacid: 6206
+glycine: 1429
+proline: 969
+serine: 912
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 34.542
+---
+
+# Almonds
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

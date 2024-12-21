@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Grapes
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup | 92','1 grape | 2.4']
+id: 174682
+foodgroup: Fruits
+calories: 67
+fat: 0.35
+protein: 0.63
+carbohydrate: 17.15
+sugars: 16.25
+fiber: 0.9
+cholesterol: 0
+saturatedfats: 0.114
+calcium: 14
+iron: 0.29
+potassium: 191
+magnesium: 5
+vitaminaiu: 100
+vitaminarae: 5
+vitaminc: 4
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.19
+netcarbs: 16.25
+water: 81.3
+omega3s: 24
+omega6s: 79
+pralscore: -3.665
+transfattyacids: 0
+phosphorus: 10
+sodium: 2
+zinc: 0.04
+copper: 0.04
+manganese: 0.718
+selenium: 0.1
+thiamin: 0.092
+riboflavin: 0.057
+niacin: 0.3
+pantothenicacid: 0.024
+vitaminb6: 0.11
+folate: 4
+folicacid: 0
+foodfolate: 4
+folatedfe: 4
+choline: 5.6
+retinol: 0
+carotenebeta: 59
+carotenealpha: 1
+lycopene: 0
+luteinzeaxanthin: 72
+vitamindiu: 0
+vitamink: 14.6
+monounsaturatedfat: 14
+polyunsaturatedfat: 102
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 3
+threonine: 17
+isoleucine: 5
+leucine: 13
+lysine: 14
+methionine: 21
+cystine: 10
+phenylalanine: 13
+tyrosine: 11
+valine: 17
+arginine: 46
+histidine: 23
+alanine: 26
+asparticacid: 77
+glutamicacid: 131
+glycine: 19
+proline: 21
+serine: 30
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 298.507
+---
+
+# Grapes
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

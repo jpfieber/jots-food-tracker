@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Parsley
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup chopped | 60','1 tbsp | 3.8','10 sprigs | 10']
+id: 170416
+foodgroup: Vegetables
+calories: 36
+fat: 0.79
+protein: 2.97
+carbohydrate: 6.33
+sugars: 0.85
+fiber: 3.3
+cholesterol: 0
+saturatedfats: 0.132
+calcium: 138
+iron: 6.2
+potassium: 554
+magnesium: 50
+vitaminaiu: 8424
+vitaminarae: 421
+vitaminc: 133
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.75
+netcarbs: 3.03
+water: 87.71
+omega3s: 8
+omega6s: 115
+pralscore: -11.197
+transfattyacids: 0
+phosphorus: 58
+sodium: 56
+zinc: 1.07
+copper: 0.149
+manganese: 0.16
+selenium: 0.1
+thiamin: 0.086
+riboflavin: 0.098
+niacin: 1.313
+pantothenicacid: 0.4
+vitaminb6: 0.09
+folate: 152
+folicacid: 0
+foodfolate: 152
+folatedfe: 152
+choline: 12.8
+retinol: 0
+carotenebeta: 5054
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 5561
+vitamindiu: 0
+vitamink: 1640
+monounsaturatedfat: 295
+polyunsaturatedfat: 124
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 45
+threonine: 122
+isoleucine: 118
+leucine: 204
+lysine: 181
+methionine: 42
+cystine: 14
+phenylalanine: 145
+tyrosine: 82
+valine: 172
+arginine: 122
+histidine: 61
+alanine: 195
+asparticacid: 294
+glutamicacid: 249
+glycine: 145
+proline: 213
+serine: 136
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 555.556
+---
+
+# Parsley
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

@@ -1,0 +1,97 @@
+---
+fileClass: Ingredient
+filename: Coffee
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 fl oz | 29.6','6 fl oz | 178','1 cup (8 fl oz) | 237']
+id: 171890
+foodgroup: Beverages
+calories: 1
+fat: 0.02
+protein: 0.12
+carbohydrate: 0
+sugars: 0
+fiber: 0
+cholesterol: 0
+saturatedfats: 0.002
+calcium: 2
+iron: 0.01
+potassium: 49
+magnesium: 3
+vitaminaiu: 0
+vitaminarae: 0
+vitaminc: 0
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.01
+netcarbs: 0
+water: 99.39
+omega3s: 0
+omega6s: 1
+pralscore: -0.969
+transfattyacids: 0
+sucrose: 0
+glucose: 0
+fructose: 0
+lactose: 0
+maltose: 0
+galactose: 0
+phosphorus: 3
+sodium: 2
+zinc: 0.02
+copper: 0.002
+manganese: 0.023
+selenium: 0
+fluoride: 90.7
+thiamin: 0.014
+riboflavin: 0.076
+niacin: 0.191
+pantothenicacid: 0.254
+vitaminb6: 0.001
+folate: 2
+folicacid: 0
+foodfolate: 2
+folatedfe: 2
+choline: 2.6
+retinol: 0
+carotenebeta: 0
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 0
+vitamindiu: 0
+vitamink: 0.1
+monounsaturatedfat: 15
+polyunsaturatedfat: 1
+ala: 0
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 0
+threonine: 1
+isoleucine: 2
+leucine: 5
+lysine: 1
+methionine: 0
+cystine: 2
+phenylalanine: 3
+tyrosine: 2
+valine: 3
+arginine: 1
+histidine: 2
+alanine: 3
+asparticacid: 5
+glutamicacid: 20
+glycine: 4
+proline: 4
+serine: 1
+alcohol: 0
+caffeine: 40
+theobromine: 0
+200calorieweight: 20000
+---
+
+# Coffee
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

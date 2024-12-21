@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Taro
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, sliced | 104']
+id: 169308
+foodgroup: Vegetables
+calories: 112
+fat: 0.2
+protein: 1.5
+carbohydrate: 26.46
+sugars: 0.4
+fiber: 4.1
+cholesterol: 0
+saturatedfats: 0.041
+calcium: 43
+iron: 0.55
+potassium: 591
+magnesium: 33
+vitaminaiu: 76
+vitaminarae: 4
+vitaminc: 4.5
+vitaminb12: 0
+vitamind: 0
+vitamine: 2.38
+netcarbs: 22.36
+water: 70.64
+omega3s: 25
+omega6s: 58
+pralscore: -10.054
+transfattyacids: 0
+phosphorus: 84
+sodium: 11
+zinc: 0.23
+copper: 0.172
+manganese: 0.383
+selenium: 0.7
+thiamin: 0.095
+riboflavin: 0.025
+niacin: 0.6
+pantothenicacid: 0.303
+vitaminb6: 0.283
+folate: 22
+folicacid: 0
+foodfolate: 22
+folatedfe: 22
+choline: 17.3
+retinol: 0
+carotenebeta: 35
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 0
+vitamindiu: 0
+vitamink: 1
+monounsaturatedfat: 16
+polyunsaturatedfat: 83
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 23
+threonine: 69
+isoleucine: 54
+leucine: 111
+lysine: 67
+methionine: 20
+cystine: 32
+phenylalanine: 82
+tyrosine: 55
+valine: 82
+arginine: 103
+histidine: 34
+alanine: 73
+asparticacid: 192
+glutamicacid: 174
+glycine: 74
+proline: 60
+serine: 92
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 178.571
+---
+
+# Taro
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

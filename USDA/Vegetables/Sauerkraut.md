@@ -1,0 +1,93 @@
+---
+fileClass: Ingredient
+filename: Sauerkraut
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup | 142','1 cup, undrained | 236']
+id: 169279
+foodgroup: Vegetables
+calories: 19
+fat: 0.14
+protein: 0.91
+carbohydrate: 4.28
+sugars: 1.78
+fiber: 2.9
+cholesterol: 0
+saturatedfats: 0.034
+calcium: 30
+iron: 1.47
+potassium: 170
+magnesium: 13
+vitaminaiu: 18
+vitaminarae: 1
+vitaminc: 14.7
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.14
+netcarbs: 1.38
+water: 92.52
+omega3s: 33
+omega6s: 34
+pralscore: -3.133
+transfattyacids: 0
+glucose: 0.14
+fructose: 0.04
+phosphorus: 20
+sodium: 661
+zinc: 0.19
+copper: 0.096
+manganese: 0.151
+selenium: 0.6
+fluoride: 7
+thiamin: 0.021
+riboflavin: 0.022
+niacin: 0.143
+pantothenicacid: 0.093
+vitaminb6: 0.13
+folate: 24
+folicacid: 0
+foodfolate: 24
+folatedfe: 24
+choline: 10.4
+betaine: 0.5
+retinol: 0
+carotenebeta: 8
+carotenealpha: 5
+lycopene: 0
+luteinzeaxanthin: 295
+vitamindiu: 0
+vitamink: 13
+monounsaturatedfat: 13
+polyunsaturatedfat: 67
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 8
+threonine: 25
+isoleucine: 21
+leucine: 29
+lysine: 31
+methionine: 9
+cystine: 8
+phenylalanine: 23
+tyrosine: 14
+valine: 30
+arginine: 53
+histidine: 16
+alanine: 30
+asparticacid: 87
+glutamicacid: 209
+glycine: 21
+proline: 34
+serine: 37
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 1052.632
+---
+
+# Sauerkraut
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

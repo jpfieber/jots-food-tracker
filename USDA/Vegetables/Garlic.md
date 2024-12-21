@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Garlic
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup | 136','1 tsp | 2.8','1 clove | 3','3 cloves | 9']
+id: 169230
+foodgroup: Vegetables
+calories: 149
+fat: 0.5
+protein: 6.36
+carbohydrate: 33.06
+sugars: 1
+fiber: 2.1
+cholesterol: 0
+saturatedfats: 0.089
+calcium: 181
+iron: 1.7
+potassium: 401
+magnesium: 25
+vitaminaiu: 9
+vitaminarae: 0
+vitaminc: 31.2
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.08
+netcarbs: 30.96
+water: 58.58
+omega3s: 20
+omega6s: 229
+pralscore: -2.694
+transfattyacids: 0
+phosphorus: 153
+sodium: 17
+zinc: 1.16
+copper: 0.299
+manganese: 1.672
+selenium: 14.2
+thiamin: 0.2
+riboflavin: 0.11
+niacin: 0.7
+pantothenicacid: 0.596
+vitaminb6: 1.235
+folate: 3
+folicacid: 0
+foodfolate: 3
+folatedfe: 3
+choline: 23.2
+retinol: 0
+carotenebeta: 5
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 16
+vitamindiu: 0
+vitamink: 1.7
+monounsaturatedfat: 11
+polyunsaturatedfat: 249
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 66
+threonine: 157
+isoleucine: 217
+leucine: 308
+lysine: 273
+methionine: 76
+cystine: 65
+phenylalanine: 183
+tyrosine: 81
+valine: 291
+arginine: 634
+histidine: 113
+alanine: 132
+asparticacid: 489
+glutamicacid: 805
+glycine: 200
+proline: 100
+serine: 190
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 134.228
+---
+
+# Garlic
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

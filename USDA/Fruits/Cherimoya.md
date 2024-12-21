@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Cherimoya
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, pieces | 160','1 fruit without skin and seeds | 235']
+id: 173953
+foodgroup: Fruits
+calories: 75
+fat: 0.68
+protein: 1.57
+carbohydrate: 17.71
+sugars: 12.87
+fiber: 3
+cholesterol: 0
+saturatedfats: 0.233
+calcium: 10
+iron: 0.27
+potassium: 287
+magnesium: 17
+vitaminaiu: 5
+vitaminarae: 0
+vitaminc: 12.6
+vitaminb12: 0
+vitamine: 0.27
+netcarbs: 14.71
+water: 79.39
+omega3s: 159
+omega6s: 28
+pralscore: -4.902
+transfattyacids: 0
+sucrose: 0.66
+glucose: 5.93
+fructose: 6.28
+lactose: 0
+maltose: 0
+galactose: 0
+starch: 0
+phosphorus: 26
+sodium: 7
+zinc: 0.16
+copper: 0.069
+manganese: 0.093
+thiamin: 0.101
+riboflavin: 0.131
+niacin: 0.644
+pantothenicacid: 0.345
+vitaminb6: 0.257
+folate: 23
+folicacid: 0
+foodfolate: 23
+folatedfe: 23
+retinol: 0
+carotenebeta: 2
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 6
+monounsaturatedfat: 55
+polyunsaturatedfat: 188
+ala: 159
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 31
+threonine: 52
+isoleucine: 42
+leucine: 63
+lysine: 42
+methionine: 21
+cystine: 10
+phenylalanine: 42
+tyrosine: 31
+valine: 63
+arginine: 31
+histidine: 21
+alanine: 63
+asparticacid: 105
+glutamicacid: 199
+glycine: 52
+proline: 157
+serine: 63
+200calorieweight: 266.667
+---
+
+# Cherimoya
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

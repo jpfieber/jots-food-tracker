@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Wakame
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','2 tbsp (1/8 cup) | 10']
+id: 170496
+foodgroup: Vegetables
+calories: 45
+fat: 0.64
+protein: 3.03
+carbohydrate: 9.14
+sugars: 0.65
+fiber: 0.5
+cholesterol: 0
+saturatedfats: 0.13
+calcium: 150
+iron: 2.18
+potassium: 50
+magnesium: 107
+vitaminaiu: 360
+vitaminarae: 18
+vitaminc: 3
+vitaminb12: 0
+vitamind: 0
+vitamine: 1
+netcarbs: 8.64
+water: 79.99
+omega3s: 186
+omega6s: 10
+pralscore: -1.374
+transfattyacids: 0
+phosphorus: 80
+sodium: 872
+zinc: 0.38
+copper: 0.284
+manganese: 1.4
+selenium: 0.7
+thiamin: 0.06
+riboflavin: 0.23
+niacin: 1.6
+pantothenicacid: 0.697
+vitaminb6: 0.002
+folate: 196
+folicacid: 0
+foodfolate: 196
+folatedfe: 196
+choline: 13.9
+retinol: 0
+carotenebeta: 216
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 0
+vitamindiu: 0
+vitamink: 5.3
+monounsaturatedfat: 58
+polyunsaturatedfat: 218
+epa: 186
+dpa: 0
+dha: 0
+tryptophan: 35
+threonine: 165
+isoleucine: 87
+leucine: 257
+lysine: 112
+methionine: 63
+cystine: 28
+phenylalanine: 112
+tyrosine: 49
+valine: 209
+arginine: 92
+histidine: 15
+alanine: 136
+asparticacid: 179
+glutamicacid: 199
+glycine: 112
+proline: 92
+serine: 78
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 444.444
+---
+
+# Wakame
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

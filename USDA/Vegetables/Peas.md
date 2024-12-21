@@ -1,0 +1,96 @@
+---
+fileClass: Ingredient
+filename: Peas
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup | 145']
+id: 170419
+foodgroup: Vegetables
+calories: 81
+fat: 0.4
+protein: 5.42
+carbohydrate: 14.45
+sugars: 5.67
+fiber: 5.7
+cholesterol: 0
+saturatedfats: 0.071
+calcium: 25
+iron: 1.47
+potassium: 244
+magnesium: 33
+vitaminaiu: 765
+vitaminarae: 38
+vitaminc: 40
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.13
+netcarbs: 8.75
+water: 78.86
+omega3s: 35
+omega6s: 152
+pralscore: 0.311
+transfattyacids: 0
+sucrose: 4.99
+glucose: 0.12
+fructose: 0.39
+lactose: 0
+maltose: 0.17
+galactose: 0
+phosphorus: 108
+sodium: 5
+zinc: 1.24
+copper: 0.176
+manganese: 0.41
+selenium: 1.8
+thiamin: 0.266
+riboflavin: 0.132
+niacin: 2.09
+pantothenicacid: 0.104
+vitaminb6: 0.169
+folate: 65
+folicacid: 0
+foodfolate: 65
+folatedfe: 65
+choline: 28.4
+betaine: 0.2
+retinol: 0
+carotenebeta: 449
+carotenealpha: 21
+lycopene: 0
+luteinzeaxanthin: 2477
+vitamindiu: 0
+vitamink: 24.8
+monounsaturatedfat: 35
+polyunsaturatedfat: 187
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 37
+threonine: 203
+isoleucine: 195
+leucine: 323
+lysine: 317
+methionine: 82
+cystine: 32
+phenylalanine: 200
+tyrosine: 114
+valine: 235
+arginine: 428
+histidine: 107
+alanine: 240
+asparticacid: 496
+glutamicacid: 741
+glycine: 184
+proline: 173
+serine: 181
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 246.914
+---
+
+# Peas
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

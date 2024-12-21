@@ -1,0 +1,90 @@
+---
+fileClass: Ingredient
+filename: Cassava
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup | 206','1 root | 408']
+id: 169985
+foodgroup: Vegetables
+calories: 160
+fat: 0.28
+protein: 1.36
+carbohydrate: 38.06
+sugars: 1.7
+fiber: 1.8
+cholesterol: 0
+saturatedfats: 0.074
+calcium: 16
+iron: 0.27
+potassium: 271
+magnesium: 21
+vitaminaiu: 13
+vitaminarae: 1
+vitaminc: 20.6
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.19
+netcarbs: 36.26
+water: 59.68
+omega3s: 17
+omega6s: 32
+pralscore: -4.813
+transfattyacids: 0
+phosphorus: 27
+sodium: 14
+zinc: 0.34
+copper: 0.1
+manganese: 0.384
+selenium: 0.7
+thiamin: 0.087
+riboflavin: 0.048
+niacin: 0.854
+pantothenicacid: 0.107
+vitaminb6: 0.088
+folate: 27
+folicacid: 0
+foodfolate: 27
+folatedfe: 27
+choline: 23.7
+betaine: 0.4
+retinol: 0
+carotenebeta: 8
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 0
+vitamindiu: 0
+vitamink: 1.9
+monounsaturatedfat: 75
+polyunsaturatedfat: 48
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 19
+threonine: 28
+isoleucine: 27
+leucine: 39
+lysine: 44
+methionine: 11
+cystine: 28
+phenylalanine: 26
+tyrosine: 17
+valine: 35
+arginine: 137
+histidine: 20
+alanine: 38
+asparticacid: 79
+glutamicacid: 206
+glycine: 28
+proline: 33
+serine: 33
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 125
+---
+
+# Cassava
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

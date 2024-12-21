@@ -1,0 +1,97 @@
+---
+fileClass: Ingredient
+filename: Zucchini
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, chopped | 124','1 cup, sliced | 113','1 large | 323','1 medium | 196','1 slice | 9.9','1 small | 118']
+id: 169291
+foodgroup: Vegetables
+calories: 17
+fat: 0.32
+protein: 1.21
+carbohydrate: 3.11
+sugars: 2.5
+fiber: 1
+cholesterol: 0
+saturatedfats: 0.084
+calcium: 16
+iron: 0.37
+potassium: 261
+magnesium: 18
+vitaminaiu: 200
+vitaminarae: 10
+vitaminc: 17.9
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.12
+netcarbs: 2.11
+water: 94.79
+omega3s: 61
+omega6s: 30
+pralscore: -4.19
+transfattyacids: 0
+sucrose: 0.05
+glucose: 1.07
+fructose: 1.38
+lactose: 0
+maltose: 0
+galactose: 0
+starch: 0
+phosphorus: 38
+sodium: 8
+zinc: 0.32
+copper: 0.053
+manganese: 0.177
+selenium: 0.2
+thiamin: 0.045
+riboflavin: 0.094
+niacin: 0.451
+pantothenicacid: 0.204
+vitaminb6: 0.163
+folate: 24
+folicacid: 0
+foodfolate: 24
+folatedfe: 24
+choline: 9.5
+retinol: 0
+carotenebeta: 120
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 2125
+vitamindiu: 0
+vitamink: 4.3
+monounsaturatedfat: 11
+polyunsaturatedfat: 91
+ala: 61
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 10
+threonine: 29
+isoleucine: 44
+leucine: 71
+lysine: 67
+methionine: 18
+cystine: 12
+phenylalanine: 43
+tyrosine: 32
+valine: 54
+arginine: 51
+histidine: 26
+alanine: 63
+asparticacid: 147
+glutamicacid: 129
+glycine: 46
+proline: 37
+serine: 49
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 1176.471
+---
+
+# Zucchini
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

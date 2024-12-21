@@ -1,0 +1,90 @@
+---
+fileClass: Ingredient
+filename: Jackfruit
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup, sliced | 165','1 cup 1 inch pieces | 151']
+id: 174687
+foodgroup: Fruits
+calories: 95
+fat: 0.64
+protein: 1.72
+carbohydrate: 23.25
+sugars: 19.08
+fiber: 1.5
+cholesterol: 0
+saturatedfats: 0.195
+calcium: 24
+iron: 0.23
+potassium: 448
+magnesium: 29
+vitaminaiu: 110
+vitaminarae: 5
+vitaminc: 13.7
+vitaminb12: 0
+vitamine: 0.34
+netcarbs: 21.75
+water: 73.46
+omega3s: 79
+omega6s: 15
+pralscore: -8.908
+transfattyacids: 0
+sucrose: 0.42
+glucose: 9.48
+fructose: 9.19
+lactose: 0
+maltose: 0
+galactose: 0
+starch: 1.47
+phosphorus: 21
+sodium: 2
+zinc: 0.13
+copper: 0.076
+manganese: 0.043
+thiamin: 0.105
+riboflavin: 0.055
+niacin: 0.92
+pantothenicacid: 0.235
+vitaminb6: 0.329
+folate: 24
+folicacid: 0
+foodfolate: 24
+folatedfe: 24
+retinol: 0
+carotenebeta: 61
+carotenealpha: 6
+lycopene: 0
+luteinzeaxanthin: 157
+monounsaturatedfat: 155
+polyunsaturatedfat: 94
+ala: 79
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 34
+threonine: 86
+isoleucine: 69
+leucine: 103
+lysine: 69
+methionine: 34
+cystine: 17
+phenylalanine: 52
+tyrosine: 103
+valine: 86
+arginine: 138
+histidine: 34
+alanine: 86
+asparticacid: 172
+glutamicacid: 189
+glycine: 86
+proline: 17
+serine: 103
+alcohol: 0
+200calorieweight: 210.526
+---
+
+# Jackfruit
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

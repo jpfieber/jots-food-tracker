@@ -1,0 +1,95 @@
+---
+fileClass: Ingredient
+filename: Papaya
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup 1 inch pieces | 145','1 cup, mashed | 230','1 fruit, small | 157','1 fruit, large | 781']
+id: 169926
+foodgroup: Fruits
+calories: 43
+fat: 0.26
+protein: 0.47
+carbohydrate: 10.82
+sugars: 7.82
+fiber: 1.7
+cholesterol: 0
+saturatedfats: 0.081
+calcium: 20
+iron: 0.25
+potassium: 182
+magnesium: 21
+vitaminaiu: 950
+vitaminarae: 47
+vitaminc: 60.9
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.3
+netcarbs: 9.12
+water: 88.06
+omega3s: 47
+omega6s: 11
+pralscore: -4.052
+transfattyacids: 0
+sucrose: 0
+glucose: 4.09
+fructose: 3.73
+lactose: 0
+maltose: 0
+galactose: 0
+starch: 0
+phosphorus: 10
+sodium: 8
+zinc: 0.08
+copper: 0.045
+manganese: 0.04
+selenium: 0.6
+thiamin: 0.023
+riboflavin: 0.027
+niacin: 0.357
+pantothenicacid: 0.191
+vitaminb6: 0.038
+folate: 37
+folicacid: 0
+foodfolate: 37
+folatedfe: 37
+choline: 6.1
+retinol: 0
+carotenebeta: 274
+carotenealpha: 2
+lycopene: 1828
+luteinzeaxanthin: 89
+vitamindiu: 0
+vitamink: 2.6
+monounsaturatedfat: 72
+polyunsaturatedfat: 58
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 8
+threonine: 11
+isoleucine: 8
+leucine: 16
+lysine: 25
+methionine: 2
+phenylalanine: 9
+tyrosine: 5
+valine: 10
+arginine: 10
+histidine: 5
+alanine: 14
+asparticacid: 49
+glutamicacid: 33
+glycine: 18
+proline: 10
+serine: 15
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 465.116
+---
+
+# Papaya
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

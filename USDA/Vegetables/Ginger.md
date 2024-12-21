@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Ginger
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 tsp | 2','1/4 cup slices (1 inch dia) | 24','5 slices (1 inch dia) | 11']
+id: 169231
+foodgroup: Vegetables
+calories: 80
+fat: 0.75
+protein: 1.82
+carbohydrate: 17.77
+sugars: 1.7
+fiber: 2
+cholesterol: 0
+saturatedfats: 0.203
+calcium: 16
+iron: 0.6
+potassium: 415
+magnesium: 43
+vitaminaiu: 0
+vitaminarae: 0
+vitaminc: 5
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.26
+netcarbs: 15.77
+water: 78.89
+omega3s: 34
+omega6s: 120
+pralscore: -7.946
+transfattyacids: 0
+phosphorus: 34
+sodium: 13
+zinc: 0.34
+copper: 0.226
+manganese: 0.229
+selenium: 0.7
+thiamin: 0.025
+riboflavin: 0.034
+niacin: 0.75
+pantothenicacid: 0.203
+vitaminb6: 0.16
+folate: 11
+folicacid: 0
+foodfolate: 11
+folatedfe: 11
+choline: 28.8
+retinol: 0
+carotenebeta: 0
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 0
+vitamindiu: 0
+vitamink: 0.1
+monounsaturatedfat: 154
+polyunsaturatedfat: 154
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 12
+threonine: 36
+isoleucine: 51
+leucine: 74
+lysine: 57
+methionine: 13
+cystine: 8
+phenylalanine: 45
+tyrosine: 20
+valine: 73
+arginine: 43
+histidine: 30
+alanine: 31
+asparticacid: 208
+glutamicacid: 162
+glycine: 43
+proline: 41
+serine: 45
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 250
+---
+
+# Ginger
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

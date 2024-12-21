@@ -1,0 +1,89 @@
+---
+fileClass: Ingredient
+filename: Endive
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1/2 cup, chopped | 25','1 head | 513','1 cup | 50']
+id: 168412
+foodgroup: Vegetables
+calories: 17
+fat: 0.2
+protein: 1.25
+carbohydrate: 3.35
+sugars: 0.25
+fiber: 3.1
+cholesterol: 0
+saturatedfats: 0.048
+calcium: 52
+iron: 0.83
+potassium: 314
+magnesium: 15
+vitaminaiu: 2167
+vitaminarae: 108
+vitaminc: 6.5
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.44
+netcarbs: 0.25
+water: 93.79
+omega3s: 13
+omega6s: 75
+pralscore: -6.047
+transfattyacids: 0
+phosphorus: 28
+sodium: 22
+zinc: 0.79
+copper: 0.099
+manganese: 0.42
+selenium: 0.2
+thiamin: 0.08
+riboflavin: 0.075
+niacin: 0.4
+pantothenicacid: 0.9
+vitaminb6: 0.02
+folate: 142
+folicacid: 0
+foodfolate: 142
+folatedfe: 142
+choline: 16.8
+retinol: 0
+carotenebeta: 1300
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 0
+vitamindiu: 0
+vitamink: 231
+monounsaturatedfat: 4
+polyunsaturatedfat: 87
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 5
+threonine: 50
+isoleucine: 72
+leucine: 98
+lysine: 63
+methionine: 14
+cystine: 10
+phenylalanine: 53
+tyrosine: 40
+valine: 63
+arginine: 62
+histidine: 23
+alanine: 62
+asparticacid: 130
+glutamicacid: 166
+glycine: 58
+proline: 59
+serine: 49
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 1176.471
+---
+
+# Endive
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

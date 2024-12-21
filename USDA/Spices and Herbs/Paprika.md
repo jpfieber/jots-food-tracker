@@ -1,0 +1,99 @@
+---
+fileClass: Ingredient
+filename: Paprika
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 tsp | 2.3','1 tbsp | 6.8']
+id: 171329
+foodgroup: Spices and Herbs
+calories: 282
+fat: 12.89
+protein: 14.14
+carbohydrate: 53.99
+sugars: 10.34
+fiber: 34.9
+cholesterol: 0
+saturatedfats: 2.14
+calcium: 229
+iron: 21.14
+potassium: 2280
+magnesium: 178
+vitaminaiu: 49254
+vitaminarae: 2463
+vitaminc: 0.9
+vitaminb12: 0
+vitamind: 0
+vitamine: 29.1
+netcarbs: 19.09
+water: 11.24
+omega3s: 453
+omega6s: 7314
+pralscore: -37.22
+transfattyacids: 0
+sucrose: 0.81
+glucose: 2.63
+fructose: 6.71
+lactose: 0
+maltose: 0
+galactose: 0.19
+phosphorus: 314
+sodium: 68
+zinc: 4.33
+copper: 0.713
+manganese: 1.59
+selenium: 6.3
+thiamin: 0.33
+riboflavin: 1.23
+niacin: 10.06
+pantothenicacid: 2.51
+vitaminb6: 2.141
+folate: 49
+folicacid: 0
+foodfolate: 49
+folatedfe: 49
+choline: 51.5
+betaine: 7.1
+retinol: 0
+carotenebeta: 26162
+carotenealpha: 595
+lycopene: 0
+luteinzeaxanthin: 18944
+vitamindiu: 0
+vitamink: 80.3
+dihydrophylloquinone: 0
+monounsaturatedfat: 1695
+polyunsaturatedfat: 7766
+ala: 453
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 70
+threonine: 490
+isoleucine: 570
+leucine: 920
+lysine: 690
+methionine: 200
+cystine: 230
+phenylalanine: 610
+tyrosine: 380
+valine: 750
+arginine: 890
+histidine: 250
+alanine: 640
+asparticacid: 2850
+glutamicacid: 2260
+glycine: 780
+proline: 2310
+serine: 610
+hydroxyproline: 0
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 70.922
+---
+
+# Paprika
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

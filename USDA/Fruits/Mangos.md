@@ -1,0 +1,94 @@
+---
+fileClass: Ingredient
+filename: Mangos
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup pieces | 165','1 fruit without refuse | 336']
+id: 169910
+foodgroup: Fruits
+calories: 60
+fat: 0.38
+protein: 0.82
+carbohydrate: 14.98
+sugars: 13.66
+fiber: 1.6
+cholesterol: 0
+saturatedfats: 0.092
+calcium: 11
+iron: 0.16
+potassium: 168
+magnesium: 10
+vitaminaiu: 1082
+vitaminarae: 54
+vitaminc: 36.4
+vitaminb12: 0
+vitamind: 0
+vitamine: 0.9
+netcarbs: 13.38
+water: 83.46
+omega3s: 51
+omega6s: 19
+pralscore: -3.031
+transfattyacids: 0
+sucrose: 6.97
+glucose: 2.01
+fructose: 4.68
+lactose: 0
+maltose: 0
+galactose: 0
+phosphorus: 14
+sodium: 1
+zinc: 0.09
+copper: 0.111
+manganese: 0.063
+selenium: 0.6
+thiamin: 0.028
+riboflavin: 0.038
+niacin: 0.669
+pantothenicacid: 0.197
+vitaminb6: 0.119
+folate: 43
+folicacid: 0
+foodfolate: 43
+folatedfe: 43
+choline: 7.6
+retinol: 0
+carotenebeta: 640
+carotenealpha: 9
+lycopene: 3
+luteinzeaxanthin: 23
+vitamindiu: 0
+vitamink: 4.2
+monounsaturatedfat: 140
+polyunsaturatedfat: 71
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 13
+threonine: 31
+isoleucine: 29
+leucine: 50
+lysine: 66
+methionine: 8
+phenylalanine: 27
+tyrosine: 16
+valine: 42
+arginine: 31
+histidine: 19
+alanine: 82
+asparticacid: 68
+glutamicacid: 96
+glycine: 34
+proline: 29
+serine: 35
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 333.333
+---
+
+# Mangos
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```

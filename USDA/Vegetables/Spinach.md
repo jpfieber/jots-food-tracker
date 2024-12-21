@@ -1,0 +1,96 @@
+---
+fileClass: Ingredient
+filename: Spinach
+created: 2024-12-21T19:27:02-06:00
+cssclasses: ['nutFact']
+servings: ['Default | 100g','1 cup | 30','1 bunch | 340','1 leaf | 10','1 package (10 oz) | 284']
+id: 168462
+foodgroup: Vegetables
+calories: 23
+fat: 0.39
+protein: 2.86
+carbohydrate: 3.63
+sugars: 0.42
+fiber: 2.2
+cholesterol: 0
+saturatedfats: 0.063
+calcium: 99
+iron: 2.71
+potassium: 558
+magnesium: 79
+vitaminaiu: 9377
+vitaminarae: 469
+vitaminc: 28.1
+vitaminb12: 0
+vitamind: 0
+vitamine: 2.03
+netcarbs: 1.43
+water: 91.4
+omega3s: 138
+omega6s: 26
+pralscore: -11.924
+transfattyacids: 0
+sucrose: 0.07
+glucose: 0.11
+fructose: 0.15
+lactose: 0
+maltose: 0
+galactose: 0.1
+phosphorus: 49
+sodium: 79
+zinc: 0.53
+copper: 0.13
+manganese: 0.897
+selenium: 1
+thiamin: 0.078
+riboflavin: 0.189
+niacin: 0.724
+pantothenicacid: 0.065
+vitaminb6: 0.195
+folate: 194
+folicacid: 0
+foodfolate: 194
+folatedfe: 194
+choline: 19.3
+betaine: 102.6
+retinol: 0
+carotenebeta: 5626
+carotenealpha: 0
+lycopene: 0
+luteinzeaxanthin: 12198
+vitamindiu: 0
+vitamink: 482.9
+monounsaturatedfat: 10
+polyunsaturatedfat: 165
+epa: 0
+dpa: 0
+dha: 0
+tryptophan: 39
+threonine: 122
+isoleucine: 147
+leucine: 223
+lysine: 174
+methionine: 53
+cystine: 35
+phenylalanine: 129
+tyrosine: 108
+valine: 161
+arginine: 162
+histidine: 64
+alanine: 142
+asparticacid: 240
+glutamicacid: 343
+glycine: 134
+proline: 112
+serine: 104
+alcohol: 0
+caffeine: 0
+theobromine: 0
+200calorieweight: 869.565
+---
+
+# Spinach
+
+```dataviewjs
+dv.view("Meta/Scripts/IngredientsFooter")
+```
