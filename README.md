@@ -1,6 +1,7 @@
 # OCMT
 Obsidian Calorie and Macro Tracking
 
+## Introduction
 Before I found Obsidian, I had been tracking calories and macros in a detailed, advanced Google Sheets template that worked great. As I moved more of my digital life into Obsidian, I wondered if there was a way of also handling calorie and macro tracking from within Obsidian, since it was now where I was spending much of my screen time. Following is what I have developed so far. It's not as feature-full as the Google Sheets template, but handles the basics of what I need. I'm releasing it to the Obsidian community because A) I like to share cool stuff with others that can appreciate it, and B) I'm hoping others will build on it and make it better.
 
 ## Overview
