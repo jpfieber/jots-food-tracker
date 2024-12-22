@@ -9,6 +9,7 @@ Through out the day, as I consume food and beverages, I add these items to my da
 
 To make sense of what I've consumed for the day, I have a dashboard that lists everything I've consumed, and then summarizes it:
 ![image](https://github.com/user-attachments/assets/f5575766-11b5-48b2-a19d-b3f757ca44ac)
+
 ![image](https://github.com/user-attachments/assets/9dd6cca3-c09c-434d-b810-0c7d14c85d26)
 
 ## OCMT - USDA Foods
