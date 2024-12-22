@@ -33,6 +33,6 @@ Note that 128 items in the spreadsheet have 'NULL' as their 'Food Group'. I left
 ## Support My Work
 If you like this plugin and want to say thanks, here are ways to support its development:
 
-<a href="https://www.buymeacoffee.com/jpfieber" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
+<a href="https://buymeacoffee.com/n7rd8lvmr9" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 Your support helps maintain and improve this project. Thank you!
