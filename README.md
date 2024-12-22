@@ -29,3 +29,10 @@ The script does the following:
 - Add a dataviewjs block to the end of the file that calls a shared script used to display the Nutritional Facts Label, and any other desired content
 
 Note that 128 items in the spreadsheet have 'NULL' as their 'Food Group'. I left them in a folder called 'NULL'. You can move them to a more appropriate location, delete them, or leave them there.
+
+## Support My Work
+If you like this plugin and want to say thanks, here are ways to support its development:
+
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="n7Rd8LVmR9" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
+Your support helps maintain and improve this project. Thank you!
