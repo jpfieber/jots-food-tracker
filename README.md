@@ -33,6 +33,7 @@ Note that 128 items in the spreadsheet have 'NULL' as their 'Food Group'. I left
 ## Support My Work
 If you like this plugin and want to say thanks, here are ways to support its development:
 
+- <a href="https://github.com/sponsors/jpfieber">GitHub Sponsor</a>
 - <a href="https://buymeacoffee.com/n7rd8lvmr9">Buy Me a Coffee</a>
 - <a href="https://www.paypal.com/paypalme/jpfieber">PayPal</a>
 
