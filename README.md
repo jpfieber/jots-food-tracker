@@ -1,8 +1,9 @@
-# OCMT
-Obsidian Calorie and Macro Tracking
+# Food Tracker
 
 ## Introduction
 Before I found [Obsidian](https://obsidian.md/), I had been tracking calories and macros in a detailed, advanced Google Sheets template that worked great. As I moved more of my digital life into Obsidian, I wondered if there was a way of also handling calorie and macro tracking from within Obsidian, since it was now where I was spending much of my screen time. Following is what I have developed so far. It's not as feature-full as the Google Sheets template, but handles the basics of what I need. I'm releasing it to the Obsidian community because A) I like to share cool stuff with others that can appreciate it, and B) I'm hoping others will build on it and make it better.
+
+<a href="https://www.buymeacoffee.com/jpfieber" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60"></a>
 
 ## Overview
 Through out the day, as I consume food and beverages, I add these items to my daily journal. Each item I add includes the meal it was a part of, a description/title, quantity, how many calories were consumed, and how much of the macros I care about (Fat/Carbs/Protein) were consumed. To make that process easier, I have a note for each food item that contains it's nutritional information.  Using a template, I simply choose which meal, then choose the food item from a list, choose which quantity measurement I'd like to use (eg. 1 serving, 1 container, 100g, etc), and finally, how many of that measure did I consume.  Through some template magic, a decorated task is then added to my daily journal detailing the item that was consumed. As an example, I had a can of Progresso soup for lunch, here's how it looks in my journal:
@@ -15,7 +16,7 @@ To make sense of what I've consumed for the day, I have a dashboard that lists e
 
 ![image](https://github.com/user-attachments/assets/9dd6cca3-c09c-434d-b810-0c7d14c85d26)
 
-## OCMT - USDA Foods
+## USDA Foods
 Though you can get raw nutritional data from the [USDA](https://fdc.nal.usda.gov/download-datasets), it's a bit confusing. I found a more convenient, already processed spreadsheet available through the [My Food Data](https://tools.myfooddata.com/nutrition-facts-database-spreadsheet.php) website. I downloaded the Excel version, and converted it to a CSV file containing the nutritional information for 14,164 food items. I then created a PowerShell script that generates a Markdown file for each line item in the CSV, organized by their 'Food Group'. 
 
 The script does the following:
@@ -30,11 +31,19 @@ The script does the following:
 
 Note that 128 items in the spreadsheet have 'NULL' as their 'Food Group'. I left them in a folder called 'NULL'. You can move them to a more appropriate location, delete them, or leave them there.
 
+## JOTS
+
+While this plugin works on it's own in most any vault, it is part of a larger system called <a href="https://jots.life">JOTS: Joe's Obsidian Tracking System</a>. Learn more about it <a href="https://jots.life">here</a>.
+
+![JOTS-Logo-64](https://github.com/user-attachments/assets/e29ba5d7-8bdd-4cd9-8336-5fa35b7b593e)
+
 ## Support My Work
-If you like this plugin and want to say thanks, here are ways to support its development:
+
+If this plugin helped you and you wish to contribute:
+
+<a href="https://www.buymeacoffee.com/jpfieber" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60"></a>
 
 - <a href="https://github.com/sponsors/jpfieber">GitHub Sponsor</a>
-- <a href="https://buymeacoffee.com/n7rd8lvmr9">Buy Me a Coffee</a>
 - <a href="https://www.paypal.com/paypalme/jpfieber">PayPal</a>
 
 Your support helps maintain and improve this project. Thank you!

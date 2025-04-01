@@ -1,0 +1,94 @@
+
+            <div class="nutfact-container">
+                <select class="nutfact-dropdown"><option value="1">Default | 100g</option><option value="2.45">1 Cup | 245</option><option value="5.33">Container | 533</option></select>
+                <div class="nutfact-table-container">
+                <table class="nutfact-table">
+                    <tr><td colspan="3"><strong>Nutrition Facts</strong></td></tr>
+                    <tr><td>Serving Size</td><td>(100g)</td></tr>
+                    <tr><td>Calories</td><td><strong>73</strong></td></tr>
+                    <tr><td colspan="3"><strong>% Daily Values*</strong></td></tr>
+                    <tr><td>Total Fat</td><td>4g</td><td>5%</td></tr>
+                    <tr><td>- Saturated Fat</td><td>1g</td><td>4%</td></tr>
+                    <tr><td>- Trans Fat</td><td>0g</td><td></td></tr>
+                    <tr><td>Cholesterol</td><td>12mg</td><td>4%</td></tr>
+                    <tr><td>Sodium</td><td>322mg</td><td>14%</td></tr>
+                    <tr><td>Total Carbohydrate</td><td>7g</td><td>3%</td></tr>
+                    <tr><td>- Fiber</td><td>1g</td><td>3%</td></tr>
+                    <tr><td>- Sugars</td><td>1g</td><td></td></tr>
+                    <tr><td>Protein</td><td>3g</td><td>6%</td></tr>
+                    <tr><td>Vitamin D</td><td>0mcg</td><td>0%</td></tr>
+                    <tr><td>Calcium</td><td>12mg</td><td>1%</td></tr>
+                    <tr><td>Iron</td><td>0mg</td><td>2%</td></tr>
+                    <tr><td>Potassium</td><td>69mg</td><td>1%</td></tr>
+                    <tr><td colspan="3"><small>*Percent Daily Values are based on a 2,000 calorie diet.</small></td></tr>
+                </table>
+            </div>
+            </div>
+            <script>
+                const dropdown = document.querySelector('.nutfact-dropdown');
+                const tableContainer = document.querySelector('.nutfact-table-container');
+
+                dropdown.addEventListener('change', () => {
+                    const selectedServing = parseFloat(dropdown.value);
+                    if (!isNaN(selectedServing)) {
+                        tableContainer.innerHTML = calculateNutritionalValues(selectedServing);
+                    }
+                });
+
+                function calculateNutritionalValues(serving) {
+                    const {
+                        calories = 0,
+                        fat = 0,
+                        saturatedfat = 0,
+                        transfat = 0,
+                        cholesterol = 0,
+                        sodium = 0,
+                        carbohydrates = 0,
+                        fiber = 0,
+                        sugars = 0,
+                        protein = 0,
+                        vitamind = 0,
+                        calcium = 0,
+                        iron = 0,
+                        potassium = 0,
+                    } = {"filename":"Campbell's Chunky Pub-Style Chicken Pot Pie Soup","fileClass":"Ingredient","created":"2024-05-16T13:49:53-05:00","updated":"2025-03-19T09:38:28-05:00","aliases":null,"calcium":12.2,"calories":73,"carbohydrates":7.3,"cholesterol":12.2,"cssclasses":["nutFact"],"fat":3.7,"fiber":0.8,"foodgroup":"Soups and Sauces","iron":0.4,"keywords":null,"name":"Campbell's Chunky Pub-Style Chicken Pot Pie Soup","potassium":69.4,"protein":2.9,"saturatedfat":0.8,"serv_g":100,"servings":["Default | 100g","1 Cup | 245","Container | 533"],"sodium":322.4,"sugars":0.8,"transfat":0,"vitamind":0};
+
+                    const servingSize = `(${Math.round(serving * 100)}g)`;
+
+                    const fatPercent = Math.round((fat * 100) / 78 * serving);
+                    const saturatedFatPercent = Math.round((saturatedfat * 100) / 20 * serving);
+                    const cholesterolPercent = Math.round((cholesterol * 100) / 300 * serving);
+                    const sodiumPercent = Math.round((sodium * 100) / 2300 * serving);
+                    const carbsPercent = Math.round((carbohydrates * 100) / 275 * serving);
+                    const fiberPercent = Math.round((fiber * 100) / 28 * serving);
+                    const proteinPercent = Math.round((protein * 100) / 50 * serving);
+                    const vitamindPercent = Math.round((vitamind * 100) / 20 * serving);
+                    const calciumPercent = Math.round((calcium * 100) / 1300 * serving);
+                    const ironPercent = Math.round((iron * 100) / 18 * serving);
+                    const potassiumPercent = Math.round((potassium * 100) / 4700 * serving);
+
+                    return `
+                        <table class="nutfact-table">
+                            <tr><td colspan="3"><strong>Nutrition Facts</strong></td></tr>
+                            <tr><td>Serving Size</td><td>${servingSize}</td></tr>
+                            <tr><td>Calories</td><td><strong>${Math.round(calories * serving)}</strong></td></tr>
+                            <tr><td colspan="3"><strong>% Daily Values*</strong></td></tr>
+                            <tr><td>Total Fat</td><td>${Math.round(fat * serving)}g</td><td>${fatPercent}%</td></tr>
+                            <tr><td>- Saturated Fat</td><td>${Math.round(saturatedfat * serving)}g</td><td>${saturatedFatPercent}%</td></tr>
+                            <tr><td>- Trans Fat</td><td>${Math.round(transfat * serving)}g</td><td></td></tr>
+                            <tr><td>Cholesterol</td><td>${Math.round(cholesterol * serving)}mg</td><td>${cholesterolPercent}%</td></tr>
+                            <tr><td>Sodium</td><td>${Math.round(sodium * serving)}mg</td><td>${sodiumPercent}%</td></tr>
+                            <tr><td>Total Carbohydrate</td><td>${Math.round(carbohydrates * serving)}g</td><td>${carbsPercent}%</td></tr>
+                            <tr><td>- Fiber</td><td>${Math.round(fiber * serving)}g</td><td>${fiberPercent}%</td></tr>
+                            <tr><td>- Sugars</td><td>${Math.round(sugars * serving)}g</td><td></td></tr>
+                            <tr><td>Protein</td><td>${Math.round(protein * serving)}g</td><td>${proteinPercent}%</td></tr>
+                            <tr><td>Vitamin D</td><td>${Math.round(vitamind * serving)}mcg</td><td>${vitamindPercent}%</td></tr>
+                            <tr><td>Calcium</td><td>${Math.round(calcium * serving)}mg</td><td>${calciumPercent}%</td></tr>
+                            <tr><td>Iron</td><td>${Math.round(iron * serving)}mg</td><td>${ironPercent}%</td></tr>
+                            <tr><td>Potassium</td><td>${Math.round(potassium * serving)}mg</td><td>${potassiumPercent}%</td></tr>
+                            <tr><td colspan="3"><small>*Percent Daily Values are based on a 2,000 calorie diet.</small></td></tr>
+                        </table>
+                    `;
+                }
+            </script>
+        

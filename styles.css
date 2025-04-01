@@ -1,0 +1,457 @@
+/* ------------------------------------------------------------------------- */
+/* General Modal Styles */
+/* ------------------------------------------------------------------------- */
+.foodtracker-modal-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.foodtracker-modal-column {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.foodtracker-modal-column-full {
+    flex: 1;
+}
+
+.foodtracker-modal-row label {
+    font-weight: bold;
+    padding-right: 5px;
+}
+
+.foodtracker-modal-submit {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    background-color: var(--interactive-accent);
+    /* Theme's accent color */
+    color: var(--text-on-accent);
+    /* Ensure text contrasts with the accent */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.foodtracker-modal-submit:hover {
+    background-color: var(--interactive-accent-hover);
+    /* Theme's hover accent color */
+}
+
+/* ------------------------------------------------------------------------- */
+/* Nutrition Facts Table Styles */
+/* ------------------------------------------------------------------------- */
+
+/* Add padding above the servings dropdown */
+.nutfact-dropdown {
+    margin-top: 10px !important;
+    /* Add 10px of space above the dropdown */
+}
+
+/* Outer Table Styles */
+.outer-table {
+    width: auto !important;
+    /* Set the entire table width */
+    border-collapse: separate !important;
+    /* Use separate borders to control spacing */
+    border-spacing: 0 !important;
+    /* Remove spacing between cells */
+    margin: 10px auto;
+    /* Center the table */
+    background-color: #fff;
+    /* Optional: Background color */
+    border: 2px solid #000 !important;
+    /* Add a border around the entire table */
+}
+
+.outer-table td {
+    border: none !important;
+    /* Remove borders between cells */
+    padding: 10px !important;
+    /* Add padding inside the cells */
+}
+
+/* Inner Table Styles */
+.nutfact-table {
+    width: 350px !important;
+    /* Set the entire table width */
+    border-collapse: collapse !important;
+    /* Ensure borders collapse properly */
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+    color: #000 !important;
+    border: none;
+    /* Remove all borders */
+    padding: none;
+}
+
+.nutfact-table tr:first-child {
+    border: none !important;
+    /* Add a border around the first row */
+}
+
+.nutfact-table td,
+.nutfact-table th {
+    border: none !important;
+    /* Remove all vertical borders */
+    padding: 4px 8px !important;
+}
+
+/* Nutrition Facts Heading */
+.nutfact-heading-row td {
+    font-size: 2em !important;
+    font-weight: bold !important;
+    text-align: left !important;
+}
+
+/* Serving Size Row */
+.nutfact-serving-row td {
+    font-size: 1.25em !important;
+    border-bottom: 6px solid #000 !important;
+    /* Add a bottom border to the serving size row */
+}
+
+.nutfact-serving-label {
+    font-weight: bold !important;
+}
+
+.nutfact-serving-value {
+    text-align: right !important;
+}
+
+/* Amount per Serving Row */
+.nutfact-amount-row td {
+    font-size: 0.75em !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Calories Row */
+.nutfact-calories-row td {
+    font-size: 1.5em !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    margin-top: 0 !important;
+    border-bottom: 4px solid #000 !important;
+    /* Add a bottom border to the calories row */
+}
+
+.nutfact-calories-label {
+    font-weight: bold !important;
+}
+
+.nutfact-calories-value {
+    text-align: right !important;
+}
+
+/* % Daily Values Row */
+.nutfact-daily-values-row td {
+    text-align: right !important;
+    font-weight: bold !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+    border-bottom: 1px solid #000 !important;
+    /* Add a bottom border to the daily values row */
+}
+
+/* Total Fat Row */
+.nutfact-total-fat-row td {
+    border-bottom: 1px solid #000 !important;
+}
+
+/* Saturated Fat Row */
+.nutfact-saturated-fat-row td {
+    border-bottom: 1px solid #000 !important;
+    padding-left: 25px !important;
+    /* Indent the label */
+}
+
+/* Trans Fat Row */
+.nutfact-trans-fat-row td {
+    border-bottom: 1px solid #000 !important;
+    padding-left: 25px !important;
+    /* Indent the label */
+}
+
+/* Cholesterol Row */
+.nutfact-cholesterol-row td {
+    border-bottom: 1px solid #000 !important;
+}
+
+/* Sodium Row */
+.nutfact-sodium-row td {
+    border-bottom: 1px solid #000 !important;
+}
+
+/* Total Carbohydrate Row */
+.nutfact-total-carbohydrate-row td {
+    border-bottom: 1px solid #000 !important;
+}
+
+/* Fiber Row */
+.nutfact-fiber-row td {
+    border-bottom: 1px solid #000 !important;
+    padding-left: 25px !important;
+    /* Indent the label */
+}
+
+/* Sugars Row */
+.nutfact-sugars-row td {
+    border-bottom: 1px solid #000 !important;
+    padding-left: 25px !important;
+    /* Indent the label */
+}
+
+/* Protein Row */
+.nutfact-protein-row td {
+    border-bottom: 6px solid #000 !important;
+}
+
+/* Vitamin D Row */
+.nutfact-vitamin-d-row td {
+    border-bottom: 1px solid #000 !important;
+}
+
+/* Calcium Row */
+.nutfact-calcium-row td {
+    border-bottom: 1px solid #000 !important;
+}
+
+/* Iron Row */
+.nutfact-iron-row td {
+    border-bottom: 1px solid #000 !important;
+}
+
+/* Potassium Row */
+.nutfact-potassium-row td {
+    border-bottom: 2px solid #000 !important;
+}
+
+/* Right-aligned values for percentages */
+.nutfact-right {
+    text-align: right !important;
+}
+
+/* Footnote */
+.nutfact-note {
+    font-size: 12px !important;
+    text-align: left !important;
+    padding-top: 10px !important;
+}
+
+/* Column Widths */
+.nutfact-table td:first-child {
+    width: 200px !important;
+    /* Column 1 width */
+}
+
+.nutfact-table td:last-child {
+    width: 150px !important;
+    /* Column 2 width */
+}
+
+/* ------------------------------------------------------------------------- */
+/* Credate Food Note Modal */
+/* ------------------------------------------------------------------------- */
+.nutrition-label {
+    font-family: Arial, sans-serif;
+    background: white;
+    border: 2px solid black;
+    padding: 20px;
+    width: 350px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.input-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+.nutrition-title {
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: 4px solid black;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.nutrient-table {
+    border-top: 2px solid black;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.nutrient-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.nutrient-row input[type="text"] {
+    width: 100px;
+    padding: 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.nutrient-label {
+    flex: 1;
+    font-weight: bold;
+    font-size: 14px;
+    margin-right: 10px;
+    text-align: left;
+}
+
+.submit-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background: black;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.submit-button:hover {
+    background: #444;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Simple Foot Styles */
+/* ------------------------------------------------------------------------- */
+.food-tracker {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    padding-top: 10px;
+    opacity: 1;
+    transition: opacity 0.6s ease-in-out;
+}
+
+.food-tracker--hidden {
+    opacity: 0;
+}
+
+.food-tracker--wrapper::before,
+.food-tracker--nutrition::before {
+    content: 'Nutrition';
+    position: relative;
+    top: 10px;
+    text-transform: uppercase;
+    font-variant: var(--h2-variant, normal);
+    letter-spacing: -0.015em;
+    line-height: var(--h2-line-height, 1.5);
+    font-size: var(--h2-size, 16px);
+    color: var(--h2-color, #000);
+    font-weight: var(--h2-weight, bold);
+    font-style: var(--h2-style, normal);
+    font-family: var(--h2-font, Arial, sans-serif);
+}
+
+.food-tracker--wrapper table,
+.food-tracker--nutrition table {
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14px;
+    width: 90%;
+    border-collapse: collapse;
+}
+
+.food-tracker--wrapper table th,
+.food-tracker--nutrition table th {
+    font-size: 14px;
+    border-bottom: 1px solid #00000069;
+    text-align: left;
+}
+
+.food-tracker--wrapper table tr:last-child td,
+.food-tracker--nutrition table tr:last-child td {
+    font-size: 14px;
+    border-top: 1px solid #00000069;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Editor-Specific Styles */
+/* ------------------------------------------------------------------------- */
+.cm-sizer {
+    width: 100%;
+    padding-bottom: 0 !important;
+}
+
+.cm-sizer>.food-tracker {
+    margin-top: 15px;
+    max-width: var(--max-width, 800px);
+    width: var(--line-width, 90%);
+    margin-inline: var(--content-margin, auto) !important;
+}
+
+.cm-scroller .cm-contentContainer>.cm-content,
+.markdown-source-view .cm-contentContainer>.cm-content {
+    padding-top: 0 !important;
+    padding-bottom: unset !important;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Preview-Specific Styles */
+/* ------------------------------------------------------------------------- */
+.markdown-preview-sizer {
+    width: 100%;
+    padding-bottom: 0 !important;
+}
+
+.markdown-reading-view .markdown-preview-sizer {
+    width: 100%;
+}
+
+.markdown-reading-view .markdown-preview-sizer>.food-tracker {
+    padding-top: 10px !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* ------------------------------------------------------------------------- */
+/* Miscellaneous Styles */
+/* ------------------------------------------------------------------------- */
+.food-tracker>.food-tracker--dashed-line {
+    border-top-width: 1px;
+    border-top-style: dashed;
+    border-top-color: var(--text-accent, #ccc);
+    opacity: 1;
+}
+
+.food-tracker>.food-tracker--dates-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    color: var(--simple-foot-date-color, #666);
+    border-top-width: 1px;
+    border-top-style: dashed;
+    border-top-color: var(--text-accent, #ccc);
+    margin-top: 10px;
+}
+
+.food-tracker-settings input[type='text'],
+.food-tracker-settings input[type='number'] {
+    text-align: right;
+}

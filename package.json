@@ -1,0 +1,46 @@
+{
+  "name": "jots-food-tracker",
+  "version": "1.0.0",
+  "description": "Create a food database, count calories and macros, build recipes and more!",
+  "main": "dist/main.js",
+  "type": "module",
+  "module": "dist/main.js",
+  "scripts": {
+    "build": "vite build"
+  },
+  "keywords": [
+    "obsidian",
+    "plugin",
+    "food",
+    "jots",
+    "nutrition"
+  ],
+  "author": "Joseph Fieber",
+  "license": "MIT",
+  "dependencies": {
+    "obsidian": "^1.8.7",
+    "vite": "^6.2.4"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.3",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.1",
+    "rollup": "^4.36.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.5",
+    "vite": "^6.2.4"
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/jots-food-tracker.git"
+  },
+  "homepage": "https://github.com/yourusername/jots-food-tracker#readme",
+  "bugs": {
+    "url": "https://github.com/yourusername/jots-food-tracker/issues"
+  }
+}
