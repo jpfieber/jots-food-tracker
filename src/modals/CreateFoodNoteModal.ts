@@ -14,7 +14,7 @@ export class CreateFoodNoteModal extends Modal {
 
         const nameContainer = contentEl.createDiv({ cls: 'food-name-container' });
         nameContainer.createEl('label', { text: 'Food Item Full Name:', cls: 'input-label' });
-        const nameInput = nameContainer.createEl('input', { type: 'text', placeholder: 'e.g., Oatmeal', cls: 'input-field' });
+        const nameInput = nameContainer.createEl('input', { type: 'text', placeholder: 'e.g. Oatmeal', cls: 'input-field' });
 
         const groupContainer = contentEl.createDiv({ cls: 'group-container' });
         groupContainer.createEl('label', { text: 'Group:', cls: 'input-label' });
@@ -31,19 +31,19 @@ export class CreateFoodNoteModal extends Modal {
 
         const containerGramsContainer = contentEl.createDiv({ cls: 'container-grams-container' });
         containerGramsContainer.createEl('label', { text: 'Grams for Entire Container:', cls: 'input-label' });
-        const containerGramsInput = containerGramsContainer.createEl('input', { type: 'number', step: '0.1', placeholder: 'e.g., 500', cls: 'input-field' });
+        const containerGramsInput = containerGramsContainer.createEl('input', { type: 'number', step: '0.1', placeholder: 'e.g. 500', cls: 'input-field' });
 
         const nutritionTitle = contentEl.createEl('h2', { text: 'Nutrition Facts', cls: 'nutrition-title' });
 
         const servingInfo = contentEl.createDiv({ cls: 'serving-info' });
         servingInfo.createEl('div', { text: 'Serving Size:' });
-        const servingDescriptionInput = servingInfo.createEl('input', { type: 'text', placeholder: 'e.g., 1 cup' });
+        const servingDescriptionInput = servingInfo.createEl('input', { type: 'text', placeholder: 'e.g. 1 cup' });
 
         servingInfo.createEl('div', { text: 'Grams per Serving:' });
-        const servingGramsInput = servingInfo.createEl('input', { type: 'number', step: '0.1' });
+        const servingGramsInput = servingInfo.createEl('input', { type: 'number', step: '0.1', placeholder: 'e.g. 20' });
 
         servingInfo.createEl('div', { text: 'Calories:' });
-        const caloriesInput = servingInfo.createEl('input', { type: 'number', step: '1' });
+        const caloriesInput = servingInfo.createEl('input', { type: 'number', step: '1', placeholder: 'e.g. 100' });
 
         const tableContainer = contentEl.createDiv({ cls: 'nutrient-table' });
         const nutrients = [
@@ -65,7 +65,7 @@ export class CreateFoodNoteModal extends Modal {
         nutrients.forEach(nutrient => {
             const row = tableContainer.createDiv({ cls: 'nutrient-row' });
             row.createEl('div', { text: nutrient.label, cls: 'nutrient-label' });
-            const input = row.createEl('input', { type: 'text', placeholder: 'e.g., 5%' });
+            const input = row.createEl('input', { type: 'text', placeholder: 'e.g. 20 or 5%' });
             input.dataset.nutrientId = nutrient.id;
             nutrientInputs[nutrient.id] = input;
         });
