@@ -1,8 +1,10 @@
 import { Modal } from 'obsidian';
 
 export class CreateFoodNoteModal extends Modal {
-    constructor(app, onSubmit) {
+    constructor(app, existingFoodItems, foodGroups, onSubmit) {
         super(app);
+        this.existingFoodItems = existingFoodItems; // List of existing food items
+        this.foodGroups = foodGroups; // Customizable food groups from settings
         this.onSubmit = onSubmit;
     }
 
@@ -12,27 +14,49 @@ export class CreateFoodNoteModal extends Modal {
 
         const nutrientInputs = {};
 
+        // Food Name Input
         const nameContainer = contentEl.createDiv({ cls: 'food-name-container' });
         nameContainer.createEl('label', { text: 'Food Item Full Name:', cls: 'input-label' });
         const nameInput = nameContainer.createEl('input', { type: 'text', placeholder: 'e.g. Oatmeal', cls: 'input-field' });
 
-        const groupContainer = contentEl.createDiv({ cls: 'group-container' });
-        groupContainer.createEl('label', { text: 'Group:', cls: 'input-label' });
-        const groupSelect = groupContainer.createEl('select', { cls: 'input-field' });
-        const groupOptions = [
-            "American Indian", "Baby Foods", "Baked Foods", "Beans and Lentils", "Beverages",
-            "Breakfast Cereals", "Dairy and Egg Products", "Fast Foods", "Fats and Oils", "Fish",
-            "Fruits", "Grains and Pasta", "Meats", "Nuts and Seeds", "Prepared Meals",
-            "Restaurant Foods", "Snacks", "Soups and Sauces", "Spices and Herbs", "Sweets", "Vegetables"
-        ];
-        groupOptions.forEach(option => {
-            groupSelect.createEl('option', { text: option });
+        // Warning message container
+        const warningMessage = nameContainer.createDiv({ cls: 'warning-message', text: '' });
+        warningMessage.style.color = 'red';
+        warningMessage.style.display = 'none'; // Initially hidden
+
+        // Add event listener to check for existing food items
+        nameInput.addEventListener('input', () => {
+            const inputValue = nameInput.value.trim().toLowerCase();
+            const exists = this.existingFoodItems.some(item => item.toLowerCase() === inputValue);
+
+            if (exists) {
+                warningMessage.textContent = 'This food item already exists!';
+                warningMessage.style.display = 'block';
+            } else {
+                warningMessage.style.display = 'none';
+            }
         });
 
+        // Food Group Dropdown
+        const groupContainer = contentEl.createDiv({ cls: 'group-container' });
+        groupContainer.createEl('label', { text: 'Group:', cls: 'input-label' });
+
+        const groupSelect = groupContainer.createEl('select', { cls: 'input-field' });
+
+        if (this.foodGroups && this.foodGroups.length > 0) {
+            this.foodGroups.forEach(option => {
+                groupSelect.createEl('option', { text: option });
+            });
+        } else {
+            groupSelect.createEl('option', { text: 'No groups available' });
+        }
+        
+        // Grams for Entire Container
         const containerGramsContainer = contentEl.createDiv({ cls: 'container-grams-container' });
         containerGramsContainer.createEl('label', { text: 'Grams for Entire Container:', cls: 'input-label' });
         const containerGramsInput = containerGramsContainer.createEl('input', { type: 'number', step: '0.1', placeholder: 'e.g. 500', cls: 'input-field' });
 
+        // Nutrition Facts Section
         const nutritionTitle = contentEl.createEl('h2', { text: 'Nutrition Facts', cls: 'nutrition-title' });
 
         const servingInfo = contentEl.createDiv({ cls: 'serving-info' });
@@ -45,6 +69,7 @@ export class CreateFoodNoteModal extends Modal {
         servingInfo.createEl('div', { text: 'Calories:' });
         const caloriesInput = servingInfo.createEl('input', { type: 'number', step: '1', placeholder: 'e.g. 100' });
 
+        // Nutrient Table
         const tableContainer = contentEl.createDiv({ cls: 'nutrient-table' });
         const nutrients = [
             { label: 'Total Fat', id: 'fat', conversionFactor: 78 },
@@ -70,6 +95,7 @@ export class CreateFoodNoteModal extends Modal {
             nutrientInputs[nutrient.id] = input;
         });
 
+        // Submit Button
         const submitButton = contentEl.createEl('button', { text: 'Submit', cls: 'submit-button' });
         submitButton.addEventListener('click', () => {
             const name = nameInput.value.trim();

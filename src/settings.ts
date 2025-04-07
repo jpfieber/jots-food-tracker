@@ -195,6 +195,73 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
 
         updateMeals();
 
+        // Food Groups Section
+        containerEl.createEl("h3", { text: "Food Groups" });
+
+        const foodGroupsContainer = containerEl.createDiv();
+        const addFoodGroupButton = containerEl.createEl("button", { text: "Add Food Group" });
+
+        const updateFoodGroups = async () => {
+            foodGroupsContainer.empty();
+            this.plugin.settings.foodGroups.forEach((group, index) => {
+                const groupSetting = new Setting(foodGroupsContainer)
+                    .addText((text) =>
+                        text
+                            .setValue(group)
+                            .onChange(async (value) => {
+                                this.plugin.settings.foodGroups[index] = value;
+                                await this.plugin.saveSettings();
+                            })
+                    )
+                    .addButton((button) =>
+                        button
+                            .setIcon("arrow-up")
+                            .setTooltip("Move Up")
+                            .onClick(async () => {
+                                if (index > 0) {
+                                    const temp = this.plugin.settings.foodGroups[index - 1];
+                                    this.plugin.settings.foodGroups[index - 1] = this.plugin.settings.foodGroups[index];
+                                    this.plugin.settings.foodGroups[index] = temp;
+                                    await this.plugin.saveSettings();
+                                    updateFoodGroups();
+                                }
+                            })
+                    )
+                    .addButton((button) =>
+                        button
+                            .setIcon("arrow-down")
+                            .setTooltip("Move Down")
+                            .onClick(async () => {
+                                if (index < this.plugin.settings.foodGroups.length - 1) {
+                                    const temp = this.plugin.settings.foodGroups[index + 1];
+                                    this.plugin.settings.foodGroups[index + 1] = this.plugin.settings.foodGroups[index];
+                                    this.plugin.settings.foodGroups[index] = temp;
+                                    await this.plugin.saveSettings();
+                                    updateFoodGroups();
+                                }
+                            })
+                    )
+                    .addButton((button) =>
+                        button
+                            .setIcon("trash")
+                            .setTooltip("Delete")
+                            .onClick(async () => {
+                                this.plugin.settings.foodGroups.splice(index, 1);
+                                await this.plugin.saveSettings();
+                                updateFoodGroups();
+                            })
+                    );
+            });
+        };
+
+        addFoodGroupButton.addEventListener("click", async () => {
+            this.plugin.settings.foodGroups.push("New Group");
+            await this.plugin.saveSettings();
+            updateFoodGroups();
+        });
+
+        updateFoodGroups();
+
         this.addWebsiteSection(containerEl);
         this.addCoffeeSection(containerEl);
     }
@@ -226,7 +293,7 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
 
         const descriptionDiv = websiteDiv.createEl('div', { cls: 'website-description' });
         descriptionDiv.innerHTML = `
-            While Food Tracker works on its own, it is part of a system called 
+            While this plugin works on its own, it is part of a system called 
             <a href="https://jots.life" target="_blank">JOTS</a> that helps capture, organize, 
             and visualize your life's details.
         `;

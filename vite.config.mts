@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import copy from 'rollup-plugin-copy';
 
 export default defineConfig({
   build: {
@@ -13,12 +14,12 @@ export default defineConfig({
     outDir: 'dist', // Output directory
     emptyOutDir: true, // Clean the output directory before building
   },
-  css: {
-    // Ensure CSS is bundled into a single file
-    preprocessorOptions: {
-      css: {
-        charset: false,
-      },
-    },
-  },
+  plugins: [
+    copy({
+      targets: [
+        { src: 'src/styles.css', dest: 'dist' }, // Copy styles.css to dist
+      ],
+      hook: 'writeBundle', // Ensure the copy happens after the bundle is written
+    }),
+  ],
 });

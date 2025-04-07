@@ -127,7 +127,7 @@ export default class FoodTrackerPlugin extends Plugin {
 
     async loadSettings() {
         const data = await this.loadData();
-        this.settings = Object.assign({}, DEFAULT_SETTINGS, data);
+        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
 
         // Initialize the displayFooter setting if it doesn't exist
         if (this.settings.displayFooter === undefined) {
@@ -244,68 +244,76 @@ export default class FoodTrackerPlugin extends Plugin {
     async logFoodEntry() {
         const dv = this.app.plugins.plugins["dataview"].api;
         const items = dv.pages(`"${this.settings.foodFolder}" or "${this.settings.usdaFolder}" or "${this.settings.recipesFolder}"`).sort(n => n.file.name);
-
+    
         new UnifiedFoodEntryModal(this.app, this.settings, items, async ({ selectedDate, selectedMeal, selectedFood, selectedServing, quantity }) => {
             const selectedItemPath = items.find(item => item.file.name === selectedFood).file.path;
             const file = await app.vault.getAbstractFileByPath(selectedItemPath);
             const page = dv.page(selectedItemPath); // Use Dataview API to get inline fields
-
+        
             let calories = 0, fat = 0, carbs = 0, protein = 0;
             let multiplier = 1; // Default multiplier
             let amount = selectedServing.split(" | ")[0];
             let grams = selectedServing.split(" | ")[1];
-
+    
             if (grams === '100g') {
                 grams = 100;
-                amount = `${quantity * 100}g`; // Reflect decimal quantity in the amount
-                multiplier = (grams / 100) * quantity;
+                amount = `100g`; // Reflect decimal quantity in the amount
+                multiplier = quantity;
+                calories = page.calories || 0;
+                fat = page.fat || 0;
+                carbs = page.carbohydrates || 0; // Use `carbohydrates` for food/USDA items
+                protein = page.protein || 0;
+                amount = `${amount} x ${quantity}`; // Include quantity in the amount string
+                // Apply the multiplier to the nutritional values
+                calories = Math.round(calories * multiplier);
+                fat = Math.round(fat * multiplier * 10) / 10;
+                carbs = Math.round(carbs * multiplier * 10) / 10;
+                protein = Math.round(protein * multiplier * 10) / 10;
             } else if (selectedServing.includes('of Recipe')) {
                 // Handle recipes: Calculate values based on tasks and servings
                 const servings = page.servings || 1;
                 const tasks = page.file.tasks?.values || []; // Ensure tasks is an array
-
+    
                 calories = Math.round(tasks.reduce((sum, t) => sum + (t.cal || 0), 0) / servings);
                 fat = Math.round((tasks.reduce((sum, t) => sum + (t.fat || 0), 0) / servings) * 10) / 10;
                 carbs = Math.round((tasks.reduce((sum, t) => sum + (t.carbs || 0), 0) / servings) * 10) / 10;
                 protein = Math.round((tasks.reduce((sum, t) => sum + (t.protein || 0), 0) / servings) * 10) / 10;
-
+    
                 multiplier = quantity / servings; // Calculate multiplier for the selected serving
                 amount = `${selectedServing}`; // Keep the serving description as is
             } else {
                 // Handle food/USDA items: Retrieve values directly from frontmatter
                 const servingOptions = page.servings || []; // Retrieve all serving options
                 const selectedServingOption = servingOptions.find(option => option.includes(selectedServing));
-
+    
                 if (selectedServingOption) {
                     // Parse the selected serving to extract the multiplier
                     const servingParts = selectedServingOption.split(" | ");
                     const servingSize = parseFloat(servingParts[1]) || 1; // Extract serving size (e.g., "100g")
                     multiplier = (quantity * servingSize) / 100; // Adjust multiplier based on selected serving
                 }
-
+    
                 calories = page.calories || 0;
                 fat = page.fat || 0;
                 carbs = page.carbohydrates || 0; // Use `carbohydrates` for food/USDA items
-                protein = page.protein || 0;
-
+                protein = page.protein || 0;    
                 amount = `${amount} x ${quantity}`; // Include quantity in the amount string
-
+    
                 // Apply the multiplier to the nutritional values
                 calories = Math.round(calories * multiplier);
                 fat = Math.round(fat * multiplier * 10) / 10;
                 carbs = Math.round(carbs * multiplier * 10) / 10;
                 protein = Math.round(protein * multiplier * 10) / 10;
-            }
-
+                }
+    
             const prefix = this.settings.stringPrefixLetter;
-            //let string = `- [${prefix}] (item:: [[${selectedFood}]]) (${amount}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
             let string = `- [${prefix}] (serving:: ${selectedServing.split(" | ")[0]}) x(qty:: ${quantity}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
-
+    
             if (selectedMeal !== "Recipe") {
                 // For journals, include the meal type
                 string = `- [${prefix}] (meal:: ${selectedMeal}) - (item:: [[${selectedFood}]]) (${amount}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
             }
-
+    
             if (selectedMeal === "Recipe") {
                 // Insert at the current cursor position in the active file
                 const activeLeaf = this.app.workspace.activeLeaf;
@@ -321,7 +329,7 @@ export default class FoodTrackerPlugin extends Plugin {
                 const formattedDate = moment(selectedDate).format(this.settings.journalNameFormat);
                 const journalPath = `${this.settings.journalFolder}/${formattedDate}.md`;
                 const journalFile = await app.vault.getAbstractFileByPath(journalPath);
-
+    
                 if (journalFile instanceof TFile) {
                     let content = await app.vault.read(journalFile);
                     content = content.replace(/\n+$/, ''); // Remove blank lines at the end
@@ -336,17 +344,21 @@ export default class FoodTrackerPlugin extends Plugin {
     }
 
     async createFoodNote() {
-        new CreateFoodNoteModal(this.app, async ({ name, group, containerGrams, servingGrams, servingDescription, calories, nutrientValues }) => {
-            const fileName = `${name}.md`;
-            const filePath = `${this.settings.foodFolder}/${fileName}`;
-
-            // Construct the YAML frontmatter with dynamic nutrient properties
-            let servings = [`Default | 100g`, `${servingDescription} | ${servingGrams}g`];
-            if (!isNaN(containerGrams) && containerGrams > 0) {
-                servings.push(`Container | ${containerGrams}g`);
-            }
-
-            let fileContent = `---
+        new CreateFoodNoteModal(
+            this.app,
+            [], // Pass an empty array or the list of existing food items if available
+            this.settings.foodGroups, // Pass the foodGroups from the plugin settings
+            async ({ name, group, containerGrams, servingGrams, servingDescription, calories, nutrientValues }) => {
+                const fileName = `${name}.md`;
+                const filePath = `${this.settings.foodFolder}/${fileName}`;
+    
+                // Construct the YAML frontmatter with dynamic nutrient properties
+                let servings = [`Default | 100g`, `${servingDescription} | ${servingGrams}g`];
+                if (!isNaN(containerGrams) && containerGrams > 0) {
+                    servings.push(`Container | ${containerGrams}g`);
+                }
+    
+                let fileContent = `---
 fileClass: Ingredient
 aliases: []
 created: 
@@ -378,17 +390,17 @@ serv_g: 100
 await dv.view("_Meta/Scripts/IngredientsFooter")
 \`\`\`
             `;
-
-            try {
-                await this.app.vault.create(filePath, fileContent);
-                console.log(`Food note created at: ${filePath}`);
-            } catch (error) {
-                console.error('Error creating food note:', error);
+    
+                try {
+                    await this.app.vault.create(filePath, fileContent);
+                    console.log(`Food note created at: ${filePath}`);
+                } catch (error) {
+                    console.error('Error creating food note:', error);
+                }
             }
-        }).open();
+        ).open();
     }
-
-    async addFoodTracker(view: MarkdownView) {
+        async addFoodTracker(view: MarkdownView) {
         try {
             // Remove any existing footers
             const existingFooters = view.contentEl.querySelectorAll('.food-tracker');

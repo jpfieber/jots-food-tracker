@@ -455,3 +455,43 @@
 .food-tracker-settings input[type='number'] {
     text-align: right;
 }
+
+/* From the Modals */
+.FoodTracker-dropdown {
+    border: 1px solid #ccc;
+    max-height: 300px !important;
+    overflow-y: auto;
+    display: none;
+    position: fixed;
+    background-color: #fff;
+    z-index: 1000;
+}
+
+.FoodTracker-dropdown-item {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.FoodTracker-dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+.group-container .input-field {
+    width: 100%;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 14px;
+    height: auto; /* Ensure the height adjusts dynamically */
+}
+
+.group-container .input-field:focus {
+    height: auto; /* Ensure the dropdown expands fully when focused */
+}
+
+.group-container select {
+    overflow-y: visible; /* Ensure no scrolling */
+}
+
+.group-container select option {
+    height: 21px; /* Ensure each line is visible */
+}
