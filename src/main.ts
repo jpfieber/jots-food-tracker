@@ -242,82 +242,76 @@ export default class FoodTrackerPlugin extends Plugin {
     }
 
     async logFoodEntry() {
-        const dv = this.app.plugins.plugins["dataview"].api;
+        const dv = this.app.plugins.plugins["dataview"]?.api;
+        if (!dv) {
+            console.error("Dataview plugin is not enabled or loaded.");
+            return;
+        }
+    
         const items = dv.pages(`"${this.settings.foodFolder}" or "${this.settings.usdaFolder}" or "${this.settings.recipesFolder}"`).sort(n => n.file.name);
+        if (!items || items.length === 0) {
+            console.error("No items found in the specified folders.");
+            return;
+        }
     
         new UnifiedFoodEntryModal(this.app, this.settings, items, async ({ selectedDate, selectedMeal, selectedFood, selectedServing, quantity }) => {
-            const selectedItemPath = items.find(item => item.file.name === selectedFood).file.path;
-            const file = await app.vault.getAbstractFileByPath(selectedItemPath);
-            const page = dv.page(selectedItemPath); // Use Dataview API to get inline fields
-        
-            let calories = 0, fat = 0, carbs = 0, protein = 0;
-            let multiplier = 1; // Default multiplier
-            let amount = selectedServing.split(" | ")[0];
-            let grams = selectedServing.split(" | ")[1];
-    
-            if (grams === '100g') {
-                grams = 100;
-                amount = `100g`; // Reflect decimal quantity in the amount
-                multiplier = quantity;
-                calories = page.calories || 0;
-                fat = page.fat || 0;
-                carbs = page.carbohydrates || 0; // Use `carbohydrates` for food/USDA items
-                protein = page.protein || 0;
-                amount = `${amount} x ${quantity}`; // Include quantity in the amount string
-                // Apply the multiplier to the nutritional values
-                calories = Math.round(calories * multiplier);
-                fat = Math.round(fat * multiplier * 10) / 10;
-                carbs = Math.round(carbs * multiplier * 10) / 10;
-                protein = Math.round(protein * multiplier * 10) / 10;
-            } else if (selectedServing.includes('of Recipe')) {
-                // Handle recipes: Calculate values based on tasks and servings
-                const servings = page.servings || 1;
-                const tasks = page.file.tasks?.values || []; // Ensure tasks is an array
-    
-                calories = Math.round(tasks.reduce((sum, t) => sum + (t.cal || 0), 0) / servings);
-                fat = Math.round((tasks.reduce((sum, t) => sum + (t.fat || 0), 0) / servings) * 10) / 10;
-                carbs = Math.round((tasks.reduce((sum, t) => sum + (t.carbs || 0), 0) / servings) * 10) / 10;
-                protein = Math.round((tasks.reduce((sum, t) => sum + (t.protein || 0), 0) / servings) * 10) / 10;
-    
-                multiplier = quantity / servings; // Calculate multiplier for the selected serving
-                amount = `${selectedServing}`; // Keep the serving description as is
-            } else {
-                // Handle food/USDA items: Retrieve values directly from frontmatter
-                const servingOptions = page.servings || []; // Retrieve all serving options
-                const selectedServingOption = servingOptions.find(option => option.includes(selectedServing));
-    
-                if (selectedServingOption) {
-                    // Parse the selected serving to extract the multiplier
-                    const servingParts = selectedServingOption.split(" | ");
-                    const servingSize = parseFloat(servingParts[1]) || 1; // Extract serving size (e.g., "100g")
-                    multiplier = (quantity * servingSize) / 100; // Adjust multiplier based on selected serving
-                }
-    
-                calories = page.calories || 0;
-                fat = page.fat || 0;
-                carbs = page.carbohydrates || 0; // Use `carbohydrates` for food/USDA items
-                protein = page.protein || 0;    
-                amount = `${amount} x ${quantity}`; // Include quantity in the amount string
-    
-                // Apply the multiplier to the nutritional values
-                calories = Math.round(calories * multiplier);
-                fat = Math.round(fat * multiplier * 10) / 10;
-                carbs = Math.round(carbs * multiplier * 10) / 10;
-                protein = Math.round(protein * multiplier * 10) / 10;
-                }
-    
-            const prefix = this.settings.stringPrefixLetter;
-            let string = `- [${prefix}] (serving:: ${selectedServing.split(" | ")[0]}) x(qty:: ${quantity}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
-    
-            if (selectedMeal !== "Recipe") {
-                // For journals, include the meal type
-                string = `- [${prefix}] (meal:: ${selectedMeal}) - (item:: [[${selectedFood}]]) (${amount}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+            const selectedItem = items.find(item => item.file.name === selectedFood);
+            if (!selectedItem) {
+                console.error(`Selected food item not found: ${selectedFood}`);
+                return;
             }
     
+            const page = dv.page(selectedItem.file.path);
+            if (!page) {
+                console.error(`Dataview page not found for: ${selectedItem.file.path}`);
+                return;
+            }
+    
+            let { calories = 0, fat = 0, carbohydrates: carbs = 0, protein = 0 } = page;
+            let multiplier = 1;
+            let amount = selectedServing.split(" | ")[0];
+            const grams = selectedServing.split(" | ")[1];
+    
+            if (grams === '100g') {
+                multiplier = quantity;
+                amount = `100g`;
+            } else if (selectedServing.includes('of Recipe')) {
+                const servings = page.servings || 1;
+                const tasks = page.file.tasks?.values || [];
+                multiplier = quantity / servings;
+    
+                calories = tasks.reduce((sum, t) => sum + (t.cal || 0), 0) / servings;
+                fat = tasks.reduce((sum, t) => sum + (t.fat || 0), 0) / servings;
+                carbs = tasks.reduce((sum, t) => sum + (t.carbs || 0), 0) / servings;
+                protein = tasks.reduce((sum, t) => sum + (t.protein || 0), 0) / servings;
+            } else {
+                const servingOptions = page.servings || [];
+                const selectedServingOption = servingOptions.find(option => option.includes(selectedServing));
+                if (selectedServingOption) {
+                    const servingSize = parseFloat(selectedServingOption.split(" | ")[1]) || 1;
+                    multiplier = (quantity * servingSize) / 100;
+                }
+            }
+    
+            // Scale nutrient values
+            calories = Math.round(calories * multiplier);
+            fat = Math.round(fat * multiplier * 10) / 10;
+            carbs = Math.round(carbs * multiplier * 10) / 10;
+            protein = Math.round(protein * multiplier * 10) / 10;
+    
+            const prefix = this.settings.stringPrefixLetter;
+
+            // Add the quantity conditionally
+            const quantityString = quantity !== 1 ? ` x (qty:: ${quantity})` : '';
+
+            let string = `- [${prefix}] (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+
+            if (selectedMeal !== "Recipe") {
+                string = `- [${prefix}] (meal:: ${selectedMeal}) - (item:: [[${selectedFood}]]) (${amount}${quantityString}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+            }    
             if (selectedMeal === "Recipe") {
-                // Insert at the current cursor position in the active file
                 const activeLeaf = this.app.workspace.activeLeaf;
-                if (activeLeaf && activeLeaf.view.getViewType() === "markdown") {
+                if (activeLeaf?.view.getViewType() === "markdown") {
                     const editor = activeLeaf.view.sourceMode.cmEditor;
                     const cursor = editor.getCursor();
                     editor.replaceRange(string + '\n', cursor);
@@ -325,16 +319,14 @@ export default class FoodTrackerPlugin extends Plugin {
                     console.error("No active markdown editor found.");
                 }
             } else {
-                // Append to the journal file
                 const formattedDate = moment(selectedDate).format(this.settings.journalNameFormat);
                 const journalPath = `${this.settings.journalFolder}/${formattedDate}.md`;
-                const journalFile = await app.vault.getAbstractFileByPath(journalPath);
+                const journalFile = await this.app.vault.getAbstractFileByPath(journalPath);
     
                 if (journalFile instanceof TFile) {
-                    let content = await app.vault.read(journalFile);
+                    let content = await this.app.vault.read(journalFile);
                     content = content.replace(/\n+$/, ''); // Remove blank lines at the end
-                    await app.vault.modify(journalFile, content + '\n' + string);
-                    // Trigger footer update after modifying the journal file
+                    await this.app.vault.modify(journalFile, content + '\n' + string);
                     this.immediateUpdateFoodTracker();
                 } else {
                     console.log('Journal file not found.');
