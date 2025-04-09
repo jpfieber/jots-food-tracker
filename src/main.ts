@@ -378,9 +378,6 @@ serv_g: 100
 
 # ${name}
 
-\`\`\`dataviewjs
-await dv.view("_Meta/Scripts/IngredientsFooter")
-\`\`\`
             `;
     
                 try {
@@ -415,12 +412,12 @@ await dv.view("_Meta/Scripts/IngredientsFooter")
 
             // Determine the content generator based on the file path
             let contentGenerator: (file: TFile) => Promise<HTMLElement | null> | undefined;
-            if (file.path.includes("FoodTracker/Recipes")) {
+            if (file.path.includes(`${this.settings.recipesFolder}`)) {
                 // Use the new recipe footer generator
                 contentGenerator = (file) => generateRecipeFooter(file, this.app);
-            } else if (file.path.includes("FoodTracker/")) {
+            } else if (file.path.includes(`${this.settings.foodFolder}`)) {
                 contentGenerator = (file) => generateFoodTrackerFooter(file, this.app);
-            } else if (file.path.includes("Chronological/Journals/")) {
+            } else if (file.path.includes(`${this.settings.journalFolder}`)) {
                 contentGenerator = this.nutritionFooter.bind(this);
             }
 
@@ -471,19 +468,6 @@ await dv.view("_Meta/Scripts/IngredientsFooter")
     }
 
     async updateFoodTracker() {
-        /*  // Update CSS custom properties
-          document.documentElement.style.setProperty('--food-tracker-border-width', `${this.settings.borderWidth}px`);
-          document.documentElement.style.setProperty('--food-tracker-border-style', this.settings.borderStyle);
-          document.documentElement.style.setProperty('--food-tracker-border-opacity', this.settings.borderOpacity);
-          document.documentElement.style.setProperty('--food-tracker-border-radius', `${this.settings.borderRadius}px`);
-          document.documentElement.style.setProperty('--food-tracker-dates-opacity', this.settings.datesOpacity);
-          document.documentElement.style.setProperty('--food-tracker-links-opacity', this.settings.linksOpacity);
-          document.documentElement.style.setProperty('--food-tracker-date-color', this.settings.dateColor);
-          document.documentElement.style.setProperty('--food-tracker-border-color', this.settings.borderColor);
-          document.documentElement.style.setProperty('--food-tracker-link-color', this.settings.linkColor);
-          document.documentElement.style.setProperty('--food-tracker-link-background', this.settings.linkBackgroundColor);
-          document.documentElement.style.setProperty('--food-tracker-link-border-color', this.settings.linkBorderColor);
-  */
         const activeLeaf = this.app.workspace.activeLeaf;
         if (activeLeaf?.view instanceof MarkdownView) {
             await this.addFoodTracker(activeLeaf.view);
