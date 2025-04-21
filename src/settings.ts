@@ -128,6 +128,19 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
                     })
             );
 
+        // Nest Journal Entries Setting
+        new Setting(containerEl)
+            .setName("Nest Journal Entries in Callout")
+            .setDesc("When enabled, food entries in journals will be nested in a callout block.")
+            .addToggle((toggle) =>
+                toggle
+                    .setValue(this.plugin.settings.nestJournalEntries || false)
+                    .onChange(async (value) => {
+                        this.plugin.settings.nestJournalEntries = value;
+                        await this.plugin.saveSettings();
+                    })
+            );
+
         // Meals Section
         containerEl.createEl("h3", { text: "Meals" });
 

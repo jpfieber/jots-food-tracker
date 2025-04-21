@@ -300,14 +300,15 @@ export default class FoodTrackerPlugin extends Plugin {
             protein = Math.round(protein * multiplier * 10) / 10;
     
             const prefix = this.settings.stringPrefixLetter;
+            const calloutPrefix = this.settings.nestJournalEntries ? '> ' : '';
 
             // Add the quantity conditionally
-            const quantityString = quantity !== 1 ? ` x (qty:: ${quantity})` : '';
+            const quantityString = quantity !== 1 ? ` x(qty:: ${quantity})` : '';
 
-            let string = `- [${prefix}] (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+            let string = `${calloutPrefix}- [${prefix}] (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
 
             if (selectedMeal !== "Recipe") {
-                string = `- [${prefix}] (meal:: ${selectedMeal}) - (item:: [[${selectedFood}]]) (${amount}${quantityString}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+                string = `${calloutPrefix}- [${prefix}] (meal:: ${selectedMeal}) - (item:: [[${selectedFood}]]) (${amount}${quantityString}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
             }    
             if (selectedMeal === "Recipe") {
                 const activeLeaf = this.app.workspace.activeLeaf;

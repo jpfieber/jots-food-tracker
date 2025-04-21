@@ -15,7 +15,8 @@ export const DEFAULT_SETTINGS: FoodTrackerSettings = {
     stringSVG: '',
     excludedFolders: [],
     updateDelay: 3000,
-    displayFooter: true
+    displayFooter: true,
+    nestJournalEntries: false
 };
 
 export type FoodTrackerSettings = {
@@ -31,4 +32,5 @@ export type FoodTrackerSettings = {
     excludedFolders: string[];
     updateDelay: number;
     displayFooter: boolean;
+    nestJournalEntries: boolean;
 };
