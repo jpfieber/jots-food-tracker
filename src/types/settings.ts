@@ -16,7 +16,10 @@ export const DEFAULT_SETTINGS: FoodTrackerSettings = {
     excludedFolders: [],
     updateDelay: 3000,
     displayFooter: true,
-    nestJournalEntries: false
+    nestJournalEntries: false,
+    dateColor: '#888888',
+    frontmatterExclusionField: '',
+    excludedParentSelectors: []
 };
 
 export type FoodTrackerSettings = {
@@ -33,4 +36,7 @@ export type FoodTrackerSettings = {
     updateDelay: number;
     displayFooter: boolean;
     nestJournalEntries: boolean;
+    dateColor: string;
+    frontmatterExclusionField: string;
+    excludedParentSelectors: string[];
 };

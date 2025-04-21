@@ -1,4 +1,4 @@
-import { Plugin, TFile, MarkdownRenderer, PluginSettingTab, Setting, Modal, moment, MarkdownView } from 'obsidian';
+import { Plugin, TFile, MarkdownRenderer, PluginSettingTab, Setting, Modal, MarkdownView, App, MarkdownViewModeType } from 'obsidian';
 import { UnifiedFoodEntryModal } from './modals/UnifiedFoodEntryModal';
 import { CreateFoodNoteModal } from './modals/CreateFoodNoteModal';
 import { FoodTrackerSettings, DEFAULT_SETTINGS } from './types/settings';
@@ -6,20 +6,99 @@ import { FoodTrackerSettingTab } from "./settings";
 import { debounce } from './utils/debounce';
 import { generateFoodTrackerFooter } from './FoodTrackerFooter';
 import { generateRecipeFooter } from "./recipeFooter";
+import { createDiv, isTruthy } from './utils/dom';
+import moment from 'moment';
 
-class FoodTrackerSettings {
-    constructor() {
-        this.excludedFolders = [];
-        this.showReleaseNotes = true;
-        this.lastVersion = null;
-        this.updateDelay = DEFAULT_SETTINGS.updateDelay;
-        this.excludedParentSelectors = [];
-        this.frontmatterExclusionField = '';
+interface DataviewAPI {
+    pages: (query: string) => any[];
+    page: (path: string) => any;
+}
+
+interface ObsidianTasksPlugin {
+    getTasks: () => any[];
+}
+
+declare module 'obsidian' {
+    interface App {
+        plugins: {
+            plugins: {
+                "dataview": { api: DataviewAPI };
+                "obsidian-tasks-plugin": ObsidianTasksPlugin;
+            };
+        };
+    }
+
+    interface View {
+        mode?: string;
+        getMode?(): string;
+        sourceMode?: {
+            cmEditor: CodeMirror.Editor;
+        };
     }
 }
 
+interface Task {
+    path: string;
+    description: string;
+    status?: {
+        configuration?: {
+            symbol: string;
+        };
+    };
+    cal?: number;
+    fat?: number;
+    carbs?: number;
+    protein?: number;
+}
+
+interface ModalSubmitData {
+    selectedDate: string;
+    selectedMeal: string;
+    selectedFood: string;
+    selectedServing: string;
+    quantity: number;
+}
+
+interface CreateFoodNoteData {
+    name: string;
+    group: string;
+    containerGrams?: number;
+    servingGrams: number;
+    servingDescription: string;
+    calories: number;
+    nutrientValues: {
+        fat?: number;
+        saturatedfat?: number;
+        transfat?: number;
+        cholesterol?: number;
+        sodium?: number;
+        carbs?: number;
+        fiber?: number;
+        sugars?: number;
+        protein?: number;
+        vitamind?: number;
+        calcium?: number;
+        iron?: number;
+        potassium?: number;
+    };
+}
+
+interface DataviewItem {
+    file: {
+        name: string;
+        path: string;
+    };
+}
+
+interface ContentGenerator {
+    (file: TFile): Promise<HTMLElement | null>;
+}
+
 export default class FoodTrackerPlugin extends Plugin {
-    settings: FoodTrackerSettings;
+    settings: FoodTrackerSettings = DEFAULT_SETTINGS;
+    contentObserver: MutationObserver | null = null;
+    containerObserver: MutationObserver | null = null;
+    immediateUpdateFoodTracker: () => Promise<void> = async () => Promise.resolve();
 
     async onload() {
         console.log('Food Tracker: Loading plugin');
@@ -247,93 +326,127 @@ export default class FoodTrackerPlugin extends Plugin {
             console.error("Dataview plugin is not enabled or loaded.");
             return;
         }
-    
-        const items = dv.pages(`"${this.settings.foodFolder}" or "${this.settings.usdaFolder}" or "${this.settings.recipesFolder}"`).sort(n => n.file.name);
-        if (!items || items.length === 0) {
-            console.error("No items found in the specified folders.");
-            return;
+
+        try {
+            const query = `"${this.settings.foodFolder}" or "${this.settings.usdaFolder}" or "${this.settings.recipesFolder}"`;
+            const pages = dv.pages(query);
+            
+            // Handle both array-like and iterable responses from Dataview
+            const rawItems = Array.from(pages || []);
+            if (!rawItems || rawItems.length === 0) {
+                console.error("No items found in the specified folders");
+                return;
+            }
+
+            const items = rawItems.filter((item): item is DataviewItem => {
+                if (!item || typeof item !== 'object') return false;
+                if (!('file' in item)) return false;
+                const file = item.file;
+                if (!file || typeof file !== 'object') return false;
+                if (!('name' in file) || typeof file.name !== 'string') return false;
+                if (!('path' in file) || typeof file.path !== 'string') return false;
+                return true;
+            });
+
+            items.sort((a, b) => {
+                try {
+                    return a.file.name.localeCompare(b.file.name);
+                } catch (e) {
+                    console.error("Error sorting items:", e);
+                    return 0;
+                }
+            });
+
+            if (items.length === 0) {
+                console.error("No valid items found in the specified folders.");
+                return;
+            }
+
+            new UnifiedFoodEntryModal(this.app, this.settings, items, async (data: ModalSubmitData) => {
+                const { selectedDate, selectedMeal, selectedFood, selectedServing, quantity } = data;
+                const selectedItem = items.find((item: DataviewItem) => item.file.name === selectedFood);
+                if (!selectedItem) {
+                    console.error(`Selected food item not found: ${selectedFood}`);
+                    return;
+                }
+
+                const page = dv.page(selectedItem.file.path);
+                if (!page) {
+                    console.error(`Dataview page not found for: ${selectedItem.file.path}`);
+                    return;
+                }
+
+                let { calories = 0, fat = 0, carbohydrates: carbs = 0, protein = 0 } = page;
+                let multiplier = 1;
+                let amount = selectedServing.split(" | ")[0];
+                const grams = selectedServing.split(" | ")[1];
+
+                if (grams === '100g') {
+                    multiplier = quantity;
+                    amount = "100g";
+                } else if (selectedServing.includes('of Recipe')) {
+                    const servings = page.servings || 1;
+                    const tasks = page.file.tasks?.values || [];
+                    multiplier = quantity / servings;
+
+                    calories = tasks.reduce((sum: number, t: Task) => sum + (t.cal || 0), 0) / servings;
+                    fat = tasks.reduce((sum: number, t: Task) => sum + (t.fat || 0), 0) / servings;
+                    carbs = tasks.reduce((sum: number, t: Task) => sum + (t.carbs || 0), 0) / servings;
+                    protein = tasks.reduce((sum: number, t: Task) => sum + (t.protein || 0), 0) / servings;
+                } else {
+                    const servingOptions = page.servings || [];
+                    const selectedServingOption = servingOptions.find((option: string) => option.includes(selectedServing));
+                    if (selectedServingOption) {
+                        const servingSize = parseFloat(selectedServingOption.split(" | ")[1]) || 1;
+                        multiplier = (quantity * servingSize) / 100;
+                    }
+                }
+
+                // Scale nutrient values
+                calories = Math.round(calories * multiplier);
+                fat = Math.round(fat * multiplier * 10) / 10;
+                carbs = Math.round(carbs * multiplier * 10) / 10;
+                protein = Math.round(protein * multiplier * 10) / 10;
+
+                const prefix = this.settings.stringPrefixLetter;
+                const calloutPrefix = this.settings.nestJournalEntries ? '> ' : '';
+
+                // Add the quantity conditionally
+                const quantityString = quantity !== 1 ? ` x(qty:: ${quantity})` : '';
+
+                let string = `${calloutPrefix}- [${prefix}] (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+
+                if (selectedMeal !== "Recipe") {
+                    string = `${calloutPrefix}- [${prefix}] (meal:: ${selectedMeal}) - (item:: [[${selectedFood}]]) (${amount}${quantityString}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+                }
+
+                if (selectedMeal === "Recipe") {
+                    const activeLeaf = this.app.workspace.activeLeaf;
+                    if (activeLeaf?.view instanceof MarkdownView && activeLeaf.view.sourceMode?.cmEditor) {
+                        const editor = activeLeaf.view.sourceMode.cmEditor;
+                        const cursor = editor.getCursor();
+                        editor.replaceRange(string + '\n', cursor);
+                    } else {
+                        console.error("No active markdown editor found.");
+                    }
+                } else {
+                    const formattedDate = moment(selectedDate).format(this.settings.journalNameFormat);
+                    const journalPath = `${this.settings.journalFolder}/${formattedDate}.md`;
+                    const journalFile = this.app.vault.getAbstractFileByPath(journalPath);
+
+                    if (journalFile instanceof TFile) {
+                        let content = await this.app.vault.read(journalFile);
+                        content = content.replace(/\n+$/, ''); // Remove blank lines at the end
+                        await this.app.vault.modify(journalFile, content + '\n' + string);
+                        this.immediateUpdateFoodTracker();
+                    } else {
+                        console.log('Journal file not found.');
+                    }
+                }
+            }).open();
+        } catch (error) {
+            console.error("Error in logFoodEntry:", error);
         }
-    
-        new UnifiedFoodEntryModal(this.app, this.settings, items, async ({ selectedDate, selectedMeal, selectedFood, selectedServing, quantity }) => {
-            const selectedItem = items.find(item => item.file.name === selectedFood);
-            if (!selectedItem) {
-                console.error(`Selected food item not found: ${selectedFood}`);
-                return;
-            }
-    
-            const page = dv.page(selectedItem.file.path);
-            if (!page) {
-                console.error(`Dataview page not found for: ${selectedItem.file.path}`);
-                return;
-            }
-    
-            let { calories = 0, fat = 0, carbohydrates: carbs = 0, protein = 0 } = page;
-            let multiplier = 1;
-            let amount = selectedServing.split(" | ")[0];
-            const grams = selectedServing.split(" | ")[1];
-    
-            if (grams === '100g') {
-                multiplier = quantity;
-                amount = `100g`;
-            } else if (selectedServing.includes('of Recipe')) {
-                const servings = page.servings || 1;
-                const tasks = page.file.tasks?.values || [];
-                multiplier = quantity / servings;
-    
-                calories = tasks.reduce((sum, t) => sum + (t.cal || 0), 0) / servings;
-                fat = tasks.reduce((sum, t) => sum + (t.fat || 0), 0) / servings;
-                carbs = tasks.reduce((sum, t) => sum + (t.carbs || 0), 0) / servings;
-                protein = tasks.reduce((sum, t) => sum + (t.protein || 0), 0) / servings;
-            } else {
-                const servingOptions = page.servings || [];
-                const selectedServingOption = servingOptions.find(option => option.includes(selectedServing));
-                if (selectedServingOption) {
-                    const servingSize = parseFloat(selectedServingOption.split(" | ")[1]) || 1;
-                    multiplier = (quantity * servingSize) / 100;
-                }
-            }
-    
-            // Scale nutrient values
-            calories = Math.round(calories * multiplier);
-            fat = Math.round(fat * multiplier * 10) / 10;
-            carbs = Math.round(carbs * multiplier * 10) / 10;
-            protein = Math.round(protein * multiplier * 10) / 10;
-    
-            const prefix = this.settings.stringPrefixLetter;
-            const calloutPrefix = this.settings.nestJournalEntries ? '> ' : '';
-
-            // Add the quantity conditionally
-            const quantityString = quantity !== 1 ? ` x(qty:: ${quantity})` : '';
-
-            let string = `${calloutPrefix}- [${prefix}] (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
-
-            if (selectedMeal !== "Recipe") {
-                string = `${calloutPrefix}- [${prefix}] (meal:: ${selectedMeal}) - (item:: [[${selectedFood}]]) (${amount}${quantityString}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
-            }    
-            if (selectedMeal === "Recipe") {
-                const activeLeaf = this.app.workspace.activeLeaf;
-                if (activeLeaf?.view.getViewType() === "markdown") {
-                    const editor = activeLeaf.view.sourceMode.cmEditor;
-                    const cursor = editor.getCursor();
-                    editor.replaceRange(string + '\n', cursor);
-                } else {
-                    console.error("No active markdown editor found.");
-                }
-            } else {
-                const formattedDate = moment(selectedDate).format(this.settings.journalNameFormat);
-                const journalPath = `${this.settings.journalFolder}/${formattedDate}.md`;
-                const journalFile = await this.app.vault.getAbstractFileByPath(journalPath);
-    
-                if (journalFile instanceof TFile) {
-                    let content = await this.app.vault.read(journalFile);
-                    content = content.replace(/\n+$/, ''); // Remove blank lines at the end
-                    await this.app.vault.modify(journalFile, content + '\n' + string);
-                    this.immediateUpdateFoodTracker();
-                } else {
-                    console.log('Journal file not found.');
-                }
-            }
-        }).open();
     }
 
     async createFoodNote() {
@@ -341,16 +454,17 @@ export default class FoodTrackerPlugin extends Plugin {
             this.app,
             [], // Pass an empty array or the list of existing food items if available
             this.settings.foodGroups, // Pass the foodGroups from the plugin settings
-            async ({ name, group, containerGrams, servingGrams, servingDescription, calories, nutrientValues }) => {
+            async (data: CreateFoodNoteData) => {
+                const { name, group, containerGrams, servingGrams, servingDescription, calories, nutrientValues } = data;
                 const fileName = `${name}.md`;
                 const filePath = `${this.settings.foodFolder}/${fileName}`;
-    
+
                 // Construct the YAML frontmatter with dynamic nutrient properties
                 let servings = [`Default | 100g`, `${servingDescription} | ${servingGrams}g`];
-                if (!isNaN(containerGrams) && containerGrams > 0) {
+                if (containerGrams !== undefined && !isNaN(containerGrams) && containerGrams > 0) {
                     servings.push(`Container | ${containerGrams}g`);
                 }
-    
+
                 let fileContent = `---
 fileClass: Ingredient
 aliases: []
@@ -378,9 +492,8 @@ serv_g: 100
 ---
 
 # ${name}
+`;
 
-            `;
-    
                 try {
                     await this.app.vault.create(filePath, fileContent);
                     console.log(`Food note created at: ${filePath}`);
@@ -390,7 +503,8 @@ serv_g: 100
             }
         ).open();
     }
-        async addFoodTracker(view: MarkdownView) {
+
+    async addFoodTracker(view: MarkdownView) {
         try {
             // Remove any existing footers
             const existingFooters = view.contentEl.querySelectorAll('.food-tracker');
@@ -412,18 +526,14 @@ serv_g: 100
             this.disconnectObservers();
 
             // Determine the content generator based on the file path
-            let contentGenerator: (file: TFile) => Promise<HTMLElement | null> | undefined;
+            let contentGenerator: ContentGenerator;
             if (file.path.includes(`${this.settings.recipesFolder}`)) {
-                // Use the new recipe footer generator
-                contentGenerator = (file) => generateRecipeFooter(file, this.app);
+                contentGenerator = (file: TFile) => generateRecipeFooter(file, this.app);
             } else if (file.path.includes(`${this.settings.foodFolder}`)) {
-                contentGenerator = (file) => generateFoodTrackerFooter(file, this.app);
+                contentGenerator = (file: TFile) => generateFoodTrackerFooter(file, this.app);
             } else if (file.path.includes(`${this.settings.journalFolder}`)) {
                 contentGenerator = this.nutritionFooter.bind(this);
-            }
-
-            // Skip processing if no content generator is defined
-            if (!contentGenerator) {
+            } else {
                 console.log(`No content generator defined for file: ${file.path}`);
                 return;
             }
@@ -439,15 +549,15 @@ serv_g: 100
 
             // Determine the container based on the view mode
             if ((view.getMode?.() ?? view.mode) === 'preview') {
-                const previewSections = content.querySelectorAll('.markdown-preview-section');
+                const previewSections = Array.from(content.querySelectorAll('.markdown-preview-section'));
                 for (const section of previewSections) {
                     if (!section.closest('.internal-embed')) {
-                        container = section;
+                        container = this.castToHTMLElement(section);
                         break;
                     }
                 }
-            } else if ((view.getMode?.() ?? view.mode) === 'source' || (view.getMode?.() ?? view.mode) === 'live') {
-                container = content.querySelector('.cm-sizer');
+            } else if ((view.getMode?.() ?? view.mode) === 'source') {
+                container = this.castToHTMLElement(content.querySelector('.cm-sizer')!);
             }
 
             if (!container) {
@@ -485,7 +595,7 @@ serv_g: 100
         }
     }
 
-    observeContainer(container) {
+    observeContainer(container: HTMLElement) {
         if (this.containerObserver) {
             this.containerObserver.disconnect();
         }
@@ -539,7 +649,7 @@ serv_g: 100
         }
     }
 
-    shouldExcludeFile(filePath) {
+    shouldExcludeFile(filePath: string) {
         // Check excluded folders
         if (this.settings?.excludedFolders?.some(folder => filePath.startsWith(folder))) {
             return true;
@@ -547,7 +657,7 @@ serv_g: 100
 
         // Check frontmatter exclusion field
         const file = this.app.vault.getAbstractFileByPath(filePath);
-        if (file && this.settings.frontmatterExclusionField) {
+        if (file instanceof TFile && this.settings.frontmatterExclusionField) {
             const cache = this.app.metadataCache.getFileCache(file);
             const frontmatterValue = cache?.frontmatter?.[this.settings.frontmatterExclusionField];
             if (this.isTruthy(frontmatterValue)) {
@@ -561,7 +671,7 @@ serv_g: 100
             return this.settings?.excludedParentSelectors?.some(selector => {
                 try {
                     // Check if any parent element matches the selector
-                    let element = activeLeaf.view.containerEl;
+                    let element: HTMLElement | null = this.castToHTMLElement(activeLeaf.view.containerEl);
                     while (element) {
                         if (element.matches?.(selector)) {
                             return true;
@@ -595,12 +705,12 @@ serv_g: 100
             const activeView = this.app.workspace.getActiveViewOfType(MarkdownView);
             if (!activeView) return;
 
-            const readingView = activeView.contentEl.querySelector('.markdown-reading-view');
+            const readingView = this.castToHTMLElement(activeView.contentEl.querySelector('.markdown-reading-view')!);
             if (!readingView) return;
 
-            const preview = readingView.querySelector('.markdown-preview-view');
-            const previewSizer = readingView.querySelector('.markdown-preview-sizer');
-            const footer = readingView.querySelector('.markdown-preview-sizer > .food-tracker');
+            const preview = this.castToHTMLElement(readingView.querySelector('.markdown-preview-view')!);
+            const previewSizer = this.castToHTMLElement(readingView.querySelector('.markdown-preview-sizer')!);
+            const footer = this.castToHTMLElement(readingView.querySelector('.markdown-preview-sizer > .food-tracker')!);
 
             if (!preview || !previewSizer || !footer) return;
 
@@ -633,12 +743,12 @@ serv_g: 100
         }
 
         // Get tasks from the Tasks plugin
-        const tasks = tasksPlugin.getTasks().filter(task => task.path === file.path);
+        const tasks = tasksPlugin.getTasks().filter((task: Task) => task.path === file.path);
 
         if (tasks.length > 0) {
             const headers = ["Meal", "Calories", "Fat", "Carbs", "Protein"];
             const meals = ["Breakfast", "Morning Snack", "Lunch", "Afternoon Snack", "Dinner", "Evening Snack"];
-            let summary = [];
+            let summary: any[] = [];
             let mealTaskCount = 0;
 
             function highlight(value: string): string {
@@ -713,5 +823,13 @@ serv_g: 100
         }
 
         return null;
+    }
+
+    private isTruthy(value: any): boolean {
+        return isTruthy(value);
+    }
+
+    private castToHTMLElement(element: Element): HTMLElement {
+        return element as HTMLElement;
     }
 }
