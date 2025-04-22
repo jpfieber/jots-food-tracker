@@ -11,5 +11,6 @@
 			"GitHub Sponsors": "https://github.com/sponsors/jpfieber",
 			"PayPal": "https://www.paypal.biz/jpfieber"
 		},
-	"isDesktopOnly": false
+	"isDesktopOnly": false,
+	"css": "styles.css"
 }

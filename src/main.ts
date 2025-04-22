@@ -230,34 +230,7 @@ export default class FoodTrackerPlugin extends Plugin {
     }
 
     injectCSSFromFile() {
-        try {
-            // Dynamically import the styles.css file
-            const cssPath = new URL('./styles.css', import.meta.url).href;
-
-            // Fetch the CSS file content
-            fetch(cssPath)
-                .then((response) => response.text())
-                .then((css) => {
-                    // Remove any existing style element for styles.css
-                    const existingStyle = document.getElementById("FoodTracker-styles-css");
-                    if (existingStyle) {
-                        existingStyle.remove();
-                    }
-
-                    // Create a new style element for styles.css
-                    const style = document.createElement("style");
-                    style.id = "FoodTracker-styles-css";
-                    style.textContent = css;
-
-                    // Append the style element to the document head
-                    document.head.appendChild(style);
-                })
-                .catch((error) => {
-                    console.error("Error injecting CSS from file:", error);
-                });
-        } catch (error) {
-            console.error("Error injecting CSS from file:", error);
-        }
+        // No need to do anything - Obsidian automatically loads styles.css from the plugin directory
     }
 
     removeCSS() {
