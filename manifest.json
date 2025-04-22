@@ -8,9 +8,9 @@
 	"authorUrl": "https://jots.life",
 	"fundingUrl": {
 		"Buy Me a Coffee": "https://www.buymeacoffee.com/jpfieber",
-			"GitHub Sponsors": "https://github.com/sponsors/jpfieber",
-			"PayPal": "https://www.paypal.biz/jpfieber"
-		},
+		"GitHub Sponsors": "https://github.com/sponsors/jpfieber",
+		"PayPal": "https://www.paypal.biz/jpfieber"
+	},
 	"isDesktopOnly": false,
 	"css": "styles.css"
 }

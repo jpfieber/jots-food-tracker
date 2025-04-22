@@ -4,7 +4,11 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
-    "lib": ["DOM", "ESNext", "ScriptHost"],
+    "lib": [
+      "DOM",
+      "ESNext",
+      "ScriptHost"
+    ],
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
@@ -13,11 +17,20 @@
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
     "noImplicitAny": true,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     "paths": {
-      "obsidian": ["node_modules/obsidian/dist/obsidian.d.ts"]
+      "obsidian": [
+        "node_modules/obsidian/dist/obsidian.d.ts"
+      ]
     }
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "**/*.spec.ts"]
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
 }

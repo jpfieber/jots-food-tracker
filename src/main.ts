@@ -303,7 +303,7 @@ export default class FoodTrackerPlugin extends Plugin {
         try {
             const query = `"${this.settings.foodFolder}" or "${this.settings.usdaFolder}" or "${this.settings.recipesFolder}"`;
             const pages = dv.pages(query);
-            
+
             // Handle both array-like and iterable responses from Dataview
             const rawItems = Array.from(pages || []);
             if (!rawItems || rawItems.length === 0) {

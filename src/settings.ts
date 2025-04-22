@@ -27,19 +27,19 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
                         await this.plugin.saveSettings();
                     })
             );
-        
+
         // Food Folder Setting
         new Setting(containerEl)
-        .setName('Food Notes Folder')
-        .setDesc('Set the location of the folder containing your personal Food Notes.')
-        .addText(text =>
-            text
-                .setPlaceholder('Enter folder path')
-                .setValue(this.plugin.settings.foodFolder)
-                .onChange(async (value) => {
-                    this.plugin.settings.foodFolder = value.trim();
-                    await this.plugin.saveSettings();
-                })
+            .setName('Food Notes Folder')
+            .setDesc('Set the location of the folder containing your personal Food Notes.')
+            .addText(text =>
+                text
+                    .setPlaceholder('Enter folder path')
+                    .setValue(this.plugin.settings.foodFolder)
+                    .onChange(async (value) => {
+                        this.plugin.settings.foodFolder = value.trim();
+                        await this.plugin.saveSettings();
+                    })
             );
 
         // USDA Folder Setting

@@ -500,17 +500,21 @@
     border: 1px solid #ccc;
     background-color: #fff;
     font-size: 14px;
-    height: auto; /* Ensure the height adjusts dynamically */
+    height: auto;
+    /* Ensure the height adjusts dynamically */
 }
 
 .group-container .input-field:focus {
-    height: auto; /* Ensure the dropdown expands fully when focused */
+    height: auto;
+    /* Ensure the dropdown expands fully when focused */
 }
 
 .group-container select {
-    overflow-y: visible; /* Ensure no scrolling */
+    overflow-y: visible;
+    /* Ensure no scrolling */
 }
 
 .group-container select option {
-    height: 21px; /* Ensure each line is visible */
+    height: 21px;
+    /* Ensure each line is visible */
 }
