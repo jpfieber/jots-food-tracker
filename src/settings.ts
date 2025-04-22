@@ -28,6 +28,22 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
                     })
             );
 
+        // Footer Order Setting
+        new Setting(containerEl)
+            .setName("Footer Order")
+            .setDesc("Set the order of this footer relative to other footers (lower numbers appear first)")
+            .addText(text => 
+                text
+                    .setValue(String(this.plugin.settings.footerOrder))
+                    .onChange(async (value) => {
+                        const numValue = Number(value);
+                        if (!isNaN(numValue)) {
+                            this.plugin.settings.footerOrder = numValue;
+                            await this.plugin.saveSettings();
+                        }
+                    })
+            );
+
         // Food Folder Setting
         new Setting(containerEl)
             .setName('Food Notes Folder')
@@ -290,8 +306,8 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
 
         const logoLink = websiteDiv.createEl('a', {
             href: 'https://jots.life',
-            target: '_blank',
         });
+        logoLink.target = '_blank';
         const logoImg = logoLink.createEl('img', {
             attr: {
                 src: 'https://jots.life/jots-logo-512/',

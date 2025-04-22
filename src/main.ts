@@ -594,6 +594,9 @@ serv_g: 100
         try {
             // Create the footer container
             const FoodTracker = createDiv({ cls: 'food-tracker food-tracker--hidden' });
+            // Set the order using CSS
+            FoodTracker.style.order = String(this.settings.footerOrder);
+            
             FoodTracker.createDiv({ cls: 'food-tracker--dashed-line' });
             const SFwrapper = FoodTracker.createDiv({ cls: 'food-tracker--wrapper' });
 

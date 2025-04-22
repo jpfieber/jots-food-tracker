@@ -19,7 +19,8 @@ export const DEFAULT_SETTINGS: FoodTrackerSettings = {
     nestJournalEntries: false,
     dateColor: '#888888',
     frontmatterExclusionField: '',
-    excludedParentSelectors: []
+    excludedParentSelectors: [],
+    footerOrder: 100
 };
 
 export type FoodTrackerSettings = {
@@ -39,4 +40,5 @@ export type FoodTrackerSettings = {
     dateColor: string;
     frontmatterExclusionField: string;
     excludedParentSelectors: string[];
+    footerOrder: number;
 };
