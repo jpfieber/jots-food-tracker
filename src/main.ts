@@ -704,7 +704,7 @@ serv_g: 100
             console.error("Tasks plugin is not enabled or loaded.");
             return null;
         }
-        
+
         // Get tasks from the Tasks plugin
         const tasks = tasksPlugin.getTasks().filter((task: Task) => task.path === file.path);
         if (tasks.length > 0) {
