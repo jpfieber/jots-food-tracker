@@ -366,11 +366,13 @@ export default class FoodTrackerPlugin extends Plugin {
                     const selectedServingOption = servingOptions.find((option: string) => option.includes(selectedServing));
                     if (selectedServingOption) {
                         const servingSize = parseFloat(selectedServingOption.split(" | ")[1]) || 1;
+                        // Calculate multiplier based on the ratio of selected serving size to base serving size (100g)
                         multiplier = (quantity * servingSize) / 100;
                     }
                 }
 
-                // Scale nutrient values                calories = Math.round(calories * multiplier);
+                // Scale nutrient values using the corrected multiplier
+                calories = Math.round(calories * multiplier);
                 fat = Math.round(fat * multiplier * 10) / 10;
                 carbs = Math.round(carbs * multiplier * 10) / 10;
                 protein = Math.round(protein * multiplier * 10) / 10;
