@@ -518,3 +518,48 @@
     height: 21px;
     /* Ensure each line is visible */
 }
+
+/* ------------------------------------------------------------------------- */
+/* Meal Settings Styles */
+/* ------------------------------------------------------------------------- */
+.meal-setting {
+    margin-bottom: 12px;
+    padding: 8px;
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    background-color: var(--background-primary);
+}
+
+.meal-setting .setting-item {
+    border: none;
+    padding: 0;
+}
+
+.meal-setting .setting-item-control {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 0;
+}
+
+.meal-setting input {
+    background-color: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+
+.meal-setting input[type="time"] {
+    width: 100px;
+    padding: 4px;
+}
+
+.meal-setting input[type="text"] {
+    width: 150px;
+}
+
+.meal-setting .emoji-input {
+    width: 60px;
+    text-align: center;
+}

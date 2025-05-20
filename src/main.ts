@@ -53,6 +53,7 @@ interface Task {
 
 interface ModalSubmitData {
     selectedDate: string;
+    selectedTime: string;
     selectedMeal: string;
     selectedFood: string;
     selectedServing: string;
@@ -333,10 +334,8 @@ export default class FoodTrackerPlugin extends Plugin {
             if (items.length === 0) {
                 console.error("No valid items found in the specified folders.");
                 return;
-            }
-
-            new UnifiedFoodEntryModal(this.app, this.settings, items, async (data: ModalSubmitData) => {
-                const { selectedDate, selectedMeal, selectedFood, selectedServing, quantity } = data;
+            } new UnifiedFoodEntryModal(this.app, this.settings, items, async (data: ModalSubmitData) => {
+                const { selectedDate, selectedTime, selectedMeal, selectedFood, selectedServing, quantity } = data;
                 const selectedItem = items.find((item: DataviewItem) => item.file.name === selectedFood);
                 if (!selectedItem) {
                     console.error(`Selected food item not found: ${selectedFood}`);
@@ -379,18 +378,14 @@ export default class FoodTrackerPlugin extends Plugin {
                 calories = Math.round(calories * multiplier);
                 fat = Math.round(fat * multiplier * 10) / 10;
                 carbs = Math.round(carbs * multiplier * 10) / 10;
-                protein = Math.round(protein * multiplier * 10) / 10;
-
-                const prefix = this.settings.stringPrefixLetter;
+                protein = Math.round(protein * multiplier * 10) / 10; const prefix = this.settings.stringPrefixLetter;
                 const calloutPrefix = this.settings.nestJournalEntries ? '> ' : '';
-
-                // Add the quantity conditionally
-                const quantityString = quantity !== 1 ? ` x(qty:: ${quantity})` : '';
-
-                let string = `${calloutPrefix}- [${prefix}] (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+                const selectedMealConfig = this.settings.meals.find(m => m.name === selectedMeal);
+                const mealEmoji = selectedMealConfig?.emoji || '🍽️';                // Add the quantity conditionally
+                const quantityString = quantity !== 1 ? ` x(qty:: ${quantity})` : ''; let string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
 
                 if (selectedMeal !== "Recipe") {
-                    string = `${calloutPrefix}- [${prefix}] (meal:: ${selectedMeal}) - (item:: [[${selectedFood}]]) (${amount}${quantityString}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+                    string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) (item:: [[${selectedFood}]]) (${amount}${quantityString}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
                 }
 
                 if (selectedMeal === "Recipe") {
@@ -596,7 +591,7 @@ serv_g: 100
             const FoodTracker = createDiv({ cls: 'food-tracker food-tracker--hidden' });
             // Set the order using CSS
             FoodTracker.style.order = String(this.settings.footerOrder);
-            
+
             FoodTracker.createDiv({ cls: 'food-tracker--dashed-line' });
             const SFwrapper = FoodTracker.createDiv({ cls: 'food-tracker--wrapper' });
 

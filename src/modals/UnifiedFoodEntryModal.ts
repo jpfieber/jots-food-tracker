@@ -1,12 +1,56 @@
-import { Modal } from 'obsidian';
+import { App, Modal } from 'obsidian';
 import moment from 'moment';
+import { FoodTrackerSettings } from '../types/settings';
+
+interface DataViewItem {
+    file: {
+        name: string;
+        path: string;
+    };
+}
+
+interface ModalSubmitData {
+    selectedDate: string;
+    selectedTime: string;
+    selectedMeal: string;
+    selectedFood: string;
+    selectedServing: string;
+    quantity: number;
+}
 
 export class UnifiedFoodEntryModal extends Modal {
-    constructor(app, settings, items, onSubmit) {
+    private settings: FoodTrackerSettings;
+    private items: DataViewItem[];
+    private onSubmit: (data: ModalSubmitData) => void;
+
+    constructor(
+        app: App,
+        settings: FoodTrackerSettings,
+        items: DataViewItem[],
+        onSubmit: (data: ModalSubmitData) => void
+    ) {
         super(app);
         this.settings = settings;
         this.items = items;
         this.onSubmit = onSubmit;
+    }
+
+    private shouldBeSelectedMeal(meal: { name: string; defaultTime: string; emoji: string }): boolean {
+        const currentHour = parseInt(moment().format('HH'));
+        const mealHour = parseInt(meal.defaultTime.split(':')[0]);
+
+        // Find the meal with the closest default time to current time
+        const nextMealTime = this.settings.meals.reduce((prev, curr) => {
+            const currHour = parseInt(curr.defaultTime.split(':')[0]);
+            const prevHour = parseInt(prev.defaultTime.split(':')[0]);
+
+            const currDiff = Math.abs(currHour - currentHour);
+            const prevDiff = Math.abs(prevHour - currentHour);
+
+            return currDiff < prevDiff ? curr : prev;
+        });
+
+        return meal === nextMealTime;
     }
 
     onOpen() {
@@ -14,18 +58,41 @@ export class UnifiedFoodEntryModal extends Modal {
         contentEl.addClass('FoodTracker-modal');
         contentEl.createEl('h2', { text: 'Log Food Entry' });
 
-        // First Row: Date and Meal
+        // First Row: Date, Time and Meal
         const firstRow = contentEl.createDiv({ cls: 'FoodTracker-modal-row' });
+
         const dateContainer = firstRow.createDiv({ cls: 'FoodTracker-modal-column' });
         dateContainer.createEl('label', { text: 'Date:' });
         const dateInput = dateContainer.createEl('input', { type: 'date' });
         dateInput.value = moment().format('YYYY-MM-DD'); // Default to today
 
+        const timeContainer = firstRow.createDiv({ cls: 'FoodTracker-modal-column' });
+        timeContainer.createEl('label', { text: 'Time:' });
+        const timeInput = timeContainer.createEl('input', { type: 'time' });
+        timeInput.value = moment().format('HH:mm'); // Default to current time
+
         const mealContainer = firstRow.createDiv({ cls: 'FoodTracker-modal-column' });
         mealContainer.createEl('label', { text: 'Meal:' });
         const mealSelect = mealContainer.createEl('select');
         this.settings.meals.forEach(meal => {
-            mealSelect.createEl('option', { text: meal });
+            const option = mealSelect.createEl('option', {
+                text: `${meal.emoji} ${meal.name}`,
+                value: meal.name
+            });
+            option.dataset.defaultTime = meal.defaultTime;
+            option.dataset.emoji = meal.emoji;
+            if (this.shouldBeSelectedMeal(meal)) {
+                option.selected = true;
+                timeInput.value = meal.defaultTime;
+            }
+        });
+
+        // Update time when meal changes
+        mealSelect.addEventListener('change', () => {
+            const selectedOption = mealSelect.options[mealSelect.selectedIndex];
+            if (selectedOption.dataset.defaultTime) {
+                timeInput.value = selectedOption.dataset.defaultTime;
+            }
         });
 
         // Second Row: Food Item
@@ -153,23 +220,29 @@ export class UnifiedFoodEntryModal extends Modal {
                 // Default option if the file is not found
                 servingSelect.createEl('option', { text: '1 serving' });
             }
-        };
-
-        // Submit Button
+        };        // Submit Button
         const submitButton = contentEl.createEl('button', { text: 'Submit', cls: 'FoodTracker-modal-submit' });
         submitButton.addEventListener('click', async () => {
             const selectedDate = dateInput.value;
+            const selectedTime = timeInput.value;
             const selectedMeal = mealSelect.value;
             const selectedFood = foodInput.value;
             const selectedServing = servingSelect.value;
             const quantity = parseFloat(quantityInput.value);
 
-            if (!selectedDate || !selectedMeal || !selectedFood || !selectedServing || isNaN(quantity)) {
+            if (!selectedDate || !selectedTime || !selectedMeal || !selectedFood || !selectedServing || isNaN(quantity)) {
                 console.error('Invalid input');
                 return;
             }
 
-            this.onSubmit({ selectedDate, selectedMeal, selectedFood, selectedServing, quantity });
+            this.onSubmit({
+                selectedDate,
+                selectedTime,
+                selectedMeal,
+                selectedFood,
+                selectedServing,
+                quantity
+            });
             this.close();
         });
     }

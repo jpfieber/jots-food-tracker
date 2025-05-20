@@ -32,7 +32,7 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
         new Setting(containerEl)
             .setName("Footer Order")
             .setDesc("Set the order of this footer relative to other footers (lower numbers appear first)")
-            .addText(text => 
+            .addText(text =>
                 text
                     .setValue(String(this.plugin.settings.footerOrder))
                     .onChange(async (value) => {
@@ -161,20 +161,44 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
         containerEl.createEl("h3", { text: "Meals" });
 
         const mealsContainer = containerEl.createDiv();
-        const addMealButton = containerEl.createEl("button", { text: "Add Meal" });
-
-        const updateMeals = async () => {
+        const addMealButton = containerEl.createEl("button", { text: "Add Meal" }); const updateMeals = async () => {
             mealsContainer.empty();
             this.plugin.settings.meals.forEach((meal, index) => {
                 const mealSetting = new Setting(mealsContainer)
-                    .addText((text) =>
-                        text
-                            .setValue(meal)
+                    .addText(text => {
+                        const t = text
+                            .setValue(meal.name)
+                            .setPlaceholder("Meal name")
                             .onChange(async (value) => {
-                                this.plugin.settings.meals[index] = value;
+                                this.plugin.settings.meals[index].name = value;
                                 await this.plugin.saveSettings();
-                            })
-                    )
+                            });
+                        t.inputEl.style.width = '150px';
+                        return t;
+                    })
+                    .addText(text => {
+                        const t = text
+                            .setValue(meal.defaultTime)
+                            .setPlaceholder("HH:mm")
+                            .onChange(async (value) => {
+                                this.plugin.settings.meals[index].defaultTime = value;
+                                await this.plugin.saveSettings();
+                            });
+                        t.inputEl.style.width = '100px';
+                        t.inputEl.type = 'time';
+                        return t;
+                    })
+                    .addText(text => {
+                        const t = text
+                            .setValue(meal.emoji)
+                            .setPlaceholder("🍽️")
+                            .onChange(async (value) => {
+                                this.plugin.settings.meals[index].emoji = value;
+                                await this.plugin.saveSettings();
+                            });
+                        t.inputEl.style.width = '60px';
+                        return t;
+                    })
                     .addButton((button) =>
                         button
                             .setIcon("arrow-up")
@@ -213,11 +237,16 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
                                 updateMeals();
                             })
                     );
-            });
-        };
 
-        addMealButton.addEventListener("click", async () => {
-            this.plugin.settings.meals.push("New Meal");
+                // Style the container
+                mealSetting.settingEl.addClass('meal-setting');
+            });
+        }; addMealButton.addEventListener("click", async () => {
+            this.plugin.settings.meals.push({
+                name: "New Meal",
+                defaultTime: "12:00",
+                emoji: "🍽️"
+            });
             await this.plugin.saveSettings();
             updateMeals();
         });

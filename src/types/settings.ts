@@ -2,9 +2,13 @@ export const DEFAULT_SETTINGS: FoodTrackerSettings = {
     foodFolder: 'Food',
     usdaFolder: 'USDA',
     recipesFolder: 'Recipes',
-    journalFolder: 'Journal',
-    journalNameFormat: 'YYYY-MM-DD',
-    meals: ['Breakfast', 'Lunch', 'Dinner', 'Snack'],
+    journalFolder: 'Journal', journalNameFormat: 'YYYY-MM-DD',
+    meals: [
+        { name: 'Breakfast', defaultTime: '07:00', emoji: '🍳' },
+        { name: 'Lunch', defaultTime: '12:00', emoji: '🥪' },
+        { name: 'Dinner', defaultTime: '18:00', emoji: '🍽️' },
+        { name: 'Snack', defaultTime: '15:00', emoji: '🍎' }
+    ],
     foodGroups: [
         "American Indian", "Baby Foods", "Baked Foods", "Beans and Lentils", "Beverages",
         "Breakfast Cereals", "Dairy and Egg Products", "Fast Foods", "Fats and Oils", "Fish",
@@ -27,9 +31,12 @@ export type FoodTrackerSettings = {
     foodFolder: string;
     usdaFolder: string;
     recipesFolder: string;
-    journalFolder: string;
-    journalNameFormat: string;
-    meals: string[];
+    journalFolder: string; journalNameFormat: string;
+    meals: Array<{
+        name: string;
+        defaultTime: string;
+        emoji: string;
+    }>;
     foodGroups: string[];
     stringPrefixLetter: string;
     stringSVG: string;
