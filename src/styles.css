@@ -16,9 +16,34 @@
     flex: 1;
 }
 
+.FoodTracker-modal-column-vertical {
+    flex: 1;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
 .FoodTracker-modal-row label {
     font-weight: bold;
     padding-right: 5px;
+}
+
+.FoodTracker-modal-column-vertical label {
+    margin-bottom: 5px;
+}
+
+.FoodTracker-modal-column-vertical input {
+    width: 100%;
+}
+
+.FoodTracker-modal-column-vertical input[type="date"],
+.FoodTracker-modal-column-vertical input[type="time"] {
+    width: 100%;
+    padding: 4px;
+    background-color: var(--background-secondary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    font-size: 14px;
 }
 
 .FoodTracker-modal-submit {
