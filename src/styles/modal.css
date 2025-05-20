@@ -1,0 +1,98 @@
+.FoodTracker-modal {
+    padding: 20px;
+}
+
+.FoodTracker-modal-row {
+    display: flex;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.FoodTracker-modal-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.FoodTracker-modal-column-full {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.FoodTracker-modal-column-vertical {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.FoodTracker-mode-toggle {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+}
+
+.FoodTracker-mode-toggle button {
+    padding: 8px 16px;
+    border: 1px solid var(--interactive-accent);
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.FoodTracker-mode-toggle button.active {
+    background-color: var(--interactive-accent);
+    color: var(--text-on-accent);
+}
+
+/* Input Styling */
+.FoodTracker-modal input[type="number"],
+.FoodTracker-modal input[type="text"],
+.FoodTracker-modal input[type="date"],
+.FoodTracker-modal input[type="time"],
+.FoodTracker-modal select {
+    padding: 6px 8px;
+    border-radius: 4px;
+    border: 1px solid var(--background-modifier-border);
+    background-color: var(--background-primary);
+    width: 100%;
+}
+
+/* Dropdown Styling */
+.FoodTracker-dropdown {
+    background-color: var(--background-primary);
+    border: 1px solid var(--background-modifier-border);
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.FoodTracker-dropdown-item {
+    padding: 8px 12px;
+}
+
+.FoodTracker-dropdown-item:hover {
+    background-color: var(--background-modifier-hover);
+}
+
+/* Submit Button */
+.FoodTracker-modal-submit {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: var(--interactive-accent);
+    color: var(--text-on-accent);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.FoodTracker-modal-submit:hover {
+    background-color: var(--interactive-accent-hover);
+}

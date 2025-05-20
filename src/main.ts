@@ -56,8 +56,13 @@ interface ModalSubmitData {
     selectedTime: string;
     selectedMeal: string;
     selectedFood: string;
-    selectedServing: string;
-    quantity: number;
+    selectedServing?: string;
+    quantity?: number;
+    isManual: boolean;
+    calories?: number;
+    fat?: number;
+    carbs?: number;
+    protein?: number;
 }
 
 interface CreateFoodNoteData {
@@ -297,7 +302,7 @@ export default class FoodTrackerPlugin extends Plugin {
         try {
             const query = `"${this.settings.foodFolder}" or "${this.settings.usdaFolder}" or "${this.settings.recipesFolder}"`;
             const pages = dv.pages(query);
-            const meals = this.settings.meals; // Already a string array, no need for mapping
+            const meals = this.settings.meals;
 
             // Handle both array-like and iterable responses from Dataview
             const rawItems = Array.from(pages || []);
@@ -328,71 +333,120 @@ export default class FoodTrackerPlugin extends Plugin {
             if (items.length === 0) {
                 console.error("No valid items found in the specified folders.");
                 return;
-            } new UnifiedFoodEntryModal(this.app, this.settings, items, async (data: ModalSubmitData) => {
-                const { selectedDate, selectedTime, selectedMeal, selectedFood, selectedServing, quantity } = data;
-                const selectedItem = items.find((item: DataviewItem) => item.file.name === selectedFood);
-                if (!selectedItem) {
-                    console.error(`Selected food item not found: ${selectedFood}`);
-                    return;
-                }
+            }
 
-                const page = dv.page(selectedItem.file.path);
-                if (!page) {
-                    console.error(`Dataview page not found for: ${selectedItem.file.path}`);
-                    return;
-                }
+            new UnifiedFoodEntryModal(this.app, this.settings, items, async (data: ModalSubmitData) => {
+                const {
+                    selectedDate,
+                    selectedTime,
+                    selectedMeal,
+                    selectedFood,
+                    selectedServing,
+                    quantity,
+                    isManual,
+                    calories: manualCalories,
+                    fat: manualFat,
+                    carbs: manualCarbs,
+                    protein: manualProtein
+                } = data;
 
-                let { calories = 0, fat = 0, carbohydrates: carbs = 0, protein = 0 } = page;
+                let calories: number | undefined,
+                    fat: number | undefined,
+                    carbs: number | undefined,
+                    protein: number | undefined;
+                let amount = '';
                 let multiplier = 1;
-                let amount = selectedServing.split(" | ")[0];
-                const grams = selectedServing.split(" | ")[1];
 
-                if (grams === '100g') {
-                    multiplier = quantity;
-                    amount = "100g";
-                } else if (selectedServing.includes('of Recipe')) {
-                    const servings = page.servings || 1;
-                    const tasks = page.file.tasks?.values || [];
-                    const prefix = this.settings.stringPrefixLetter;
-                    const relevantTasks = tasks.filter((t: Task) => t.status === prefix);
-                    multiplier = quantity / servings;
-
-                    calories = relevantTasks.reduce((sum: number, t: Task) => sum + (t.cal || 0), 0) / servings;
-                    fat = relevantTasks.reduce((sum: number, t: Task) => sum + (t.fat || 0), 0) / servings;
-                    carbs = relevantTasks.reduce((sum: number, t: Task) => sum + (t.carbs || 0), 0) / servings;
-                    protein = relevantTasks.reduce((sum: number, t: Task) => sum + (t.protein || 0), 0) / servings;
+                if (isManual) {
+                    // Use the manually entered values directly, no multiplier needed
+                    calories = manualCalories;
+                    fat = manualFat;
+                    carbs = manualCarbs;
+                    protein = manualProtein;
                 } else {
-                    const servingOptions = page.servings || [];
-                    const selectedServingOption = servingOptions.find((option: string) => option.includes(selectedServing));
-                    if (selectedServingOption) {
-                        const servingSize = parseFloat(selectedServingOption.split(" | ")[1]) || 1;
-                        // Calculate multiplier based on the ratio of selected serving size to base serving size (100g)
-                        multiplier = (quantity * servingSize) / 100;
+                    // Process automatic mode values
+                    const selectedItem = items.find((item: DataviewItem) => item.file.name === selectedFood);
+                    if (!selectedItem) {
+                        console.error(`Selected food item not found: ${selectedFood}`);
+                        return;
+                    }
+
+                    const page = dv.page(selectedItem.file.path);
+                    if (!page) {
+                        console.error(`Dataview page not found for: ${selectedItem.file.path}`);
+                        return;
+                    }
+
+                    // Handle automatic mode nutrient calculations
+                    if (selectedServing?.includes('of Recipe')) {
+                        const servings = page.servings || 1;
+                        const tasks = page.file.tasks?.values || [];
+                        const prefix = this.settings.stringPrefixLetter;
+                        const relevantTasks = tasks.filter((t: Task) => t.status === prefix);
+                        multiplier = quantity ?? 1 / servings;
+
+                        calories = relevantTasks.reduce((sum: number, t: Task) => sum + (t.cal || 0), 0) / servings;
+                        fat = relevantTasks.reduce((sum: number, t: Task) => sum + (t.fat || 0), 0) / servings;
+                        carbs = relevantTasks.reduce((sum: number, t: Task) => sum + (t.carbs || 0), 0) / servings;
+                        protein = relevantTasks.reduce((sum: number, t: Task) => sum + (t.protein || 0), 0) / servings;
+                    } else {
+                        // Handle automatic mode for regular food items
+                        let pageCalories = 0, pageFat = 0, pageCarbs = 0, pageProtein = 0;
+
+                        // Safely extract values from page with fallbacks
+                        if (typeof page === 'object' && page !== null) {
+                            pageCalories = typeof page.calories === 'number' ? page.calories : 0;
+                            pageFat = typeof page.fat === 'number' ? page.fat : 0;
+                            pageCarbs = typeof page.carbohydrates === 'number' ? page.carbohydrates : 0;
+                            pageProtein = typeof page.protein === 'number' ? page.protein : 0;
+                        }
+
+                        if (selectedServing) {
+                            amount = selectedServing.split(" | ")[0];
+                            const grams = selectedServing.split(" | ")[1];
+
+                            if (grams === '100g') {
+                                multiplier = quantity ?? 1;
+                                amount = "100g";
+                            } else {
+                                const servingOptions = page.servings || [];
+                                const selectedServingOption = servingOptions.find((option: string) => option.includes(selectedServing));
+                                if (selectedServingOption) {
+                                    const servingSize = parseFloat(selectedServingOption.split(" | ")[1]) || 1;
+                                    multiplier = ((quantity ?? 1) * servingSize) / 100;
+                                }
+                            }
+                        }
+
+                        // Scale nutrient values using the corrected multiplier
+                        calories = Math.round(pageCalories * multiplier);
+                        fat = Math.round(pageFat * multiplier * 10) / 10;
+                        carbs = Math.round(pageCarbs * multiplier * 10) / 10;
+                        protein = Math.round(pageProtein * multiplier * 10) / 10;
                     }
                 }
 
-                // Scale nutrient values using the corrected multiplier
-                calories = Math.round(calories * multiplier);
-                fat = Math.round(fat * multiplier * 10) / 10;
-                carbs = Math.round(carbs * multiplier * 10) / 10;
-                protein = Math.round(protein * multiplier * 10) / 10;
-
+                // Build the task string
                 const prefix = this.settings.stringPrefixLetter;
 
-                // Format quantity string based on amount type
-                const quantityString = amount === '100g' ? '' : quantity === 1 ? ' ' : ` ${quantity}x `;                // Build string differently for recipes vs journal entries
+                // Format quantity string only for automatic entries
+                const qtyText = !isManual && quantity !== undefined && quantity !== 1 ? ` x(qty:: ${quantity})` : '';
+                const servingText = isManual ? 'Manual Entry' : (selectedServing?.split(" | ")[0] ?? '1 serving');
+
                 let string;
-                if (selectedMeal === "Recipe") {
+                if (selectedMeal === "Recipe" && !isManual) {
                     // Recipe entries: no callout, no time, no type
-                    string = `- [${prefix}] (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+                    string = `- [${prefix}] (serving:: ${servingText}${qtyText}) (item:: [[${selectedFood}]]) [cal:: ${calories ?? 0}], [fat:: ${fat ?? 0}], [carbs:: ${carbs ?? 0}], [protein:: ${protein ?? 0}]`;
                 } else {
-                    // Regular journal entries: include callout if enabled, time, and meal type with different quantity format
+                    // Regular journal entries with proper handling of manual entries
                     const calloutPrefix = this.settings.nestJournalEntries ? '> ' : '';
                     const selectedMealSetting = this.settings.meals.find(m => m.name === selectedMeal);
                     const mealEmoji = selectedMealSetting ? selectedMealSetting.emoji : '🍽️';
-                    const servingPart = selectedServing.split(" | ")[0];
-                    const qtyPart = quantity === 1 ? '' : `x(qty:: ${quantity})`;
-                    string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) (item:: [[${selectedFood}]]) (${servingPart} ${qtyPart}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+
+                    const itemPart = isManual ? `(item:: ${selectedFood})` : `(item:: [[${selectedFood}]])`;
+                    const servingPart = isManual ? '' : ` (${servingText}${qtyText})`;
+
+                    string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) ${itemPart}${servingPart} [cal:: ${calories ?? 0}], [fat:: ${fat ?? 0}], [carbs:: ${carbs ?? 0}], [protein:: ${protein ?? 0}]`;
                 }
 
                 if (selectedMeal === "Recipe") {
@@ -405,6 +459,7 @@ export default class FoodTrackerPlugin extends Plugin {
                         console.error("No active markdown editor found.");
                     }
                 } else {
+                    // Journal entry
                     const formattedDate = moment(selectedDate).format(this.settings.journalNameFormat);
                     const journalPath = `${this.settings.journalFolder}/${formattedDate}.md`;
                     const journalFile = this.app.vault.getAbstractFileByPath(journalPath);
