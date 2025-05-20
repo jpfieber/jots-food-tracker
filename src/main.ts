@@ -102,8 +102,6 @@ export default class FoodTrackerPlugin extends Plugin {
     immediateUpdateFoodTracker: () => Promise<void> = async () => Promise.resolve();
 
     async onload() {
-        console.log('Food Tracker: Loading plugin');
-
         // Load settings
         await this.loadSettings();
 
@@ -187,7 +185,6 @@ export default class FoodTrackerPlugin extends Plugin {
     }
 
     onunload() {
-        console.log('Food Tracker: Unloading plugin');
         this.removeCSS();
 
         // Begin Footer Code
@@ -207,21 +204,17 @@ export default class FoodTrackerPlugin extends Plugin {
 
     async loadSettings() {
         const data = await this.loadData();
-        this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+        this.settings = Object.assign({}, DEFAULT_SETTINGS, data);
 
         // Initialize the displayFooter setting if it doesn't exist
         if (this.settings.displayFooter === undefined) {
-            this.settings.displayFooter = true; // Default to true
+            this.settings.displayFooter = true;
         }
-
-        // Begin Footer code
-        document.documentElement.style.setProperty('--food-tracker-date-color', this.settings.dateColor);
 
         // Ensure excludedFolders is always an array
         if (!Array.isArray(this.settings.excludedFolders)) {
             this.settings.excludedFolders = [];
         }
-        // End Footer code
     }
 
     async saveSettings() {
@@ -379,11 +372,17 @@ export default class FoodTrackerPlugin extends Plugin {
                 calories = Math.round(calories * multiplier);
                 fat = Math.round(fat * multiplier * 10) / 10;
                 carbs = Math.round(carbs * multiplier * 10) / 10;
-                protein = Math.round(protein * multiplier * 10) / 10; const prefix = this.settings.stringPrefixLetter;
-                const calloutPrefix = this.settings.nestJournalEntries ? '> ' : '';
-                
-                // Simplify task creation since meals are now simple strings
-                let string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${selectedMeal}) (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+                protein = Math.round(protein * multiplier * 10) / 10;
+
+                const prefix = this.settings.stringPrefixLetter;
+                const calloutPrefix = this.settings.nestJournalEntries ? '> ' : '';                // Format quantity string based on amount type
+                const quantityString = amount === '100g' ? '' : quantity === 1 ? ' ' : ` ${quantity}x `;
+
+                // Get the emoji for the selected meal
+                const selectedMealSetting = this.settings.meals.find(m => m.name === selectedMeal);
+                const mealEmoji = selectedMealSetting ? selectedMealSetting.emoji : '🍽️';
+
+                let string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
 
                 if (selectedMeal === "Recipe") {
                     const activeLeaf = this.app.workspace.activeLeaf;
@@ -461,7 +460,6 @@ serv_g: 100
 
                 try {
                     await this.app.vault.create(filePath, fileContent);
-                    console.log(`Food note created at: ${filePath}`);
                 } catch (error) {
                     console.error('Error creating food note:', error);
                 }
@@ -477,8 +475,7 @@ serv_g: 100
 
             // Check if the footer display is disabled
             if (!this.settings.displayFooter) {
-                console.log("Footer display is disabled. Removing existing footers.");
-                return; // Exit early if the footer is disabled
+                return;
             }
 
             const file = view.file;
@@ -499,13 +496,11 @@ serv_g: 100
             } else if (file.path.includes(`${this.settings.journalFolder}`)) {
                 contentGenerator = this.nutritionFooter.bind(this);
             } else {
-                console.log(`No content generator defined for file: ${file.path}`);
                 return;
             }
 
             // Check if the current file is in an excluded folder or has excluded parent
             if (this.shouldExcludeFile(file.path)) {
-                console.log(`File excluded: ${file.path}`);
                 return;
             }
 
@@ -708,11 +703,13 @@ serv_g: 100
         if (!tasksPlugin) {
             console.error("Tasks plugin is not enabled or loaded.");
             return null;
-        }        // Get tasks from the Tasks plugin
+        }
+        
+        // Get tasks from the Tasks plugin
         const tasks = tasksPlugin.getTasks().filter((task: Task) => task.path === file.path);
         if (tasks.length > 0) {
-            const headers = ["Meal", "Calories", "Fat", "Carbs", "Protein"];            const meals = this.settings.meals || [];
-            console.log('Available meals:', meals);
+            const headers = ["Meal", "Calories", "Fat", "Carbs", "Protein"];
+            const meals = this.settings.meals || [];
             let summary: any[] = [];
             let mealTaskCount = 0;
 
@@ -729,70 +726,41 @@ serv_g: 100
                     proteinsum += parseFloat(v[4]);
                 });
                 summary.push([highlight(result[0][0]), (Math.round(calsum * 10) / 10).toString(), (Math.round(fatsum * 10) / 10).toString(), (Math.round(carbssum * 10) / 10).toString(), (Math.round(proteinsum * 10) / 10).toString()]);
-            }            meals.forEach(mealSetting => {
+            }
+
+            meals.forEach(mealSetting => {
                 const mealName = mealSetting.name;
-                const mealIcon = mealSetting.icon;
-                console.log(`Processing meal: ${mealName} (${mealIcon})`);
-                
-                const result = tasks.filter(t => {                    // Match either type:: or meal:: to support both emoji and name formats
+                const result = tasks.filter(t => {
                     const typeMatch = t.description.match(/type::\s*([^\s,\)]+)/i);
                     const mealMatch = t.description.match(/meal::\s*([^\s,\)]+)/i);
                     const taskMeal = typeMatch?.[1]?.trim() || mealMatch?.[1]?.trim();
                     const isCompleted = t.status?.configuration?.symbol === "c";
-                    if (!taskMeal) {
-                        console.log(`Task has no meal type: ${t.description}`);
-                        return false;
-                    }
+                    if (!taskMeal) return false;
 
-                    // Match either the meal name or its emoji (case-insensitive comparison for name)
+                    // Match either the meal name or its emoji
                     const matchedName = taskMeal.toLowerCase() === mealName.toLowerCase();
                     const matchedEmoji = taskMeal === mealSetting.emoji;
                     const matched = matchedName || matchedEmoji;
 
-                    console.log(`Task: ${t.description}`);
-                    console.log(`  - taskMeal: "${taskMeal}"`);
-                    console.log(`  - meal name: "${mealName}"`);
-                    console.log(`  - meal emoji: "${mealSetting.emoji}"`);
-                    console.log(`  - matched name: ${matchedName}`);
-                    console.log(`  - matched emoji: ${matchedEmoji}`);
-                    console.log(`  - isCompleted: ${isCompleted}`);
-
-                    if (matched) {
-                        console.log(`✓ Task matched ${matchedName ? `name "${mealName}"` : `icon "${mealIcon}"`}`);
-                    }                    console.log(`Task: "${t.description}"`);
-                    console.log(`  - taskMeal: "${taskMeal}"`);
-                    console.log(`  - meal name: "${mealName}"`);
-                    console.log(`  - meal emoji: "${mealSetting.emoji}"`);
-                    console.log(`  - isCompleted: ${isCompleted}`);
-                    console.log(`  - matches: ${matched} (name: ${matchedName}, emoji: ${matchedEmoji})`);
                     return isCompleted && matched;
-                })
-                    .map(e => {
-                        const calMatch = e.description.match(/cal::\s*(\d+(\.\d+)?)/);
-                        const fatMatch = e.description.match(/fat::\s*(\d+(\.\d+)?)/);
-                        const carbsMatch = e.description.match(/carbs::\s*(\d+(\.\d+)?)/);
-                        const proteinMatch = e.description.match(/protein::\s*(\d+(\.\d+)?)/);
+                }).map(e => {
+                    const calMatch = e.description.match(/cal::\s*(\d+(\.\d+)?)/);
+                    const fatMatch = e.description.match(/fat::\s*(\d+(\.\d+)?)/);
+                    const carbsMatch = e.description.match(/carbs::\s*(\d+(\.\d+)?)/);
+                    const proteinMatch = e.description.match(/protein::\s*(\d+(\.\d+)?)/);
 
-                        console.log(`Extracted values for task:`, {
-                            cal: calMatch ? parseFloat(calMatch[1]) : 0,
-                            fat: fatMatch ? parseFloat(fatMatch[1]) : 0,
-                            carbs: carbsMatch ? parseFloat(carbsMatch[1]) : 0,
-                            protein: proteinMatch ? parseFloat(proteinMatch[1]) : 0
-                        });                        return [
-                            mealName,
-                            (calMatch ? parseFloat(calMatch[1]) : 0).toString(),
-                            (fatMatch ? parseFloat(fatMatch[1]) : 0).toString(),
-                            (carbsMatch ? parseFloat(carbsMatch[1]) : 0).toString(),
-                            (proteinMatch ? parseFloat(proteinMatch[1]) : 0).toString()
-                        ];
-                    });
-                if (result.length > 0) {                    console.log(`Found ${result.length} tasks for meal: ${mealName}`);
+                    return [
+                        mealName,
+                        (calMatch ? parseFloat(calMatch[1]) : 0).toString(),
+                        (fatMatch ? parseFloat(fatMatch[1]) : 0).toString(),
+                        (carbsMatch ? parseFloat(carbsMatch[1]) : 0).toString(),
+                        (proteinMatch ? parseFloat(proteinMatch[1]) : 0).toString()
+                    ];
+                });
+
+                if (result.length > 0) {
                     getsums(result);
-                    mealTaskCount += result.length;                } else {
-                    console.log(`No completed tasks found for meal "${mealName}" (${mealIcon}). Possible reasons:`);
-                    console.log('1. No tasks with this meal type');
-                    console.log('2. No completed tasks (missing [c])');
-                    console.log('3. Task meal type does not match name or icon');
+                    mealTaskCount += result.length;
                 }
             });
 
@@ -813,17 +781,12 @@ serv_g: 100
                     return `${headerRow}\n${separatorRow}\n${dataRows}`;
                 }
 
-                // Generate the markdown table
-                const markdownTable = generateMarkdownTable(headers, summary);
-
                 // Convert the markdown table to an HTMLElement
                 const container = createDiv();
-                await MarkdownRenderer.renderMarkdown(markdownTable, container, file.path, this);
-
+                await MarkdownRenderer.renderMarkdown(generateMarkdownTable(headers, summary), container, file.path, this);
                 return container;
             }
         }
-
         return null;
     }
 

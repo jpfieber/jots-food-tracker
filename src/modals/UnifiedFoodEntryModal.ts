@@ -59,7 +59,7 @@ export class UnifiedFoodEntryModal extends Modal {
         contentEl.createEl('h2', { text: 'Log Food Entry' });
 
         // First Row: Date, Time and Meal
-        const firstRow = contentEl.createDiv({ cls: 'FoodTracker-modal-row' });        const dateContainer = firstRow.createDiv({ cls: 'FoodTracker-modal-column-vertical' });
+        const firstRow = contentEl.createDiv({ cls: 'FoodTracker-modal-row' }); const dateContainer = firstRow.createDiv({ cls: 'FoodTracker-modal-column-vertical' });
         dateContainer.createEl('label', { text: 'Date:' });
         const dateInput = dateContainer.createEl('input', { type: 'date' });
         dateInput.value = moment().format('YYYY-MM-DD'); // Default to today
