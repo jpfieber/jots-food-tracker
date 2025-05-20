@@ -378,19 +378,19 @@ export default class FoodTrackerPlugin extends Plugin {
                 const prefix = this.settings.stringPrefixLetter;
 
                 // Format quantity string based on amount type
-                const quantityString = amount === '100g' ? '' : quantity === 1 ? ' ' : ` ${quantity}x `;
-
-                // Build string differently for recipes vs journal entries
+                const quantityString = amount === '100g' ? '' : quantity === 1 ? ' ' : ` ${quantity}x `;                // Build string differently for recipes vs journal entries
                 let string;
                 if (selectedMeal === "Recipe") {
                     // Recipe entries: no callout, no time, no type
                     string = `- [${prefix}] (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
                 } else {
-                    // Regular journal entries: include callout if enabled, time, and meal type
+                    // Regular journal entries: include callout if enabled, time, and meal type with different quantity format
                     const calloutPrefix = this.settings.nestJournalEntries ? '> ' : '';
                     const selectedMealSetting = this.settings.meals.find(m => m.name === selectedMeal);
                     const mealEmoji = selectedMealSetting ? selectedMealSetting.emoji : '🍽️';
-                    string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+                    const servingPart = selectedServing.split(" | ")[0];
+                    const qtyPart = quantity === 1 ? '' : `x(qty:: ${quantity})`;
+                    string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) (item:: [[${selectedFood}]]) (${servingPart} ${qtyPart}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
                 }
 
                 if (selectedMeal === "Recipe") {
