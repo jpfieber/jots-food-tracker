@@ -370,21 +370,28 @@ export default class FoodTrackerPlugin extends Plugin {
                     }
                 }
 
-                // Scale nutrient values
-                calories = Math.round(calories * multiplier);
+                // Scale nutrient values                calories = Math.round(calories * multiplier);
                 fat = Math.round(fat * multiplier * 10) / 10;
                 carbs = Math.round(carbs * multiplier * 10) / 10;
                 protein = Math.round(protein * multiplier * 10) / 10;
 
                 const prefix = this.settings.stringPrefixLetter;
-                const calloutPrefix = this.settings.nestJournalEntries ? '> ' : '';                // Format quantity string based on amount type
+
+                // Format quantity string based on amount type
                 const quantityString = amount === '100g' ? '' : quantity === 1 ? ' ' : ` ${quantity}x `;
 
-                // Get the emoji for the selected meal
-                const selectedMealSetting = this.settings.meals.find(m => m.name === selectedMeal);
-                const mealEmoji = selectedMealSetting ? selectedMealSetting.emoji : '🍽️';
-
-                let string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+                // Build string differently for recipes vs journal entries
+                let string;
+                if (selectedMeal === "Recipe") {
+                    // Recipe entries: no callout, no time, no type
+                    string = `- [${prefix}] (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+                } else {
+                    // Regular journal entries: include callout if enabled, time, and meal type
+                    const calloutPrefix = this.settings.nestJournalEntries ? '> ' : '';
+                    const selectedMealSetting = this.settings.meals.find(m => m.name === selectedMeal);
+                    const mealEmoji = selectedMealSetting ? selectedMealSetting.emoji : '🍽️';
+                    string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
+                }
 
                 if (selectedMeal === "Recipe") {
                     const activeLeaf = this.app.workspace.activeLeaf;
