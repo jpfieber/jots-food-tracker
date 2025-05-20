@@ -353,12 +353,14 @@ export default class FoodTrackerPlugin extends Plugin {
                 } else if (selectedServing.includes('of Recipe')) {
                     const servings = page.servings || 1;
                     const tasks = page.file.tasks?.values || [];
+                    const prefix = this.settings.stringPrefixLetter;
+                    const relevantTasks = tasks.filter((t: Task) => t.status === prefix);
                     multiplier = quantity / servings;
 
-                    calories = tasks.reduce((sum: number, t: Task) => sum + (t.cal || 0), 0) / servings;
-                    fat = tasks.reduce((sum: number, t: Task) => sum + (t.fat || 0), 0) / servings;
-                    carbs = tasks.reduce((sum: number, t: Task) => sum + (t.carbs || 0), 0) / servings;
-                    protein = tasks.reduce((sum: number, t: Task) => sum + (t.protein || 0), 0) / servings;
+                    calories = relevantTasks.reduce((sum: number, t: Task) => sum + (t.cal || 0), 0) / servings;
+                    fat = relevantTasks.reduce((sum: number, t: Task) => sum + (t.fat || 0), 0) / servings;
+                    carbs = relevantTasks.reduce((sum: number, t: Task) => sum + (t.carbs || 0), 0) / servings;
+                    protein = relevantTasks.reduce((sum: number, t: Task) => sum + (t.protein || 0), 0) / servings;
                 } else {
                     const servingOptions = page.servings || [];
                     const selectedServingOption = servingOptions.find((option: string) => option.includes(selectedServing));
