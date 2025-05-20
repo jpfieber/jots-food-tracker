@@ -304,6 +304,7 @@ export default class FoodTrackerPlugin extends Plugin {
         try {
             const query = `"${this.settings.foodFolder}" or "${this.settings.usdaFolder}" or "${this.settings.recipesFolder}"`;
             const pages = dv.pages(query);
+            const meals = this.settings.meals; // Already a string array, no need for mapping
 
             // Handle both array-like and iterable responses from Dataview
             const rawItems = Array.from(pages || []);
@@ -380,13 +381,9 @@ export default class FoodTrackerPlugin extends Plugin {
                 carbs = Math.round(carbs * multiplier * 10) / 10;
                 protein = Math.round(protein * multiplier * 10) / 10; const prefix = this.settings.stringPrefixLetter;
                 const calloutPrefix = this.settings.nestJournalEntries ? '> ' : '';
-                const selectedMealConfig = this.settings.meals.find(m => m.name === selectedMeal);
-                const mealEmoji = selectedMealConfig?.emoji || '🍽️';                // Add the quantity conditionally
-                const quantityString = quantity !== 1 ? ` x(qty:: ${quantity})` : ''; let string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
-
-                if (selectedMeal !== "Recipe") {
-                    string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) (item:: [[${selectedFood}]]) (${amount}${quantityString}) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
-                }
+                
+                // Simplify task creation since meals are now simple strings
+                let string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${selectedMeal}) (serving:: ${selectedServing.split(" | ")[0]}${quantityString}) (item:: [[${selectedFood}]]) [cal:: ${calories}], [fat:: ${fat}], [carbs:: ${carbs}], [protein:: ${protein}]`;
 
                 if (selectedMeal === "Recipe") {
                     const activeLeaf = this.app.workspace.activeLeaf;
@@ -711,14 +708,11 @@ serv_g: 100
         if (!tasksPlugin) {
             console.error("Tasks plugin is not enabled or loaded.");
             return null;
-        }
-
-        // Get tasks from the Tasks plugin
+        }        // Get tasks from the Tasks plugin
         const tasks = tasksPlugin.getTasks().filter((task: Task) => task.path === file.path);
-
         if (tasks.length > 0) {
-            const headers = ["Meal", "Calories", "Fat", "Carbs", "Protein"];
-            const meals = ["Breakfast", "Morning Snack", "Lunch", "Afternoon Snack", "Dinner", "Evening Snack"];
+            const headers = ["Meal", "Calories", "Fat", "Carbs", "Protein"];            const meals = this.settings.meals || [];
+            console.log('Available meals:', meals);
             let summary: any[] = [];
             let mealTaskCount = 0;
 
@@ -729,51 +723,88 @@ serv_g: 100
             function getsums(result: any[]) {
                 let calsum = 0, fatsum = 0, carbssum = 0, proteinsum = 0;
                 result.forEach(v => {
-                    calsum += v[1];
-                    fatsum += v[2];
-                    carbssum += v[3];
-                    proteinsum += v[4];
+                    calsum += parseFloat(v[1]);
+                    fatsum += parseFloat(v[2]);
+                    carbssum += parseFloat(v[3]);
+                    proteinsum += parseFloat(v[4]);
                 });
-                summary.push([highlight(result[0][0]), Math.round(calsum * 10) / 10, Math.round(fatsum * 10) / 10, Math.round(carbssum * 10) / 10, Math.round(proteinsum * 10) / 10]);
-            }
+                summary.push([highlight(result[0][0]), (Math.round(calsum * 10) / 10).toString(), (Math.round(fatsum * 10) / 10).toString(), (Math.round(carbssum * 10) / 10).toString(), (Math.round(proteinsum * 10) / 10).toString()]);
+            }            meals.forEach(mealSetting => {
+                const mealName = mealSetting.name;
+                const mealIcon = mealSetting.icon;
+                console.log(`Processing meal: ${mealName} (${mealIcon})`);
+                
+                const result = tasks.filter(t => {                    // Match either type:: or meal:: to support both emoji and name formats
+                    const typeMatch = t.description.match(/type::\s*([^\s,\)]+)/i);
+                    const mealMatch = t.description.match(/meal::\s*([^\s,\)]+)/i);
+                    const taskMeal = typeMatch?.[1]?.trim() || mealMatch?.[1]?.trim();
+                    const isCompleted = t.status?.configuration?.symbol === "c";
+                    if (!taskMeal) {
+                        console.log(`Task has no meal type: ${t.description}`);
+                        return false;
+                    }
 
-            meals.forEach(meal => {
-                const result = tasks
-                    .filter(t => {
-                        const mealMatch = t.description.match(/meal::\s*([\w\s]+)/);
-                        const taskMeal = mealMatch ? mealMatch[1].trim() : undefined;
-                        const isCompleted = t.status?.configuration?.symbol === "c"; // Ensure task status is checked correctly
-                        return isCompleted && taskMeal === meal;
-                    })
+                    // Match either the meal name or its emoji (case-insensitive comparison for name)
+                    const matchedName = taskMeal.toLowerCase() === mealName.toLowerCase();
+                    const matchedEmoji = taskMeal === mealSetting.emoji;
+                    const matched = matchedName || matchedEmoji;
+
+                    console.log(`Task: ${t.description}`);
+                    console.log(`  - taskMeal: "${taskMeal}"`);
+                    console.log(`  - meal name: "${mealName}"`);
+                    console.log(`  - meal emoji: "${mealSetting.emoji}"`);
+                    console.log(`  - matched name: ${matchedName}`);
+                    console.log(`  - matched emoji: ${matchedEmoji}`);
+                    console.log(`  - isCompleted: ${isCompleted}`);
+
+                    if (matched) {
+                        console.log(`✓ Task matched ${matchedName ? `name "${mealName}"` : `icon "${mealIcon}"`}`);
+                    }                    console.log(`Task: "${t.description}"`);
+                    console.log(`  - taskMeal: "${taskMeal}"`);
+                    console.log(`  - meal name: "${mealName}"`);
+                    console.log(`  - meal emoji: "${mealSetting.emoji}"`);
+                    console.log(`  - isCompleted: ${isCompleted}`);
+                    console.log(`  - matches: ${matched} (name: ${matchedName}, emoji: ${matchedEmoji})`);
+                    return isCompleted && matched;
+                })
                     .map(e => {
                         const calMatch = e.description.match(/cal::\s*(\d+(\.\d+)?)/);
                         const fatMatch = e.description.match(/fat::\s*(\d+(\.\d+)?)/);
                         const carbsMatch = e.description.match(/carbs::\s*(\d+(\.\d+)?)/);
                         const proteinMatch = e.description.match(/protein::\s*(\d+(\.\d+)?)/);
 
-                        return [
-                            meal,
-                            calMatch ? parseFloat(calMatch[1]) : 0,
-                            fatMatch ? parseFloat(fatMatch[1]) : 0,
-                            carbsMatch ? parseFloat(carbsMatch[1]) : 0,
-                            proteinMatch ? parseFloat(proteinMatch[1]) : 0
+                        console.log(`Extracted values for task:`, {
+                            cal: calMatch ? parseFloat(calMatch[1]) : 0,
+                            fat: fatMatch ? parseFloat(fatMatch[1]) : 0,
+                            carbs: carbsMatch ? parseFloat(carbsMatch[1]) : 0,
+                            protein: proteinMatch ? parseFloat(proteinMatch[1]) : 0
+                        });                        return [
+                            mealName,
+                            (calMatch ? parseFloat(calMatch[1]) : 0).toString(),
+                            (fatMatch ? parseFloat(fatMatch[1]) : 0).toString(),
+                            (carbsMatch ? parseFloat(carbsMatch[1]) : 0).toString(),
+                            (proteinMatch ? parseFloat(proteinMatch[1]) : 0).toString()
                         ];
                     });
-                if (result.length > 0) {
+                if (result.length > 0) {                    console.log(`Found ${result.length} tasks for meal: ${mealName}`);
                     getsums(result);
-                    mealTaskCount += result.length;
+                    mealTaskCount += result.length;                } else {
+                    console.log(`No completed tasks found for meal "${mealName}" (${mealIcon}). Possible reasons:`);
+                    console.log('1. No tasks with this meal type');
+                    console.log('2. No completed tasks (missing [c])');
+                    console.log('3. Task meal type does not match name or icon');
                 }
             });
 
             if (mealTaskCount > 0) {
                 let calsum = 0, fatsum = 0, carbssum = 0, proteinsum = 0;
                 summary.forEach(v => {
-                    calsum += v[1];
-                    fatsum += v[2];
-                    carbssum += v[3];
-                    proteinsum += v[4];
+                    calsum += parseFloat(v[1]);
+                    fatsum += parseFloat(v[2]);
+                    carbssum += parseFloat(v[3]);
+                    proteinsum += parseFloat(v[4]);
                 });
-                summary.push([highlight("Total"), highlight(Math.round(calsum * 10) / 10), highlight(Math.round(fatsum * 10) / 10), highlight(Math.round(carbssum * 10) / 10), highlight(Math.round(proteinsum * 10) / 10)]);
+                summary.push([highlight("Total"), highlight((Math.round(calsum * 10) / 10).toString()), highlight((Math.round(fatsum * 10) / 10).toString()), highlight((Math.round(carbssum * 10) / 10).toString()), highlight((Math.round(proteinsum * 10) / 10).toString())]);
 
                 function generateMarkdownTable(headers: string[], rows: any[]): string {
                     const headerRow = `| ${headers.join(" | ")} |`;

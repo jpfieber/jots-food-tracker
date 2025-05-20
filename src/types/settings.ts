@@ -1,51 +1,49 @@
-export const DEFAULT_SETTINGS: FoodTrackerSettings = {
-    foodFolder: 'Food',
-    usdaFolder: 'USDA',
-    recipesFolder: 'Recipes',
-    journalFolder: 'Journal', journalNameFormat: 'YYYY-MM-DD',
-    meals: [
-        { name: 'Breakfast', defaultTime: '07:00', emoji: '🍳' },
-        { name: 'Lunch', defaultTime: '12:00', emoji: '🥪' },
-        { name: 'Dinner', defaultTime: '18:00', emoji: '🍽️' },
-        { name: 'Snack', defaultTime: '15:00', emoji: '🍎' }
-    ],
-    foodGroups: [
-        "American Indian", "Baby Foods", "Baked Foods", "Beans and Lentils", "Beverages",
-        "Breakfast Cereals", "Dairy and Egg Products", "Fast Foods", "Fats and Oils", "Fish",
-        "Fruits", "Grains and Pasta", "Meats", "Nuts and Seeds", "Prepared Meals",
-        "Restaurant Foods", "Snacks", "Soups and Sauces", "Spices and Herbs", "Sweets", "Vegetables"
-    ],
-    stringPrefixLetter: 'X',
-    stringSVG: '',
-    excludedFolders: [],
-    updateDelay: 3000,
-    displayFooter: true,
-    nestJournalEntries: false,
-    dateColor: '#888888',
-    frontmatterExclusionField: '',
-    excludedParentSelectors: [],
-    footerOrder: 100
-};
+export interface MealSetting {
+    name: string;
+    defaultTime: string;
+    emoji: string;
+}
 
-export type FoodTrackerSettings = {
-    foodFolder: string;
+export type MealsType = MealSetting[];
+
+export interface FoodTrackerSettings {
     usdaFolder: string;
+    foodFolder: string;
     recipesFolder: string;
-    journalFolder: string; journalNameFormat: string;
-    meals: Array<{
-        name: string;
-        defaultTime: string;
-        emoji: string;
-    }>;
-    foodGroups: string[];
+    journalFolder: string;
+    journalNameFormat: string;
+    meals: MealsType;
+    displayFooter: boolean;
+    footerOrder?: number; // Optional setting for footer order
+    frontmatterExclusionField?: string; // Optional setting for frontmatter exclusion
+    excludedParentSelectors?: string[]; // Optional setting for excluded parent selectors
     stringPrefixLetter: string;
     stringSVG: string;
     excludedFolders: string[];
-    updateDelay: number;
-    displayFooter: boolean;
+    foodGroups: string[];
     nestJournalEntries: boolean;
-    dateColor: string;
-    frontmatterExclusionField: string;
-    excludedParentSelectors: string[];
-    footerOrder: number;
-};
+}
+
+export const DEFAULT_SETTINGS: FoodTrackerSettings = {
+    foodFolder: "FoodTracker/Food",
+    usdaFolder: "FoodTracker/USDA",
+    recipesFolder: "FoodTracker/Recipes",
+    journalFolder: "Chronological/Journals",
+    journalNameFormat: "YYYY/YYYY-MM/YYYY-MM-DD",    meals: [
+        { name: "Breakfast", defaultTime: "07:00", emoji: "🕖" },
+        { name: "Morning Snack", defaultTime: "09:30", emoji: "🕙" },
+        { name: "Lunch", defaultTime: "12:00", emoji: "🕐" },
+        { name: "Afternoon Snack", defaultTime: "14:30", emoji: "🕓" },
+        { name: "Dinner", defaultTime: "17:30", emoji: "🕔" },
+        { name: "Evening Snack", defaultTime: "20:00", emoji: "🕗" }
+    ],
+    displayFooter: true,
+    footerOrder: 1000,
+    frontmatterExclusionField: "excludeFromFooter",
+    excludedParentSelectors: [],
+    stringPrefixLetter: "c",
+    stringSVG: "data:image/svg+xml,%3Csvg id='_x32_' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 512 512' xml:space='preserve' fill='%23000000'%3E%3Cg id='SVGRepo_bgCarrier' stroke-width='0'%3E%3C/g%3E%3Cg id='SVGRepo_tracerCarrier' stroke-linecap='round' stroke-linejoin='round'%3E%3C/g%3E%3Cg id='SVGRepo_iconCarrier'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23000000;%7D %3C/style%3E%3Cg%3E%3Cpath class='st0' d='M207.103,23.875v109.219c0,7-5.656,12.641-12.625,12.641h-3.375c-6.969,0-12.641-5.641-12.641-12.641V23.375 c0-18-12.109-23.375-23.719-23.375s-23.719,5.375-23.719,23.375v109.719c0,7-5.672,12.641-12.641,12.641h-3.375 c-6.969,0-12.625-5.641-12.625-12.641V23.875c0-32.219-45.938-31.125-45.938,0.359c0,37.703,0,104.297,0,104.297 c-0.219,57.906,13.625,72.953,36.469,91c18.422,14.531,34.156,22.859,34.156,58.953v232.188h55.344V278.484 c0-36.094,15.734-44.422,34.156-58.953c22.859-18.047,36.688-33.094,36.469-91c0,0,0-66.594,0-104.297 C253.04-7.25,207.103-8.344,207.103,23.875z'%3E%3C/path%3E%3Cpath class='st0' d='M385.228,34.75c-11.75,32.953-45.578,110.156-47.719,178.344c-3.313,105.844,61.547,90.188,62.703,159.531 v138.688h55.078l0.266,0.688c0,0,0-0.281,0-0.688c0-9.266,0-119.625,0-232.203c0-111.359,0-224.797,0-244.359 C455.556-5.438,403.524-16.531,385.228,34.75z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E",
+    excludedFolders: [],
+    foodGroups: [],
+    nestJournalEntries: false
+}
