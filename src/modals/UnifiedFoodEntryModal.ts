@@ -109,15 +109,13 @@ export class UnifiedFoodEntryModal extends Modal {
                 option.selected = true;
                 timeInput.value = meal.defaultTime;
             }
-        });
-
-        // Update time when meal changes
+        });        // Update time when meal changes
         mealSelect.addEventListener('change', () => {
-            const selectedOption = mealSelect.options[mealSelect.selectedIndex];
-            if (selectedOption.dataset.defaultTime) {
-                timeInput.value = selectedOption.dataset.defaultTime;
+            const selectedMeal = this.settings.meals.find(meal => meal.name === mealSelect.value);
+            if (selectedMeal && selectedMeal.defaultTime) {
+                timeInput.value = selectedMeal.defaultTime;
             }
-        });        // Automatic Section with vertical layout
+        });// Automatic Section with vertical layout
         const autoFoodRow = automaticSection.createDiv({ cls: 'FoodTracker-modal-row' });
         const autoFoodContainer = autoFoodRow.createDiv({ cls: 'FoodTracker-modal-column-full' });
         autoFoodContainer.createEl('label', { text: 'Food Item:' });
