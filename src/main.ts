@@ -433,8 +433,7 @@ export default class FoodTrackerPlugin extends Plugin {
                 const qtyText = !isManual && quantity !== undefined && quantity !== 1 ? ` x(qty:: ${quantity})` : '';
                 const servingText = isManual ? 'Manual Entry' : (selectedServing?.split(" | ")[0] ?? '1 serving');
 
-                let string;
-                if (selectedMeal === "Recipe" && !isManual) {
+                let string; if (selectedMeal === "Recipe" && !isManual) {
                     // Recipe entries: no callout, no time, no type
                     string = `- [${prefix}] (serving:: ${servingText}${qtyText}) (item:: [[${selectedFood}]]) [cal:: ${calories ?? 0}], [fat:: ${fat ?? 0}], [carbs:: ${carbs ?? 0}], [protein:: ${protein ?? 0}]`;
                 } else {
@@ -446,7 +445,7 @@ export default class FoodTrackerPlugin extends Plugin {
                     const itemPart = isManual ? `(item:: ${selectedFood})` : `(item:: [[${selectedFood}]])`;
                     const servingPart = isManual ? '' : ` (${servingText}${qtyText})`;
 
-                    string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (type:: ${mealEmoji}) ${itemPart}${servingPart} [cal:: ${calories ?? 0}], [fat:: ${fat ?? 0}], [carbs:: ${carbs ?? 0}], [protein:: ${protein ?? 0}]`;
+                    string = `${calloutPrefix}- [${prefix}] (time:: ${selectedTime}) (meal:: ${selectedMeal}) ${itemPart}${servingPart} [cal:: ${calories ?? 0}], [fat:: ${fat ?? 0}], [carbs:: ${carbs ?? 0}], [protein:: ${protein ?? 0}]`;
                 }
 
                 if (selectedMeal === "Recipe") {
@@ -795,11 +794,9 @@ serv_g: 100
             }
 
             meals.forEach(mealSetting => {
-                const mealName = mealSetting.name;
-                const result = tasks.filter(t => {
-                    const typeMatch = t.description.match(/type::\s*([^\s,\)]+)/i);
+                const mealName = mealSetting.name; const result = tasks.filter(t => {
                     const mealMatch = t.description.match(/meal::\s*([^\s,\)]+)/i);
-                    const taskMeal = typeMatch?.[1]?.trim() || mealMatch?.[1]?.trim();
+                    const taskMeal = mealMatch?.[1]?.trim();
                     const isCompleted = t.status?.configuration?.symbol === "c";
                     if (!taskMeal) return false;
 
