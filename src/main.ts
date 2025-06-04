@@ -244,12 +244,16 @@ export default class FoodTrackerPlugin extends Plugin {
         if (fileStyle) {
             fileStyle.remove();
         }
-    }
-
-    injectCSS() {
+    } injectCSS() {
         try {
             const prefix = this.settings.stringPrefixLetter;
-            const svg = this.settings.stringSVG;
+            const svg = this.settings.stringSVG;            // Generate meal-specific CSS rules
+            const mealRules = this.settings.meals.map(meal => `
+                span.dataview.inline-field > span.dataview.inline-field-standalone-value[data-dv-key="meal"] > span {
+                    color: #ff5555 !important;
+                }
+            `).join('\n');
+
             const css = `
                 input[data-task="${prefix}"]:checked,
                 li[data-task="${prefix}"]>input:checked,
@@ -271,6 +275,8 @@ export default class FoodTrackerPlugin extends Plugin {
                     content: "=";
                     color: black;
                 }
+
+                ${mealRules}
             `;
 
             // Remove any existing style element for dynamic CSS
