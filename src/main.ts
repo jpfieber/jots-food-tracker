@@ -8,6 +8,7 @@ import { generateFoodTrackerFooter } from './FoodTrackerFooter';
 import { generateRecipeFooter } from "./recipeFooter";
 import { createDiv, isTruthy } from './utils/dom';
 import moment from 'moment';
+import { isJotsAssistantAvailable, addJotsToJournal } from './utils/jotsIntegration';
 
 interface DataviewAPI {
     pages: (query: string) => any[];
@@ -472,7 +473,21 @@ export default class FoodTrackerPlugin extends Plugin {
                     if (journalFile instanceof TFile) {
                         let content = await this.app.vault.read(journalFile);
                         content = content.replace(/\n+$/, ''); // Remove blank lines at the end
-                        await this.app.vault.modify(journalFile, content + '\n' + string);
+                        await this.app.vault.modify(journalFile, content + '\n' + string);                        // Call JOTS Assistant to add tracking
+                        try {
+                            if (isJotsAssistantAvailable()) {
+                                // Extract just the date part from the formatted path
+                                const datePart = formattedDate.split('/').pop() || formattedDate;
+                                console.debug('JOTS Food Tracker: Adding JOTS to journal:', {
+                                    fullPath: journalPath,
+                                    datePart: datePart
+                                });
+                                await addJotsToJournal(datePart);
+                            }
+                        } catch (error) {
+                            console.warn('Failed to add JOTS to journal:', error);
+                        }
+
                         this.immediateUpdateFoodTracker();
                     } else {
                         console.log('Journal file not found.');
@@ -527,10 +542,15 @@ serv_g: 100
 ---
 
 # ${name}
-`;
-
-                try {
-                    await this.app.vault.create(filePath, fileContent);
+`; try {
+                    await this.app.vault.create(filePath, fileContent);                    // Call JOTS Assistant to add tracking
+                    try {
+                        if (isJotsAssistantAvailable()) {
+                            await addJotsToJournal(filePath);
+                        }
+                    } catch (error) {
+                        console.warn('Failed to add JOTS to journal:', error);
+                    }
                 } catch (error) {
                     console.error('Error creating food note:', error);
                 }
