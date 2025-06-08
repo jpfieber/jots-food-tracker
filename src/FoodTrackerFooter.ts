@@ -1,4 +1,4 @@
-import { TFile } from 'obsidian';
+import { App, TFile } from 'obsidian';
 
 export async function generateFoodTrackerFooter(file: TFile, app: App): Promise<HTMLElement | null> {
     try {
@@ -14,13 +14,21 @@ export async function generateFoodTrackerFooter(file: TFile, app: App): Promise<
         const container = createDiv({ cls: 'nutfact-container' });
 
         // Create the dropdown
-        const dropdown = createEl('select', { cls: 'nutfact-dropdown' });
-        const servings = frontmatter.servings || [];
+        const dropdown = createEl('select', { cls: 'nutfact-dropdown' }); const servings = Array.isArray(frontmatter.servings) ? frontmatter.servings : [];
+
+        // Only proceed if we have valid servings data
+        if (servings.length === 0) {
+            // Add default 100g serving if no servings are defined
+            servings.push('Default | 100g');
+        }
 
         servings.forEach((serving: string) => {
-            const option = createEl('option', { text: serving });
-            option.value = serving.split(' | ')[1].replace('g', ''); // Use servingWeight directly as the value
-            dropdown.appendChild(option);
+            if (typeof serving === 'string' && serving.includes(' | ')) {
+                const [servingText, servingWeight] = serving.split(' | ');
+                const option = createEl('option', { text: serving });
+                option.value = servingWeight.replace('g', '');
+                dropdown.appendChild(option);
+            }
         });
 
         container.appendChild(dropdown);
@@ -36,23 +44,21 @@ export async function generateFoodTrackerFooter(file: TFile, app: App): Promise<
         };
 
         // Update the calculateNutritionalValues function to accept servingSize
-        function calculateNutritionalValues(serving: number, servingSize: string): string {
-            const {
-                calories = 0,
-                fat = 0,
-                saturatedfat = 0,
-                transfat = 0,
-                cholesterol = 0,
-                sodium = 0,
-                carbohydrates = 0,
-                fiber = 0,
-                sugars = 0,
-                protein = 0,
-                vitamind = 0,
-                calcium = 0,
-                iron = 0,
-                potassium = 0,
-            } = frontmatter;
+        function calculateNutritionalValues(serving: number, servingSize: string): string {            // Type assertion for frontmatter values
+            const calories = Number(frontmatter?.calories) || 0;
+            const fat = Number(frontmatter?.fat) || 0;
+            const saturatedfat = Number(frontmatter?.saturatedfat) || 0;
+            const transfat = Number(frontmatter?.transfat) || 0;
+            const cholesterol = Number(frontmatter?.cholesterol) || 0;
+            const sodium = Number(frontmatter?.sodium) || 0;
+            const carbohydrates = Number(frontmatter?.carbohydrates) || 0;
+            const fiber = Number(frontmatter?.fiber) || 0;
+            const sugars = Number(frontmatter?.sugars) || 0;
+            const protein = Number(frontmatter?.protein) || 0;
+            const vitamind = Number(frontmatter?.vitamind) || 0;
+            const calcium = Number(frontmatter?.calcium) || 0;
+            const iron = Number(frontmatter?.iron) || 0;
+            const potassium = Number(frontmatter?.potassium) || 0;
 
             const fatPercent = Math.round((fat * 100) / 78 * serving);
             const saturatedFatPercent = Math.round((saturatedfat * 100) / 20 * serving);
