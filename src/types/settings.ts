@@ -17,7 +17,7 @@ export interface FoodTrackerSettings {
     // Other settings
     meals: MealsType;
     displayFooter: boolean;
-    footerOrder?: number; 
+    footerOrder?: number;
     frontmatterExclusionField?: string;
     excludedParentSelectors?: string[];
     stringPrefixLetter: string;

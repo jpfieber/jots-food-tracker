@@ -67,7 +67,7 @@ export function getJournalPathInfo(settings: any) {
  */
 function formatDateWithPattern(date: Date, pattern: string): string {
     const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    
+
     return pattern
         .replace('YYYY', date.getFullYear().toString())
         .replace('MM', (date.getMonth() + 1).toString().padStart(2, '0'))
@@ -85,6 +85,6 @@ export function getJournalPath(date: Date, settings: any): string {
     const pathInfo = getJournalPathInfo(settings);
     const folder = formatDateWithPattern(date, pathInfo.folderPattern);
     const file = formatDateWithPattern(date, pathInfo.filePattern);
-    
+
     return `${pathInfo.rootFolder}/${folder}/${file}.md`;
 }

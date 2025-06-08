@@ -89,13 +89,13 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
 
         // Journal Path Settings
         containerEl.createEl("h3", { text: "Journal Path Settings" });
-        
+
         const journalSettingsContainer = containerEl.createDiv();
         journalSettingsContainer.style.paddingLeft = "20px";
-        
+
         if (isJotsAssistantAvailable()) {
             const jotsInfo = window.JotsAssistant?.api.getJournalPathInfo();
-            
+
             const descEl = journalSettingsContainer.createEl('p', {
                 text: "Journal settings are being managed by JOTS Assistant:"
             });

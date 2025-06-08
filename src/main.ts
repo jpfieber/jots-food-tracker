@@ -210,20 +210,20 @@ export default class FoodTrackerPlugin extends Plugin {
 
     async loadSettings() {
         const data = await this.loadData();
-        
+
         // First, apply default settings
         this.settings = Object.assign({}, DEFAULT_SETTINGS, data);
 
         // Handle migration from old settings format
         if ('journalFolder' in data || 'journalNameFormat' in data) {
             console.info('JOTS Food Tracker: Migrating from old settings format');
-            
+
             // Convert old settings to new format
             if ('journalFolder' in data) {
                 this.settings.journalRootFolder = data.journalFolder;
                 delete (data as any).journalFolder;
             }
-            
+
             if ('journalNameFormat' in data) {
                 const oldFormat = data.journalNameFormat;
                 // Split the old format into folder and file patterns
@@ -582,7 +582,7 @@ serv_g: 100
                 }
             }
         ).open();
-    }    async addFoodTracker(view: MarkdownView) {
+    } async addFoodTracker(view: MarkdownView) {
         const file = view.file;
         if (!file) return;
 
@@ -592,7 +592,7 @@ serv_g: 100
         }
 
         let footer: HTMLElement | null = null;
-        
+
         if (file.path.endsWith('.recipe.md') || file.path.includes(this.settings.recipesFolder)) {
             footer = await generateRecipeFooter(file, this.app);
         } else {
