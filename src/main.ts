@@ -210,23 +210,49 @@ export default class FoodTrackerPlugin extends Plugin {
 
     async loadSettings() {
         const data = await this.loadData();
+        
+        // First, apply default settings
         this.settings = Object.assign({}, DEFAULT_SETTINGS, data);
 
-        // Initialize the displayFooter setting if it doesn't exist
-        if (this.settings.displayFooter === undefined) {
-            this.settings.displayFooter = true;
+        // Handle migration from old settings format
+        if ('journalFolder' in data || 'journalNameFormat' in data) {
+            console.info('JOTS Food Tracker: Migrating from old settings format');
+            
+            // Convert old settings to new format
+            if ('journalFolder' in data) {
+                this.settings.journalRootFolder = data.journalFolder;
+                delete (data as any).journalFolder;
+            }
+            
+            if ('journalNameFormat' in data) {
+                const oldFormat = data.journalNameFormat;
+                // Split the old format into folder and file patterns
+                const parts = oldFormat.split('/');
+                if (parts.length > 1) {
+                    // Last part is the file pattern
+                    this.settings.journalFilePattern = parts.pop() || DEFAULT_SETTINGS.journalFilePattern;
+                    // Rest is the folder pattern
+                    this.settings.journalFolderPattern = parts.join('/');
+                } else {
+                    // If there were no slashes, assume it's just the file pattern
+                    this.settings.journalFilePattern = oldFormat;
+                    this.settings.journalFolderPattern = DEFAULT_SETTINGS.journalFolderPattern;
+                }
+                delete (data as any).journalNameFormat;
+            }
+
+            // Save the migrated settings
+            await this.saveSettings();
         }
 
-        // Ensure excludedFolders is always an array
-        if (!Array.isArray(this.settings.excludedFolders)) {
-            this.settings.excludedFolders = [];
-        }
+        // Initialize arrays if they don't exist
+        this.settings.excludedFolders = this.settings.excludedFolders || [];
+        this.settings.foodGroups = this.settings.foodGroups || [];
+        this.settings.excludedParentSelectors = this.settings.excludedParentSelectors || [];
     }
 
     async saveSettings() {
         await this.saveData(this.settings);
-        this.injectCSS();
-        this.injectCSSFromFile();
     }
 
     injectCSSFromFile() {
@@ -466,23 +492,23 @@ export default class FoodTrackerPlugin extends Plugin {
                     }
                 } else {
                     // Journal entry
-                    const formattedDate = moment(selectedDate).format(this.settings.journalNameFormat);
-                    const journalPath = `${this.settings.journalFolder}/${formattedDate}.md`;
+                    const journalPath = this.getJournalPath(moment(selectedDate));
                     const journalFile = this.app.vault.getAbstractFileByPath(journalPath);
 
                     if (journalFile instanceof TFile) {
                         let content = await this.app.vault.read(journalFile);
                         content = content.replace(/\n+$/, ''); // Remove blank lines at the end
-                        await this.app.vault.modify(journalFile, content + '\n' + string);                        // Call JOTS Assistant to add tracking
+                        await this.app.vault.modify(journalFile, content + '\n' + string);
+                        // Call JOTS Assistant to add tracking
                         try {
                             if (isJotsAssistantAvailable()) {
-                                // Extract just the date part from the formatted path
-                                const datePart = formattedDate.split('/').pop() || formattedDate;
+                                // Extract just the date part from the path
+                                const datePart = moment(selectedDate).format(this.getJournalPathSettings().filePattern);
                                 console.debug('JOTS Food Tracker: Adding JOTS to journal:', {
                                     fullPath: journalPath,
                                     datePart: datePart
                                 });
-                                await addJotsToJournal(datePart);
+                                await window.JotsAssistant!.api.addJotsToJournal(datePart);
                             }
                         } catch (error) {
                             console.warn('Failed to add JOTS to journal:', error);
@@ -556,77 +582,28 @@ serv_g: 100
                 }
             }
         ).open();
-    }
+    }    async addFoodTracker(view: MarkdownView) {
+        const file = view.file;
+        if (!file) return;
 
-    async addFoodTracker(view: MarkdownView) {
-        try {
-            // Remove any existing footers
-            const existingFooters = view.contentEl.querySelectorAll('.food-tracker');
-            existingFooters.forEach(el => el.remove());
-
-            // Check if the footer display is disabled
-            if (!this.settings.displayFooter) {
-                return;
-            }
-
-            const file = view.file;
-            if (!file || !file.path) {
-                console.error('No file or file path found.');
-                return;
-            }
-
-            // Disconnect any existing observers
-            this.disconnectObservers();
-
-            // Determine the content generator based on the file path
-            let contentGenerator: ContentGenerator;
-            if (file.path.includes(`${this.settings.recipesFolder}`)) {
-                contentGenerator = (file: TFile) => generateRecipeFooter(file, this.app);
-            } else if (file.path.includes(`${this.settings.foodFolder}`)) {
-                contentGenerator = (file: TFile) => generateFoodTrackerFooter(file, this.app);
-            } else if (file.path.includes(`${this.settings.journalFolder}`)) {
-                contentGenerator = this.nutritionFooter.bind(this);
-            } else {
-                return;
-            }
-
-            // Check if the current file is in an excluded folder or has excluded parent
-            if (this.shouldExcludeFile(file.path)) {
-                return;
-            }
-
-            const content = view.contentEl;
-            let container;
-
-            // Determine the container based on the view mode
-            if ((view.getMode?.() ?? view.mode) === 'preview') {
-                const previewSections = Array.from(content.querySelectorAll('.markdown-preview-section'));
-                for (const section of previewSections) {
-                    if (!section.closest('.internal-embed')) {
-                        container = this.castToHTMLElement(section);
-                        break;
-                    }
-                }
-            } else if ((view.getMode?.() ?? view.mode) === 'source') {
-                container = this.castToHTMLElement(content.querySelector('.cm-sizer')!);
-            }
-
-            if (!container) {
-                console.error('No valid container found for the footer.');
-                return;
-            }
-
-            // Generate and append the footer
-            const footer = await this.createFoodTracker(file, contentGenerator);
-            if (footer) {
-                container.appendChild(footer);
-            }
-
-            // Observe the container for changes
-            this.observeContainer(container);
-        } catch (error) {
-            console.error('Error in addFoodTracker:', error);
+        // Check if the current file is in an excluded folder or has excluded parent
+        if (this.shouldExcludeFile(file.path)) {
+            return;
         }
+
+        let footer: HTMLElement | null = null;
+        
+        if (file.path.endsWith('.recipe.md') || file.path.includes(this.settings.recipesFolder)) {
+            footer = await generateRecipeFooter(file, this.app);
+        } else {
+            // Check if this is a journal file
+            const pathInfo = this.getJournalPathSettings();
+            if (file.path.startsWith(pathInfo.rootFolder)) {
+                footer = await generateFoodTrackerFooter(file, this.app);
+            }
+        }
+
+        if (!footer) return;
     }
 
     async updateFoodTracker() {
@@ -885,5 +862,35 @@ serv_g: 100
 
     private castToHTMLElement(element: Element): HTMLElement {
         return element as HTMLElement;
+    }
+
+    /**
+     * Gets the journal path settings either from JOTS Assistant or local settings
+     */
+    getJournalPathSettings() {
+        if (isJotsAssistantAvailable()) {
+            const jotsInfo = window.JotsAssistant!.api.getJournalPathInfo();
+            return {
+                rootFolder: jotsInfo.rootFolder,
+                folderPattern: jotsInfo.folderPattern,
+                filePattern: jotsInfo.filePattern
+            };
+        } else {
+            return {
+                rootFolder: this.settings.journalRootFolder,
+                folderPattern: this.settings.journalFolderPattern,
+                filePattern: this.settings.journalFilePattern
+            };
+        }
+    }
+
+    /**
+     * Gets the full path for a journal entry based on the date
+     */
+    getJournalPath(date: moment.Moment): string {
+        const pathInfo = this.getJournalPathSettings();
+        const folderPath = moment(date).format(pathInfo.folderPattern);
+        const fileName = moment(date).format(pathInfo.filePattern);
+        return `${pathInfo.rootFolder}/${folderPath}/${fileName}.md`;
     }
 }

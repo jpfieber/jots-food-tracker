@@ -1,5 +1,6 @@
 import { App, PluginSettingTab, Setting } from "obsidian";
 import FoodTrackerPlugin from "./main";
+import { isJotsAssistantAvailable } from "./utils/jotsIntegration";
 
 export class FoodTrackerSettingTab extends PluginSettingTab {
     plugin: FoodTrackerPlugin;
@@ -86,33 +87,82 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
                     })
             );
 
-        // Journal Folder Setting
-        new Setting(containerEl)
-            .setName("Journal Folder")
-            .setDesc("Set the location of the Journal folder.")
-            .addText((text) =>
-                text
-                    .setPlaceholder("Enter folder name")
-                    .setValue(this.plugin.settings.journalFolder || "Stacks/Journals")
-                    .onChange(async (value) => {
-                        this.plugin.settings.journalFolder = value;
-                        await this.plugin.saveSettings();
-                    })
-            );
+        // Journal Path Settings
+        containerEl.createEl("h3", { text: "Journal Path Settings" });
+        
+        const journalSettingsContainer = containerEl.createDiv();
+        journalSettingsContainer.style.paddingLeft = "20px";
+        
+        if (isJotsAssistantAvailable()) {
+            const jotsInfo = window.JotsAssistant?.api.getJournalPathInfo();
+            
+            const descEl = journalSettingsContainer.createEl('p', {
+                text: "Journal settings are being managed by JOTS Assistant:"
+            });
+            descEl.style.marginBottom = "1em";
 
-        // Journal Name Format Setting
-        new Setting(containerEl)
-            .setName("Journal Name Format")
-            .setDesc("Set the format of the Journal name.")
-            .addText((text) =>
-                text
-                    .setPlaceholder("Enter format")
-                    .setValue(this.plugin.settings.journalNameFormat || "YYYY/YYYY-MM/YYYY-MM-DD_ddd")
-                    .onChange(async (value) => {
-                        this.plugin.settings.journalNameFormat = value;
-                        await this.plugin.saveSettings();
-                    })
-            );
+            // Create a list to display the settings
+            const list = journalSettingsContainer.createEl('div');
+            list.style.marginLeft = "20px";
+            list.style.marginBottom = "1em";
+
+            // Root Folder
+            const rootFolderDiv = list.createEl('div');
+            rootFolderDiv.style.marginBottom = "0.5em";
+            rootFolderDiv.createEl('strong', { text: 'Root Folder: ' });
+            rootFolderDiv.createSpan({ text: jotsInfo?.rootFolder || "" });
+
+            // Folder Pattern
+            const folderPatternDiv = list.createEl('div');
+            folderPatternDiv.style.marginBottom = "0.5em";
+            folderPatternDiv.createEl('strong', { text: 'Folder Pattern: ' });
+            folderPatternDiv.createSpan({ text: jotsInfo?.folderPattern || "" });
+
+            // File Pattern
+            const filePatternDiv = list.createEl('div');
+            filePatternDiv.style.marginBottom = "0.5em";
+            filePatternDiv.createEl('strong', { text: 'File Pattern: ' });
+            filePatternDiv.createSpan({ text: jotsInfo?.filePattern || "" });
+        } else {
+            new Setting(journalSettingsContainer)
+                .setName("Journal Root Folder")
+                .setDesc("The root folder where your journals are stored (e.g., 'Chronological/Journals')")
+                .addText(text => {
+                    text.setValue(this.plugin.settings.journalRootFolder)
+                        .setPlaceholder("Journals")
+                        .onChange(async (value) => {
+                            this.plugin.settings.journalRootFolder = value;
+                            await this.plugin.saveSettings();
+                        });
+                    text.inputEl.style.width = "100%";
+                });
+
+            new Setting(journalSettingsContainer)
+                .setName("Journal Folder Pattern")
+                .setDesc("Pattern for organizing journal folders (e.g., 'YYYY/YYYY-MM')")
+                .addText(text => {
+                    text.setValue(this.plugin.settings.journalFolderPattern)
+                        .setPlaceholder("YYYY/YYYY-MM")
+                        .onChange(async (value) => {
+                            this.plugin.settings.journalFolderPattern = value;
+                            await this.plugin.saveSettings();
+                        });
+                    text.inputEl.style.width = "100%";
+                });
+
+            new Setting(journalSettingsContainer)
+                .setName("Journal File Pattern")
+                .setDesc("Pattern for journal filenames (e.g., 'YYYY-MM-DD_ddd')")
+                .addText(text => {
+                    text.setValue(this.plugin.settings.journalFilePattern)
+                        .setPlaceholder("YYYY-MM-DD_ddd")
+                        .onChange(async (value) => {
+                            this.plugin.settings.journalFilePattern = value;
+                            await this.plugin.saveSettings();
+                        });
+                    text.inputEl.style.width = "100%";
+                });
+        }
 
         // String Prefix Letter Setting
         new Setting(containerEl)
