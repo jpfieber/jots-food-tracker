@@ -1,6 +1,7 @@
-import { App, PluginSettingTab, Setting } from "obsidian";
+import { App, PluginSettingTab, Setting, TextComponent } from "obsidian";
 import FoodTrackerPlugin from "./main";
 import { isJotsAssistantAvailable } from "./utils/jotsIntegration";
+import { FolderSuggest } from "./utils/FolderSuggest";
 
 export class FoodTrackerSettingTab extends PluginSettingTab {
     plugin: FoodTrackerPlugin;
@@ -43,49 +44,53 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
                             await this.plugin.saveSettings();
                         }
                     })
-            );
-
-        // Food Folder Setting
+            );        // Food Folder Setting
         new Setting(containerEl)
             .setName('Food Notes Folder')
             .setDesc('Set the location of the folder containing your personal Food Notes.')
-            .addText(text =>
-                text
+            .addText(text => {
+                const textComponent = text
                     .setPlaceholder('Enter folder path')
                     .setValue(this.plugin.settings.foodFolder)
                     .onChange(async (value) => {
                         this.plugin.settings.foodFolder = value.trim();
                         await this.plugin.saveSettings();
-                    })
-            );
+                    });
+                new FolderSuggest(this.app, textComponent.inputEl);
+                return textComponent;
+            });
 
         // USDA Folder Setting
         new Setting(containerEl)
             .setName('USDA Notes Folder')
             .setDesc('Set the location of the folder containing your USDA Food Notes.')
-            .addText(text =>
-                text
+            .addText(text => {
+                const textComponent = text
                     .setPlaceholder('Enter folder path')
                     .setValue(this.plugin.settings.usdaFolder)
                     .onChange(async (value) => {
                         this.plugin.settings.usdaFolder = value.trim();
                         await this.plugin.saveSettings();
-                    })
-            );
+                    });
+                new FolderSuggest(this.app, textComponent.inputEl);
+                return textComponent;
+            });
 
         // Recipes Folder Setting
         new Setting(containerEl)
             .setName("Recipes Folder")
             .setDesc("Set the location of the Recipes folder.")
-            .addText((text) =>
-                text
+            .addText(text => {
+                const textComponent = text
                     .setPlaceholder("Enter folder name")
                     .setValue(this.plugin.settings.recipesFolder || "FoodTracker/Recipes")
                     .onChange(async (value) => {
                         this.plugin.settings.recipesFolder = value;
                         await this.plugin.saveSettings();
-                    })
-            );
+                    });
+                new FolderSuggest(this.app, textComponent.inputEl);
+                return textComponent;
+            });
 
         // Journal Path Settings
         containerEl.createEl("h3", { text: "Journal Path Settings" });
@@ -125,17 +130,20 @@ export class FoodTrackerSettingTab extends PluginSettingTab {
             filePatternDiv.createSpan({ text: jotsInfo?.filePattern || "" });
         } else {
             new Setting(journalSettingsContainer)
-                .setName("Journal Root Folder")
-                .setDesc("The root folder where your journals are stored (e.g., 'Chronological/Journals')")
-                .addText(text => {
-                    text.setValue(this.plugin.settings.journalRootFolder)
-                        .setPlaceholder("Journals")
-                        .onChange(async (value) => {
-                            this.plugin.settings.journalRootFolder = value;
-                            await this.plugin.saveSettings();
-                        });
-                    text.inputEl.style.width = "100%";
-                });
+            .setName("Journal Root Folder")
+            .setDesc("The root folder where your journals are stored (e.g., 'Chronological/Journals')")
+            .addText(text => {
+                const textComponent = text
+                    .setValue(this.plugin.settings.journalRootFolder)
+                    .setPlaceholder("Journals")
+                    .onChange(async (value) => {
+                        this.plugin.settings.journalRootFolder = value;
+                        await this.plugin.saveSettings();
+                    });
+                textComponent.inputEl.style.width = "100%";
+                new FolderSuggest(this.app, textComponent.inputEl);
+                return textComponent;
+            });
 
             new Setting(journalSettingsContainer)
                 .setName("Journal Folder Pattern")
