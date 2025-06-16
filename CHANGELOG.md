@@ -1,9 +1,9 @@
 # Changelog
 All notable changes to this plugin will be documented in this file.
 
-## 1.0.0 (2025-06-16)
+## 0.0.1 (2025-06-16)
 
-### Initial Release
+### Initial Beta Release
 - Created core food tracking functionality
 - Added food note creation with nutritional information
 - Added USDA food database integration

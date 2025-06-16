@@ -1,7 +1,7 @@
 {
 	"id": "jots-food-tracker",
 	"name": "Food Tracker",
-	"version": "1.0.0",
+	"version": "0.0.1",
 	"minAppVersion": "1.0.0",
 	"description": "Create a food database, count calories and macros, build recipes and more!",
 	"author": "Joseph Fieber",
