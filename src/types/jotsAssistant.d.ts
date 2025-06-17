@@ -4,6 +4,7 @@
 
 export interface JotsApi {
     addJotsToJournal(journalName: string): Promise<void>;
+    refreshHeadersAndFooters(): Promise<void>;
     getSettings(): any;
     getJournalPathInfo(): {
         rootFolder: string;       // e.g., "Chronological/Journals"

@@ -509,6 +509,8 @@ export default class FoodTrackerPlugin extends Plugin {
                                     datePart: datePart
                                 });
                                 await window.JotsAssistant!.api.addJotsToJournal(datePart);
+                                // Refresh headers and footers after adding JOTS
+                                await window.JotsAssistant!.api.refreshHeadersAndFooters();
                             }
                         } catch (error) {
                             console.warn('Failed to add JOTS to journal:', error);
