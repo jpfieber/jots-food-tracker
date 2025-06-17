@@ -1,6 +1,6 @@
 {
   "name": "jots-food-tracker",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Create a food database, count calories and macros, build recipes and more!",
   "main": "dist/main.js",
   "type": "module",

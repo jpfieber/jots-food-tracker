@@ -212,10 +212,10 @@ export default class FoodTrackerPlugin extends Plugin {
         const data = await this.loadData();
 
         // First, apply default settings
-        this.settings = Object.assign({}, DEFAULT_SETTINGS, data);
+        this.settings = Object.assign({}, DEFAULT_SETTINGS, data || {});
 
         // Handle migration from old settings format
-        if ('journalFolder' in data || 'journalNameFormat' in data) {
+        if (data && ('journalFolder' in data || 'journalNameFormat' in data)) {
             console.info('JOTS Food Tracker: Migrating from old settings format');
 
             // Convert old settings to new format
