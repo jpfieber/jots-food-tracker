@@ -24,7 +24,7 @@ export interface FoodTrackerSettings {
     stringSVG: string;
     excludedFolders: string[];
     foodGroups: string[];
-    nestJournalEntries: boolean;
+    nestJournalEntries: boolean; useJotsAssistant: boolean;    // Whether to use JOTS Assistant integration
 }
 
 export const DEFAULT_SETTINGS: FoodTrackerSettings = {
@@ -45,11 +45,10 @@ export const DEFAULT_SETTINGS: FoodTrackerSettings = {
     ],
     displayFooter: true,
     footerOrder: 1000,
-    frontmatterExclusionField: "excludeFromFooter",
-    excludedParentSelectors: [],
+    frontmatterExclusionField: "excludeFromFooter", excludedParentSelectors: [],
     stringPrefixLetter: "c",
     stringSVG: "",
     excludedFolders: [],
-    foodGroups: [],
-    nestJournalEntries: false
+    foodGroups: [], nestJournalEntries: false,
+    useJotsAssistant: true
 };

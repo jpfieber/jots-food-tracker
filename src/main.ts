@@ -1,4 +1,4 @@
-import { Plugin, TFile, MarkdownRenderer, PluginSettingTab, Setting, Modal, MarkdownView, App, MarkdownViewModeType } from 'obsidian';
+import { Plugin, TFile, TAbstractFile, MarkdownRenderer, PluginSettingTab, Setting, Modal, MarkdownView, App, MarkdownViewModeType } from 'obsidian';
 import { UnifiedFoodEntryModal } from './modals/UnifiedFoodEntryModal';
 import { CreateFoodNoteModal } from './modals/CreateFoodNoteModal';
 import { FoodTrackerSettings, DEFAULT_SETTINGS } from './types/settings';
@@ -112,9 +112,7 @@ export default class FoodTrackerPlugin extends Plugin {
         await this.loadSettings();
 
         // Add settings tab
-        this.addSettingTab(new FoodTrackerSettingTab(this.app, this));
-
-        // Inject CSS
+        this.addSettingTab(new FoodTrackerSettingTab(this.app, this));        // Inject CSS
         this.injectCSS();
         this.injectCSSFromFile();
 
